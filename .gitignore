@@ -1,0 +1,6 @@
+# File to exclude unnecessary or sensitive files from GitHub
+__pycache__/
+.env
+env/
+.idea/
+.DS_Store/
