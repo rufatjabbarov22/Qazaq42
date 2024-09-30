@@ -15,6 +15,11 @@ pydantic = "^2.9.2"
 sqlmodel = "^0.0.22"
 sqlalchemy = "^2.0.35"
 cryptography = "^43.0.1"
+uvicorn = "^0.31.0"
+wireup = "^0.9.2"
+pydantic-settings = "^2.5.2"
+toml = "^0.10.2"
+asyncpg = "^0.29.0"
 
 
 [build-system]
