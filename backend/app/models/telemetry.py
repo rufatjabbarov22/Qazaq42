@@ -15,4 +15,4 @@ class Telemetry(Base, table=True):
     air_humidity: float = Field(nullable=False)
     co2: float = Field(nullable=False)
 
-    device: "Device" = Relationship(back_populates="telemetries")
+    device: "Device" = Relationship(back_populates="telemetries")  # type: ignore
