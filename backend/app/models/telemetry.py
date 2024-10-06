@@ -13,6 +13,9 @@ class Telemetry(Base, table=True):
     ph: float = Field(nullable=False)
     soil_humidity: float = Field(nullable=False)
     air_humidity: float = Field(nullable=False)
+    light_intensity: float = Field(nullable=False)
+    light_duration: float = Field(nullable=False)
     co2: float = Field(nullable=False)
+    o2: float = Field(nullable=False)
 
     device: "Device" = Relationship(back_populates="telemetries")  # type: ignore
