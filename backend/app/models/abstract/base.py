@@ -31,7 +31,7 @@ class Base(SQLModel):
             exclude_none=True
         ).items():
             if hasattr(self, key):
-                if key != "password":                
+                if key != "password":
                     setattr(self, key, value)
                 else:
                     setattr(self, key, self.validate_password(value))
