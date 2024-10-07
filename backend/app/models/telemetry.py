@@ -9,7 +9,6 @@ class Telemetry(Base, table=True):
 
     device_id: UUID = Field(foreign_key="devices.id", nullable=False)
     temperature: float = Field(nullable=False)
-    humidity: float = Field(nullable=False)
     ph: float = Field(nullable=False)
     soil_humidity: float = Field(nullable=False)
     air_humidity: float = Field(nullable=False)
