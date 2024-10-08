@@ -1,0 +1,109 @@
+@keyframes rotate-scale-up {
+    0% {
+        transform: rotate(0deg) scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+    }
+}
+
+.rotate-scale-up {
+    animation: rotate-scale-up 0.65s linear both;
+}
+
+.team-section {
+    padding-top: 50px;
+    text-align: center;
+    background-color: transparent;
+}
+
+.team-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #263d60;
+}
+
+.team-member {
+    background-color: transparent; 
+    padding: 20px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.team-photo {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.team-name {
+    font-size: 1.5rem;
+    color: #263d60;
+    margin-bottom: 10px;
+}
+
+.team-role {
+    font-size: 1rem;
+    color: #654321;
+    margin-bottom: 10px;
+}
+
+.team-quote {
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.partner {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.partner:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.partner-photo {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.partner-name {
+    font-size: 1.5rem;
+    color: #263d60;
+}
+
+.tractor-icon {
+    width: 50px;
+    height: auto;
+}
+
+.tractor-animation {
+    position: absolute;
+    left: -50px;
+    animation: moveTractor 8s ease-in-out infinite;
+}
+
+@keyframes moveTractor {
+    0% {
+        left: -50px;
+    }
+    100% {
+        left: calc(100% - 50px);
+    }
+}
