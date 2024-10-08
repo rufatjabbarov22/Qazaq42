@@ -1,0 +1,54 @@
+ /* Section2.css */
+ .section2 {
+    background-image: url(https://img-s.wfolio.com/x/Sjpgrm2v20FR6Cth5viRkzL_0dyRc0yk/9ZAr53SKb35Qfl1d5e6G5AqIciSqSaBm/Rc2b6lXe3bPibfVRlfx7Ik2NZTiIlKS3/laByEYmK_HnXekmhdD0i5IzQ1B7zWLRB.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 850px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    color: whitesmoke;
+  }
+  
+  .section2 h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    color:  whitesmoke;
+    margin: 0;
+  }
+  
+  .section2 p {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: whitesmoke;
+    max-width: 800px;
+  }
+  
+  /* Респонсивные стили */
+  @media (max-width: 768px) {
+    .section2 {
+      height: auto;
+      padding: 10px;
+    }
+  
+    .section2 h2 {
+      font-size: 2.5rem;
+    }
+  
+    .section2 p {
+      font-size: 1.25rem;
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .section2 h2 {
+      font-size: 2rem;
+    }
+    .section2 p {
+      font-size: 1rem;
+    }
+  }
