@@ -1,0 +1,33 @@
+.section1 {
+  background-image: url(https://wallup.net/wp-content/uploads/2016/01/270427-nature-landscape-field-sunrise-trees-farm-sky-clouds-mist-Finland.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+
+  @media (max-width: 768px) {
+    height: 500px;
+  }
+
+  @media (max-width: 480px) {
+    height: 300px;
+  }
+}
+
+.section1 h1 {
+  color: white;
+  font-size: 70px;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 30px;
+  }
+}
