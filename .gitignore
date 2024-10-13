@@ -166,5 +166,3 @@ cython_debug/
 .idea/
 .DS_Store/
 
-# Sensitive data
-ai/data/raw/raw_data.csv
