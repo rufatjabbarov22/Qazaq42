@@ -1,7 +1,7 @@
 import joblib
 import numpy as np
 
-model_path = '../ml_models/random_forest_model.joblib'
+model_path = '/Users/samir/Holberton/Qazaq/ai/ml_models/random_forest_model.joblib'
 model = joblib.load(model_path)
 
 
