@@ -8,6 +8,9 @@ class Telemetry(Base, table=True):
     __tablename__ = "telemetry"
 
     device_id: UUID = Field(foreign_key="devices.id", nullable=False)
+    n: float = Field(nullable=False)
+    p: float = Field(nullable=False)
+    k: float = Field(nullable=False)
     temperature: float = Field(nullable=False)
     ph: float = Field(nullable=False)
     soil_humidity: float = Field(nullable=False)
