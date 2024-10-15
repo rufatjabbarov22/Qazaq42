@@ -1,4 +1,4 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     host: str
     port: int
     allowed_origins: list
+    project_path: str
 
     class Config:
         env_file = ".env"

@@ -16,3 +16,8 @@ app.add_middleware(
 
 # Include the predict router
 app.include_router(predict_router, prefix="/api/v1")
+
+
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the Crop Prediction API!"}

@@ -1,8 +1,11 @@
 import joblib
 import numpy as np
 
-model_path = '../ml_models/crop_prediction_model.joblib'
-label_encoder_path = '../ml_models/label_encoder.joblib'
+from app.core.config import settings  # type: ignore
+
+project_path = settings.project_path
+model_path = project_path + "/ml_models/crop_prediction_model.joblib"
+label_encoder_path = project_path + "/ml_models/label_encoder.joblib"
 clf = joblib.load(model_path)
 label_encoder = joblib.load(label_encoder_path)
 
