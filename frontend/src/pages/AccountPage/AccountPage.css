@@ -1,5 +1,6 @@
 /* Main container for the AccountPage */
 .account-page-container {
+  background-color: #1976d2;
   display: flex;
   height: 100vh; /* Full height */
   width: 100vw;  /* Full width */
@@ -8,9 +9,10 @@
 
 /* Sidebar with background image */
 .sidebar {
-  background-image: url('https://img.freepik.com/premium-photo/digital-tree-with-circuit-board-it_786255-12677.jpg');
-  background-size: cover;
-  background-position: center;
+  /* background-image: url('https://img.freepik.com/premium-photo/digital-tree-with-circuit-board-it_786255-12677.jpg'); */
+  background-color: #f1f2f0;
+  /* background-size: cover; */
+  /* background-position: center; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -21,13 +23,15 @@
 .menu-button {
   font-size: 1.5rem;
   padding: 15px;
-  color: white !important;
-  background-color: #1976d2 !important;
+  color: #f1f2f0 !important;
+  background-color: rgba(51, 75, 28, 1) !important;
   border-radius: 10px;
   border: none;
-  width: 100%;
+  width: 300px;
+  height: 24%;
   margin-bottom: 10px;
   transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1.3rem !important;
 }
 
 /* Hover effect on buttons */

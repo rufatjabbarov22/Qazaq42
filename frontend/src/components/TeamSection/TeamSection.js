@@ -5,7 +5,7 @@ import { Box, Container, Grid, Link, Typography } from '@mui/material';
 const TeamSection = () => {
   return (
     <Container className="team-section1" maxWidth={false}>
-      <Typography variant="h3" component="h2" className="team-title">
+      <Typography variant="h3" component="h2" className="team-title" style={{color: '#263d60'}}>
         Our Team
       </Typography>
       <Grid container spacing={3} justifyContent="center">

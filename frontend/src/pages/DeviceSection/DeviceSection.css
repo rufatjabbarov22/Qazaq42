@@ -1,10 +1,11 @@
 .device-section {
-  background-color: black;
-  color: white;
+  background-color: rgba(10, 11, 9, 0.92);
   min-height: 900px;
-  padding: 20px;
+  padding: 30px;
   position: relative;
   overflow: hidden;
+  font-family: Anton, sans-serif;
+  color: #f1f2f0;
 }
 
 .device-content {
@@ -13,21 +14,26 @@
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
 }
-
+.image{
+  flex: 1;
+  max-width: 600px;
+  text-align: center;
+}
 .device-image {
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
   height: auto;
-  margin: 20px 0;
+  margin:5px;
 }
 
 .device-description {
   flex: 1;
   padding: 0 20px;
   max-width: 600px;
+  text-align: center;
 }
 
 h3 {
@@ -48,22 +54,23 @@ p {
 .order-button {
   display: inline-block;
   padding: 15px 30px;
-  font-size: 1.2rem;
-  color: white;
-  background-color: #263d60;
-  border: 2px solid #263d60;
+  font-size: 1.3rem;
+  background-color: rgba(51, 75, 28, 1);
+  border: 2px solid rgba(51, 75, 28, 1);
   border-radius: 5px;
-  text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease;
   margin-top: 20px;
   margin-bottom: 20px;
   width: 50%;
   text-align: center;
+  cursor: pointer;
 }
 
 .order-button:hover {
-  background-color: #263d60;
-  color: white;
+  text-decoration: none;
+}
+.order-button:active{
+  background-color: rgba(62, 85, 40, 1);
 }
 
 /* Респонсивные стили */
@@ -80,12 +87,14 @@ p {
   }
 
   h3 {
-    font-size: 4rem;
+    font-size: 3.3rem;
+    text-align: center;
+    text-transform: capitalize;
   }
 
   p {
     margin-top: 30px;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
   }
 
   .device-section {

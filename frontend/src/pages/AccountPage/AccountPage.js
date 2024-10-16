@@ -31,7 +31,7 @@ const AccountPage = () => {
   return (
     <Grid container className="account-page-container">
       {/* Sidebar for larger screens */}
-      <Grid item xs={3} className="sidebar">
+      <Grid item xs={2} className="sidebar">
         <Box display="flex" flexDirection="column" justifyContent="space-around" height="100%">
           <Button className="menu-button" onClick={() => setSelectedSection('map')}>Map</Button>
           <Button className="menu-button" onClick={() => setSelectedSection('instruction')}>Instruction</Button>
