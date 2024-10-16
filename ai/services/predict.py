@@ -2,7 +2,7 @@ import joblib
 import numpy as np
 
 from app.core.config import settings  # type: ignore
-from .logging_config import logger
+from .logging import logger
 
 
 project_path = settings.project_path

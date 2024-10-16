@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.routes.predict import router as predict_router  # type: ignore
 from app.core.config import settings  # type: ignore
-from services.logging_config import logger  # type: ignore
+from services.logging import logger  # type: ignore
 
 
 app = FastAPI(title=settings.app_name)

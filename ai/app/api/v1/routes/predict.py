@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 
 from app.api.v1.schemas.telemetry import TelemetryCreate  # type: ignore
 from services.predict import predict_crop  # type: ignore
+from services.logging import logger  # type: ignore
 
 router = APIRouter()
 
@@ -28,4 +29,5 @@ async def make_prediction(telemetry: TelemetryCreate):
         return {"device_id": telemetry.device_id, "prediction": prediction_result}
 
     except Exception as e:
+        logger.error("Prediction failed: %s", str(e))
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
