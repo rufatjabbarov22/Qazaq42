@@ -20,11 +20,12 @@
 }
 
 .section1-text {
-  color: white;
+  color: #f1f2f0;
   font-size: 70px;
   font-weight: bold;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
   transition: transform 0.2s ease-in-out;
+  font-family: Anton, sans-serif;
 
   @media (max-width: 768px) {
     font-size: 40px;
