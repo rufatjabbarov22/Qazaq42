@@ -2,32 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
-import { styled } from '@mui/system';
+import { fontSize, styled } from '@mui/system';
 
 const NavButton = styled(Button)(({ theme }) => ({
-  color: 'black',
+  color: '#f1f2f0',
   marginLeft: theme.spacing(2),
   fontSize: '18px',
   fontWeight: 'bold',
   '&:hover': {
-    color: 'blue', // Изменение цвета текста при наведении
+    color: '#f1f2f0', // Изменение цвета текста при наведении
+
   },
 }));
 
 const LoginButton = styled(Button)(({ theme }) => ({
-  backgroundColor: 'blue',
-  color: 'white',
+  backgroundColor: '#f1f2f0',
+  color: 'rgba(51, 75, 28, 1)',
   paddingLeft: '25px',
   paddingRight: '25px',
-  marginLeft: theme.spacing(5),
+  marginLeft: theme.spacing(10),
+  marginRight: theme.spacing(5),
   fontSize: '18px',
   fontWeight: 'bold',
   '&:hover': {
-    backgroundColor: 'grey',
-    color: 'white',
+  backgroundColor: 'rgba(62, 85, 40, 1)',
+  color: '#f1f2f0'
   },
   '&:active': {
-    backgroundColor: 'grey',
+    backgroundColor: 'rgba(62, 85, 40, 1)',
   },
 }));
 
@@ -41,7 +43,7 @@ const DrawerListItem = styled(ListItem)(({ theme }) => ({
 }));
 
 const Header = () => {
-  const [headerBackground, setHeaderBackground] = useState('rgba(160, 160, 169, 1)');
+  const [headerBackground, setHeaderBackground] = useState('rgba(51, 75, 28, 1)');
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -122,13 +124,14 @@ const Header = () => {
           sx={{
             fontFamily: 'Anton, sans-serif',
             fontWeight: 'bold',
-            fontSize: { xs: '24px', md: '34px' }, // Респонсивное изменение размера шрифта
+            fontSize: { xs: '26px', md: '38px' }, // Респонсивное изменение размера шрифта
             letterSpacing: '12px',
-            color: 'black',
+            color: '#f1f2f0',
+            margin: '15px',
             textDecoration: 'none',
             textTransform: 'uppercase',
             '&:hover': {
-              color: '#555',
+              // color: '#555',
             },
           }}
         >

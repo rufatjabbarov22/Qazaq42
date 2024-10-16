@@ -16,6 +16,10 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  background-color: rgba(20, 20, 20, 0.6);
+  font-family: Anton, sans-serif;
+  color: #f1f2f0;
+  font-size: 1.3rem;
 }
 
 .slider-section img {
