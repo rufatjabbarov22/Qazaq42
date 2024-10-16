@@ -1,0 +1,29 @@
+.ai-section {
+  width: 100vw;
+  min-height: 100vh; /* Минимальная высота секции на весь экран */
+  background-image: url('https://www.supplychainbrain.com/ext/resources/2024/02/06/HEALTHCARE-ARTIFICIAL-INTELLIGENCE-AI-iStock--FotografieLink--1517344698.jpg');
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 20px; /* Отступ снизу */
+}
+
+.ai-result-box {
+  max-width: 600px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* Респонсивные стили для маленьких экранов */
+@media (max-width: 768px) {
+  .ai-section {
+    padding: 10px;
+  }
+
+  .ai-result-box {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+  }
+}

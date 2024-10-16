@@ -1,27 +1,30 @@
 .section1 {
-  background-image: url(https://wallup.net/wp-content/uploads/2016/01/270427-nature-landscape-field-sunrise-trees-farm-sky-clouds-mist-Finland.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://wallup.net/wp-content/uploads/2016/01/270427-nature-landscape-field-sunrise-trees-farm-sky-clouds-mist-Finland.jpg);
   background-size: cover;
   background-position: center;
-  height: 700px;
+  height: 100vh; /* Теперь секция занимает 100% высоты экрана */
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 50px 20px;
+  transition: background-position 0.2s ease-out;
 
   @media (max-width: 768px) {
-    height: 500px;
+    height: 80vh; /* Для меньших экранов можно уменьшить высоту */
   }
 
   @media (max-width: 480px) {
-    height: 300px;
+    height: 60vh; /* Для самых маленьких экранов */
   }
 }
 
-.section1 h1 {
+.section1-text {
   color: white;
   font-size: 70px;
   font-weight: bold;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s ease-in-out;
 
   @media (max-width: 768px) {
     font-size: 40px;
@@ -30,4 +33,9 @@
   @media (max-width: 480px) {
     font-size: 30px;
   }
+}
+
+
+.section1-text:hover {
+  transform: scale(1.05); /* Небольшое увеличение текста при наведении */
 }

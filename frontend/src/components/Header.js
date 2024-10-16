@@ -10,7 +10,7 @@ const NavButton = styled(Button)(({ theme }) => ({
   fontSize: '18px',
   fontWeight: 'bold',
   '&:hover': {
-    color: 'black',
+    color: 'blue', // Изменение цвета текста при наведении
   },
 }));
 
@@ -23,7 +23,7 @@ const LoginButton = styled(Button)(({ theme }) => ({
   fontSize: '18px',
   fontWeight: 'bold',
   '&:hover': {
-    backgroundColor: 'grey', 
+    backgroundColor: 'grey',
     color: 'white',
   },
   '&:active': {
@@ -35,6 +35,9 @@ const DrawerListItem = styled(ListItem)(({ theme }) => ({
   color: 'white',
   fontSize: '22px',
   textTransform: 'uppercase',
+  '&:hover': {
+    backgroundColor: '#333', // Фоновый цвет при наведении
+  },
 }));
 
 const Header = () => {
@@ -42,7 +45,6 @@ const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
- 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -56,12 +58,11 @@ const Header = () => {
     };
   }, []);
 
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       if (scrollY > 50) {
-        setHeaderBackground('rgba(160, 160, 169, 0.1)');
+        setHeaderBackground('rgba(160, 160, 169, 0.7)');
       } else {
         setHeaderBackground('rgba(160, 160, 169, 1)');
       }
@@ -110,7 +111,7 @@ const Header = () => {
       sx={{
         background: headerBackground,
         backdropFilter: 'blur(14px)',
-        transition: 'background-color 0.3s ease',
+        transition: 'background-color 0.5s ease',
       }}
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -121,7 +122,7 @@ const Header = () => {
           sx={{
             fontFamily: 'Anton, sans-serif',
             fontWeight: 'bold',
-            fontSize: '34px',
+            fontSize: { xs: '24px', md: '34px' }, // Респонсивное изменение размера шрифта
             letterSpacing: '12px',
             color: 'black',
             textDecoration: 'none',
@@ -143,6 +144,7 @@ const Header = () => {
               anchor="right"
               open={drawerOpen}
               onClose={toggleDrawer(false)}
+              transitionDuration={500} // Плавное открытие/закрытие меню
             >
               {drawerContent}
             </Drawer>

@@ -1,0 +1,100 @@
+/* Основная стилизация секции инструкций */
+.instruction-section {
+  max-height: calc(100vh - 150px); /* Ограничиваем высоту */
+  overflow-y: auto; /* Прокрутка для длинного контента */
+  background-color: #f7f9fc; /* Легкий фон для отделения секции */
+  padding: 20px; /* Уменьшаем padding */
+  margin: 0; /* Убираем любые внешние отступы */
+  width: 100vw; /* Полная ширина для устранения горизонтальной прокрутки */
+  height: calc(100vh - 150px); /* Полная высота */
+  box-sizing: border-box;
+  border-radius: 15px; /* Закругляем углы */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Тень для глубины */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавный эффект */
+  overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+}
+
+/* Стиль для заголовков */
+.instruction-section h2, .instruction-section h3 {
+  font-family: 'Arial', sans-serif; /* Меняем шрифт */
+  color: #1e88e5; /* Синий цвет для заголовков */
+  margin-bottom: 20px;
+  border-bottom: 2px solid #1e88e5; /* Добавляем линию под заголовками */
+  padding-bottom: 10px;
+  word-wrap: break-word; /* Переносим длинные слова */
+}
+
+/* Стиль для текста */
+.instruction-section p {
+  font-size: 1.1rem; /* Немного увеличиваем текст */
+  color: #333; /* Тёмный цвет для текста */
+  line-height: 1.6; /* Увеличиваем межстрочный интервал */
+  margin-bottom: 15px;
+  word-wrap: break-word; /* Переносим длинные слова */
+}
+
+/* Слайдер */
+.slider-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #1e88e5; /* Верхняя линия перед слайдером */
+}
+
+.slider-image {
+  width: 80%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень для изображений */
+}
+
+/* Анимация появления секции */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.instruction-section {
+  animation: fadeIn 0.8s ease;
+}
+
+/* Респонсивность для мобильных устройств */
+@media (max-width: 768px) {
+  .instruction-section {
+    padding: 15px; /* Уменьшаем padding для мобильных */
+    width: 100vw; /* Убедиться, что секция занимает всю ширину экрана */
+    height: 100vh; /* Занимает всю высоту экрана */
+    overflow-y: auto; /* Обеспечиваем вертикальную прокрутку */
+    overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+  }
+
+  .instruction-section h2 {
+    font-size: 1.8rem;
+    word-wrap: break-word; /* Переносим длинные слова */
+  }
+
+  .instruction-section p {
+    font-size: 1rem;
+    word-wrap: break-word; /* Переносим длинные слова */
+  }
+
+  .slider-image {
+    width: 90%;
+  }
+
+  .slider-button {
+    font-size: 1.5rem;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .instruction-section {
+    width: 90vw; /* Ограничиваем ширину на больших экранах */
+    max-width: 1200px;
+    margin: 0 auto; /* Центрируем секцию на больших экранах */
+    height: calc(100vh - 150px);
+  }
+}

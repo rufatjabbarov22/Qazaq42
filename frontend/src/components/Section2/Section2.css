@@ -1,54 +1,78 @@
- /* Section2.css */
- .section2 {
-    background-image: url(https://img-s.wfolio.com/x/Sjpgrm2v20FR6Cth5viRkzL_0dyRc0yk/9ZAr53SKb35Qfl1d5e6G5AqIciSqSaBm/Rc2b6lXe3bPibfVRlfx7Ik2NZTiIlKS3/laByEYmK_HnXekmhdD0i5IzQ1B7zWLRB.jpg);
-    background-size: cover;
-    background-position: center;
-    height: 850px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
-    color: whitesmoke;
+.section2 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(https://img-s.wfolio.com/x/Sjpgrm2v20FR6Cth5viRkzL_0dyRc0yk/9ZAr53SKb35Qfl1d5e6G5AqIciSqSaBm/Rc2b6lXe3bPibfVRlfx7Ik2NZTiIlKS3/laByEYmK_HnXekmhdD0i5IzQ1B7zWLRB.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 900px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  color: whitesmoke;
+  text-align: left;
+  position: relative;
+}
+
+.section2-content {
+  max-width: 900px; /* Увеличена ширина текстового блока */
+  padding: 30px; /* Увеличены отступы */
+  background-color: rgba(20, 20, 20, 0.7); /* Более насыщенный черный цвет для лучшего контраста */
+  border-radius: 10px;
+}
+
+.section2 h2 {
+  font-size: 3.5rem; /* Увеличен размер текста заголовка */
+  font-weight: bold;
+  color: #f5f5f5; /* Более светлый цвет для текста */
+  margin: 0;
+}
+
+.section2 p {
+  margin-top: 25px;
+  font-size: 1.6rem; /* Увеличен размер текста */
+  font-weight: normal;
+  color: #e0e0e0; /* Более мягкий сероватый оттенок для текста */
+}
+
+/* Респонсивные стили */
+@media (max-width: 1024px) {
+  .section2-content {
+    max-width: 800px; /* Немного уменьшаем на экранах среднего размера */
   }
-  
+
   .section2 h2 {
     font-size: 3rem;
-    font-weight: bold;
-    color:  whitesmoke;
-    margin: 0;
   }
-  
+
   .section2 p {
-    margin-top: 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: whitesmoke;
-    max-width: 800px;
+    font-size: 1.4rem;
   }
-  
-  /* Респонсивные стили */
-  @media (max-width: 768px) {
-    .section2 {
-      height: auto;
-      padding: 10px;
-    }
-  
-    .section2 h2 {
-      font-size: 2.5rem;
-    }
-  
-    .section2 p {
-      font-size: 1.25rem;
-      width: 100%;
-    }
+}
+
+@media (max-width: 768px) {
+  .section2 {
+    height: auto;
+    padding: 20px;
   }
-  
-  @media (max-width: 480px) {
-    .section2 h2 {
-      font-size: 2rem;
-    }
-    .section2 p {
-      font-size: 1rem;
-    }
+
+  .section2-content {
+    max-width: 100%; /* Для мобильных устройств используем 100% ширины */
+    padding: 15px;
   }
+
+  .section2 h2 {
+    font-size: 2.5rem;
+  }
+
+  .section2 p {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section2 h2 {
+    font-size: 2rem;
+  }
+  .section2 p {
+    font-size: 1rem;
+  }
+}

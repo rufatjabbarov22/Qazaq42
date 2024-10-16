@@ -1,3 +1,9 @@
+/* Скрываем секцию на маленьких экранах */
+@media (max-width: 768px) {
+  .slider-section {
+    display: none !important; /* Полностью скрываем секцию на мобильных устройствах */
+  }
+}
 
 .slider-section {
   width: 100vw;
@@ -7,6 +13,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .slider-section img {
@@ -16,37 +25,25 @@
   margin: 0 20px;
 }
 
-
-@media (max-width: 768px) {
-  .slider-section img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .slider-section .MuiTypography-h3 {
-    font-size: 2rem;
-  }
-
-  .slider-section .MuiTypography-h6 {
-    font-size: 1rem;
-  }
-}
-
+/* Стили для средних экранов */
 @media (min-width: 768px) {
-  .slider-section img {
-    max-width: 80%;
-    height: auto;
-  }
-
   .slider-section .MuiTypography-h3 {
     font-size: 3rem;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для текста */
+    padding: 10px;
+    border-radius: 5px;
   }
 
   .slider-section .MuiTypography-h6 {
     font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для описания */
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 80%;
   }
 }
 
+/* Стили для больших экранов */
 @media (min-width: 1200px) {
   .slider-section img {
     max-width: 70%;

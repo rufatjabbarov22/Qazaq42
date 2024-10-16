@@ -24,7 +24,7 @@ const ContactUsPage = () => {
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-          backgroundImage: `url('https://images.wallpaperscraft.ru/image/single/pole_trava_tropinka_124349_2560x1600.jpg')`,
+          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.wallpaperscraft.ru/image/single/pole_trava_tropinka_124349_2560x1600.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           minHeight: '100vh',
@@ -92,14 +92,14 @@ const ContactUsPage = () => {
                 </Button>
               </Grid>
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" fullWidth>
+                <Button type="submit" variant="contained" fullWidth sx={{ transition: 'transform 0.2s ease-in-out' }} onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"} onMouseLeave={(e) => e.target.style.transform = "scale(1)"}>
                   Send Message
                 </Button>
               </Grid>
             </Grid>
           </form>
           
-          <Box sx={{ mt: 4 }}>
+          <Box sx={{ mt: 4, borderTop: '1px solid #ccc', pt: 2 }}>
             <Typography variant="h6" gutterBottom>
               Get in Touch
             </Typography>

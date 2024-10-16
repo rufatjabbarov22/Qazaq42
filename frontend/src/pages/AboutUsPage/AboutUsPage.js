@@ -14,7 +14,7 @@ const AboutUsPage = () => {
         {/* Parallax effect */}
         <Box
           sx={{
-            backgroundImage: 'url(https://images.wallpaperscraft.ru/image/single/pole_trava_tropinka_124349_2560x1600.jpg)',
+            backgroundImage: 'linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(https://images.wallpaperscraft.ru/image/single/pole_trava_tropinka_124349_2560x1600.jpg)',
             backgroundAttachment: 'fixed',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -95,18 +95,6 @@ const AboutUsPage = () => {
               <FontAwesomeIcon icon={faTractor} size="3x" color="orange" />
             </Box>
           </Box>
-          <style>
-            {`
-              @keyframes moveTractor {
-                0% {
-                  left: 0;
-                }
-                100% {
-                  left: 100%;
-                }
-              }
-            `}
-          </style>
         </Box>
 
         <Container sx={{ marginTop: '50px', textAlign: 'center' }}>
@@ -115,7 +103,7 @@ const AboutUsPage = () => {
           </Typography>
           <Grid container spacing={3}>
             {[
-              { name: 'Holberton School Azerbaijan', link: 'https://holbertonschool.com', img: 'https://scontent.fgyd25-1.fna.fbcdn.net/v/t39.30808-6/366549387_101801763020704_781341019978646068_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=nsD7LJIm2XUQ7kNvgEaXZft&_nc_ht=scontent.fgyd25-1.fna&_nc_gid=AiL-oaqMQs33z8l_8vMGa7R&oh=00_AYDhNt82WL2u3eCzBSEJ2I2yNzFFPAsF9iVICCCVM3-OyA&oe=67023A8E' },
+              { name: 'Holberton School Azerbaijan', link: 'https://holbertonschool.com', img: 'https://img.stackshare.io/company/30738/default_1d45fcb881e6ba830afabf465d151e581c67442f.png' },
               { name: 'PASHA Holding', link: 'https://pasha-holding.az', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSyvAyptZxaGoX3LHCBjsrmigdVTsQAx_n-T-njG_VYIB3ScmMbl7AzU4n4w0yUxQk5_A&usqp=CAU' },
             ].map((partner, index) => (
               <Grid item xs={12} sm={6} md={6} key={index}>

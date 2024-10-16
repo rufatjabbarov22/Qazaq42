@@ -22,7 +22,7 @@ const Section1 = () => {
         backgroundPositionY: `${scrollY * 0.5}px`,
       }}
     >
-      <h1>Become part of the agricultural revolution with Qazaq!</h1>
+      <h1 className="section1-text">Become part of the agricultural revolution with Qazaq!</h1>
     </div>
   );
 };

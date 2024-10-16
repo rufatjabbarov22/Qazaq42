@@ -27,6 +27,10 @@ export default function Login() {
     event.preventDefault();
     console.log('Email:', email);
     console.log('Password:', password);
+
+    // Логика аутентификации пользователя.
+    // Если аутентификация прошла успешно, перенаправляем на AccountPage
+    navigate('/account');
   };
 
   const handleForgotPasswordOpen = () => {
