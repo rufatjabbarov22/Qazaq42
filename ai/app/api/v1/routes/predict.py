@@ -26,7 +26,7 @@ async def make_prediction(telemetry: TelemetryCreate):
 
         prediction_result = predict_crop(input_data)
 
-        return {"device_id": telemetry.device_id, "prediction": prediction_result}
+        return {"device_id": telemetry.device_id, "results": prediction_result}
 
     except Exception as e:
         logger.error("Prediction failed: %s", str(e))

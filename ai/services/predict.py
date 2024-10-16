@@ -16,10 +16,13 @@ def predict_crop(input_data):
     try:
         logger.info("Received prediction request with input data: %s", input_data)
         data = np.array(input_data).reshape(1, -1)
-        prediction = clf.predict(data)
-        predicted_crop = label_encoder.inverse_transform(prediction)
-        logger.info("Prediction successful, result: %s", prediction[0])
-        return predicted_crop[0]
+        probabilities = clf.predict_proba(data)[0]
+
+        top_3_indices = np.argsort(probabilities)[-3:][::-1]
+        top_3_crops = [(label_encoder.inverse_transform([i])[0], probabilities[i] * 100) for i in top_3_indices]
+
+        logger.info("Prediction successful, top 3 crops: %s", top_3_crops)
+        return top_3_crops
     except Exception as e:
         logger.error("Prediction failed with error: %s", e)
         return None
