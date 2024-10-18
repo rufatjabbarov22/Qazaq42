@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, Optional
 from uuid import UUID
 
 from sqlmodel import select
@@ -37,7 +37,7 @@ class BaseRepository(IRepository[M, C, U]):
 
             return obj
 
-    async def update(self, id: UUID, schema: U) -> M:
+    async def update(self, id: UUID, schema: U) -> Optional[M]:
         async with self.produce_session() as session:
 
             stmt = select(self.model).where(self.model.id == id)
