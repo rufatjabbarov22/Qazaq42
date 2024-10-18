@@ -5,7 +5,7 @@ from sqlmodel import select
 
 from app.core.database import Database
 from app.models.abstract.base import Base
-from app.repositories.interfaces.repository import (
+from app.repositories.abstract.repository import (
     IRepository,
     M, C, U
 )
@@ -44,7 +44,8 @@ class BaseRepository(IRepository[M, C, U]):
             result = await session.execute(stmt)
             obj: Base = result.scalars().unique().one_or_none()
 
-            if not obj: return None
+            if not obj:
+                return None
 
             obj.model_update(schema)
 
@@ -71,18 +72,3 @@ class BaseRepository(IRepository[M, C, U]):
             objs = result.scalars().unique().all()
 
             return objs
-
-    async def get_all_paginated(
-        self,
-        page: int,
-        page_size: int
-    ) -> Iterable[M]:
-        offset = (page - 1) * page_size
-
-        async with self.produce_session() as session:
-
-            stmt = select(self.model).offset(offset).limit(page_size)
-            result = await session.execute(stmt)
-            obj = result.scalars().all()
-
-            return obj

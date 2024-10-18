@@ -32,11 +32,3 @@ class IRepository(ABC, Generic[M, C, U]):
     @abstractmethod
     async def get_all(self) -> Iterable[M]:
         ...
-
-    @abstractmethod
-    async def get_all_paginated(
-        self,
-        page: int,
-        page_size: int
-    ) -> Iterable[M]:
-        ...
