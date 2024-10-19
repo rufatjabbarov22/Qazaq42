@@ -16,3 +16,5 @@ class User(Base, table=True):
     profile_img_path: Optional[str] = Field(default=None)
     is_verified: bool = Field(default=False)
     is_admin: bool = Field(default=False)
+
+    devices: "Device" = Relationship(back_populates="user")  # type: ignore

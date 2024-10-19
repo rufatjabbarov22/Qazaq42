@@ -12,4 +12,5 @@ class FieldModel(Base, table=True):
     district_id: UUID = Field(foreign_key="districts.id", nullable=False)
 
     district: "District" = Relationship(back_populates="fields")  # type: ignore
+    devices: list["Device"] = Relationship(back_populates="field")  # type: ignore
     crop_reports: list["CropReport"] = Relationship(back_populates="field")  # type: ignore
