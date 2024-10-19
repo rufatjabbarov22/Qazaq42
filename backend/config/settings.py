@@ -2,7 +2,6 @@ from typing import List
 
 from pydantic import DirectoryPath, FilePath, HttpUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from toml import load
 
 
 class Config(BaseSettings):
