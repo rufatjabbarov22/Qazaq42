@@ -1,6 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 
-from schemas import TelemetryCreate  # type: ignore
+from app.schemas.telemetry import TelemetryCreate  # type: ignore
 from services.predict import predict_crop  # type: ignore
 from services.logging import logger  # type: ignore
 
@@ -30,4 +30,6 @@ async def make_prediction(telemetry: TelemetryCreate):
 
     except Exception as e:
         logger.error("Prediction failed: %s", str(e))
-        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
+        raise HTTPException(
+            detail=f"Prediction failed: {str(e)}",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
