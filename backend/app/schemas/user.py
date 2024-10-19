@@ -1,5 +1,8 @@
 import re
+
+from datetime import datetime
 from typing import Optional
+from uuid import UUID
 
 from fastapi import HTTPException, status
 from pydantic import BaseModel, EmailStr, field_validator, Field
@@ -16,6 +19,9 @@ class UserCreate(BaseModel):
     def validate_password(self, value: str) -> str:
         return validate_password(value)
 
+    class Config:
+        orm_mode = True
+
 
 class UserUpdate(BaseModel):
     fname: Optional[str] = Field(None, min_length=1, max_length=255)
@@ -31,6 +37,24 @@ class UserUpdate(BaseModel):
         if value:
             return validate_password(value)
         return value
+
+    class Config:
+        orm_mode = True
+
+
+class UserRead(BaseModel):
+    id: UUID
+    fname: str
+    lname: str
+    email: EmailStr
+    profile_img_path: Optional[str]
+    is_verified: Optional[bool]
+    is_admin: Optional[bool]
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
+
+    class Config:
+        orm_mode = True
 
 
 def validate_password(value: str) -> str:
@@ -50,4 +74,5 @@ def validate_password(value: str) -> str:
         raise HTTPException(
             detail="Password must contain at least one special character (e.g., !@#$%^&*)",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
     return value
