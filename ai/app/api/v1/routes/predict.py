@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 
-from app.schemas.telemetry import TelemetryCreate  # type: ignore
+from app.api.v1.schemas.telemetry import TelemetryCreate
 from services.predict import predict_crop  # type: ignore
 from services.logging import logger  # type: ignore
 

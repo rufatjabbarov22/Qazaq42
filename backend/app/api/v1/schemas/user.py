@@ -7,7 +7,7 @@ from uuid import UUID
 from fastapi import HTTPException, status
 from pydantic import BaseModel, EmailStr, field_validator, Field
 
-from app.schemas.device import DeviceRead
+from app.api.v1.schemas.device import DeviceRead
 
 
 class UserCreate(BaseModel):
