@@ -9,17 +9,11 @@ class FieldCreate(BaseModel):
     size: float
     district_id: UUID
 
-    class Config:
-        orm_mode = True
-
 
 class FieldUpdate(BaseModel):
     name: Optional[str] = None
     size: Optional[float] = None
     district_id: Optional[UUID] = None
-
-    class Config:
-        orm_mode = True
 
 
 class FieldRead(BaseModel):
@@ -33,5 +27,3 @@ class FieldRead(BaseModel):
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
 
-    class Config:
-        orm_mode = True

@@ -11,16 +11,10 @@ class DistrictCreate(BaseModel):
     name: str
     info: Optional[dict] = None
 
-    class Config:
-        orm_mode = True
-
 
 class DistrictUpdate(BaseModel):
     name: Optional[str] = None
     info: Optional[dict] = None
-
-    class Config:
-        orm_mode = True
 
 
 class DistrictRead(BaseModel):
@@ -31,6 +25,3 @@ class DistrictRead(BaseModel):
     fields: Optional[List[FieldRead]] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
-
-    class Config:
-        orm_mode = True

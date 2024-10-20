@@ -20,17 +20,11 @@ class DeviceCreate(BaseModel):
     def validate_serial_id(self, value: str, values: dict) -> str:
         return validate_serial_id(value, values)
 
-    class Config:
-        orm_mode = True
-
 
 class DeviceUpdate(BaseModel):
     name: Optional[str] = Field(None, max_length=255)
     description: Optional[str] = Field(None, max_length=255)
     field_id: Optional[UUID] = None
-
-    class Config:
-        orm_mode = True
 
 
 class DeviceRead(BaseModel):
@@ -43,9 +37,6 @@ class DeviceRead(BaseModel):
     field_id: Optional[UUID]
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
-
-    class Config:
-        orm_mode = True
 
 
 def validate_serial_id(v: str, values: dict) -> str:

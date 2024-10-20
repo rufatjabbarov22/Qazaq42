@@ -21,9 +21,6 @@ class UserCreate(BaseModel):
     def validate_password(self, value: str) -> str:
         return validate_password(value)
 
-    class Config:
-        orm_mode = True
-
 
 class UserUpdate(BaseModel):
     fname: Optional[str] = Field(None, min_length=1, max_length=255)
@@ -40,9 +37,6 @@ class UserUpdate(BaseModel):
             return validate_password(value)
         return value
 
-    class Config:
-        orm_mode = True
-
 
 class UserRead(BaseModel):
     id: UUID
@@ -55,9 +49,6 @@ class UserRead(BaseModel):
     is_admin: Optional[bool]
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
-
-    class Config:
-        orm_mode = True
 
 
 def validate_password(value: str) -> str:

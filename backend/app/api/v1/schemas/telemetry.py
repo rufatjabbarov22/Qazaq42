@@ -19,9 +19,6 @@ class TelemetryCreate(BaseModel):
     co2: float
     o2: float
 
-    class Config:
-        orm_mode = True
-
 
 class TelemetryUpdate(BaseModel):
     n: Optional[float] = None
@@ -35,9 +32,6 @@ class TelemetryUpdate(BaseModel):
     light_duration: Optional[float] = None
     co2: Optional[float] = None
     o2: Optional[float] = None
-
-    class Config:
-        orm_mode = True
 
 
 class TelemetryRead(BaseModel):
@@ -56,6 +50,3 @@ class TelemetryRead(BaseModel):
     o2: float
     created_at: datetime
     updated_at: datetime
-
-    class Config:
-        orm_mode = True

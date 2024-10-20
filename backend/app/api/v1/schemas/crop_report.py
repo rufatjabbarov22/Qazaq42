@@ -12,9 +12,6 @@ class CropReportRead(BaseModel):
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
 
-    class Config:
-        orm_mode = True
-
 
 class CropReportAIResponse(BaseModel):
     device_id: UUID
@@ -23,13 +20,7 @@ class CropReportAIResponse(BaseModel):
         description="A list of dictionaries where each entry has a crop name and a probability."
     )
 
-    class Config:
-        orm_mode = True
-
 
 class CropProbability(BaseModel):
     crop: str = Field(..., description="The name of the crop")
     probability: float = Field(..., description="The probability percentage for the crop")
-
-    class Config:
-        orm_mode = True

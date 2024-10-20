@@ -9,15 +9,9 @@ class CountryCreate(BaseModel):
     id: str
     name: str
 
-    class Config:
-        orm_mode = True
-
 
 class CountryUpdate(BaseModel):
     name: Optional[str] = None
-
-    class Config:
-        orm_mode = True
 
 
 class CountryRead(BaseModel):
@@ -26,6 +20,3 @@ class CountryRead(BaseModel):
     districts: Optional[List[DistrictRead]] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
-
-    class Config:
-        orm_mode = True
