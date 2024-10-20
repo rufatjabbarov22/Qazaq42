@@ -1,11 +1,13 @@
 import re
 
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 from fastapi import HTTPException, status
 from pydantic import BaseModel, EmailStr, field_validator, Field
+
+from app.schemas.device import DeviceRead
 
 
 class UserCreate(BaseModel):
@@ -48,6 +50,7 @@ class UserRead(BaseModel):
     lname: str
     email: EmailStr
     profile_img_path: Optional[str]
+    devices: Optional[List[DeviceRead]] = None
     is_verified: Optional[bool]
     is_admin: Optional[bool]
     created_at: Optional[datetime]
