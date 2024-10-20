@@ -23,3 +23,9 @@ class DeviceRepository(BaseRepository[Device, DeviceCreate, DeviceUpdate]):
             stmt = select(Device).where(Device.user_id == user_id)  # type: ignore
             result = await session.execute(stmt)
             return result.scalars().all()
+
+    async def get_device_by_field_id(self, field_id: UUID) -> Optional[Device]:
+        async with self.produce_session() as session:
+            stmt = select(Device).where(Device.field_id == field_id)  # type: ignore
+            result = await session.execute(stmt)
+            return result.scalars().all()
