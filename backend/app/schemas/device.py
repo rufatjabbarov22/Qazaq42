@@ -11,7 +11,7 @@ from app.core.config import PREFIX_TYPE_MAP
 
 
 class DeviceCreate(BaseModel):
-    serial_id: str = Field(..., max_length=9)
+    serial_id: str = Field(..., max_length=8)
     name: Optional[str] = Field(None, max_length=255)
     description: Optional[str] = Field(None, max_length=255)
     field_id: Optional[UUID] = None
