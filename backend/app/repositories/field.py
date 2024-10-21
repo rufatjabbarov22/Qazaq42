@@ -27,7 +27,8 @@ class FieldRepository(BaseRepository[FieldModel, FieldCreate, FieldUpdate]):
             return result.scalars().all()
 
     async def get_field_by_crop_report_id(self, crop_report_id: UUID) -> Optional[FieldModel]:
-        async with self.produce_session() as session:
-            stmt = select(FieldModel).join(CropReport, FieldModel.crop_reports).where(CropReport.id == crop_report_id)
+        async with (self.produce_session() as session):
+            stmt = (select(FieldModel).join(CropReport, FieldModel.crop_reports)  # type: ignore
+                    .where(CropReport.id == crop_report_id))
             result = await session.execute(stmt)
             return result.scalar_one_or_none()
