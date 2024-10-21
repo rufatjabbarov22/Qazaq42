@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 from sqlalchemy.future import select
@@ -12,7 +12,7 @@ from app.repositories.abstract.base import BaseRepository
 
 class FieldRepository(BaseRepository[FieldModel, FieldCreate, FieldUpdate]):
     def __init__(self, database):
-        super().__init__(database, Field)  # type: ignore
+        super().__init__(database, FieldModel)  # type: ignore
 
     async def get_field_by_device_id(self, device_id: int) -> Optional[FieldModel]:
         async with self.produce_session() as session:
@@ -20,7 +20,7 @@ class FieldRepository(BaseRepository[FieldModel, FieldCreate, FieldUpdate]):
             result = await session.execute(stmt)
             return result.scalar_one_or_none()
 
-    async def get_field_by_district_id(self, district_id: UUID) -> Optional[FieldModel]:
+    async def get_field_by_district_id(self, district_id: UUID) -> List[FieldModel]:
         async with self.produce_session() as session:
             stmt = select(FieldModel).where(FieldModel.district_id == district_id)  # type: ignore
             result = await session.execute(stmt)
