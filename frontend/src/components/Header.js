@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
-import { fontSize, styled } from '@mui/system';
+import { styled } from '@mui/system';
 
 const NavButton = styled(Button)(({ theme }) => ({
   color: '#f1f2f0',
@@ -25,12 +25,13 @@ const LoginButton = styled(Button)(({ theme }) => ({
   fontSize: '18px',
   fontWeight: 'bold',
   '&:hover': {
-  backgroundColor: 'rgba(62, 85, 40, 1)',
+  backgroundColor: '#0e4882',
   color: '#f1f2f0'
   },
   '&:active': {
-    backgroundColor: 'rgba(62, 85, 40, 1)',
+    backgroundColor: '#0e4882',
   },
+  cursor: 'pointer',
 }));
 
 const DrawerListItem = styled(ListItem)(({ theme }) => ({

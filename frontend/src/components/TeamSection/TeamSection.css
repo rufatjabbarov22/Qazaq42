@@ -1,6 +1,6 @@
 /* Основные стили для секции */
 .team-section1 {
-  background-color: #dcdcdc !important; /* Темный фон */
+  background-color: #e1e7ee40 !important; /* Темный фон */
   color: white;
   text-align: center;
   padding: 45px 20px;
@@ -22,6 +22,7 @@
 
 .team-member:hover {
   transform: translateY(-10px);
+  color: white;
 }
 
 .team-member img {

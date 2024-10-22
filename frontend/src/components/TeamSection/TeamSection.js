@@ -18,7 +18,7 @@ const TeamSection = () => {
                 alt="Team Member 1"
                 className="team-photo"
               />
-              <Typography className="team-name">Simara Kerimli</Typography>
+              <Typography className="team-name">Simara Karimli</Typography>
             </Link>
             <Typography className="team-role">CEO</Typography>
             <Typography className="team-quote">"Leading with vision and passion."</Typography>

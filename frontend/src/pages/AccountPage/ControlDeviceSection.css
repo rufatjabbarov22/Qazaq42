@@ -1,13 +1,11 @@
-/* Для всего документа - убираем любые отступы */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+  overflow-x: hidden; 
 }
 
-/* Устанавливаем ширину и высоту для секции */
 .control-device-section {
   background-image: url('https://www.supplychainbrain.com/ext/resources/2024/02/06/HEALTHCARE-ARTIFICIAL-INTELLIGENCE-AI-iStock--FotografieLink--1517344698.jpg?t=1707282440&width=1080');
   background-size: cover;
@@ -16,48 +14,45 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden; /* Убираем горизонтальную прокрутку */
-  width: 100vw; /* Используем всю видимую ширину экрана */
+  overflow-x: hidden;
+  width: 100vw;
   padding: 20px;
   box-sizing: border-box;
 }
 
-/* Контейнер для управляемого устройства и результата сканирования */
 .device-control-box, .scan-result-box, .device-loading-box {
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 10px;
   padding: 40px;
   text-align: center;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  width: 100%; /* Используем всю доступную ширину */
-  max-width: 600px; /* Ограничиваем максимальную ширину */
+  width: 100%;
+  max-width: 600px;
   box-sizing: border-box;
   margin: 0 auto;
 }
 
-/* Устанавливаем ширину элементов на мобильных устройствах */
 @media (max-width: 768px) {
   .control-device-section {
     height: 100vh;
     padding: 10px;
-    width: 100vw; /* Используем всю ширину экрана */
+    width: 100vw;
     overflow-x: hidden;
   }
 
   .device-control-box, .scan-result-box, .device-loading-box {
-    width: 100%; /* Ширина 100% на мобильных устройствах */
+    width: 100%;
     height: auto;
     padding: 20px;
     margin: 0 auto;
   }
 
   .ai-button {
-    width: 100%; /* Кнопка на мобильных устройствах занимает всю ширину */
+    width: 100%;
     margin-top: 20px;
   }
 }
 
-/* Стили для больших экранов */
 @media (min-width: 1200px) {
   .control-device-section {
     background-image: url('https://www.supplychainbrain.com/ext/resources/2024/02/06/HEALTHCARE-ARTIFICIAL-INTELLIGENCE-AI-iStock--FotografieLink--1517344698.jpg?t=1707282440&width=1080');
@@ -69,7 +64,6 @@ html, body {
     align-items: center;
   }
   
-  /* Стили для бокса управления устройством */
   .device-control-box, .device-loading-box, .scan-result-box {
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;

@@ -8,7 +8,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import DeviceHubIcon from '@mui/icons-material/DeviceHub';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
-import './AccountPage.css'; // Updated CSS
+import './AccountPage.css';
 
 const AccountPage = () => {
   const [selectedSection, setSelectedSection] = useState('map'); // Default to Map section
@@ -29,7 +29,7 @@ const AccountPage = () => {
   };
 
   return (
-    <Grid container className="account-page-container">
+    <Grid container className="account-page-container" >
       {/* Sidebar for larger screens */}
       <Grid item xs={2} className="sidebar">
         <Box display="flex" flexDirection="column" justifyContent="space-around" height="100%">
@@ -41,7 +41,7 @@ const AccountPage = () => {
       </Grid>
 
       {/* Main content */}
-      <Grid item xs={9} className="content">
+      <Grid item xs={10} className="content">
         {renderSection()}
       </Grid>
 

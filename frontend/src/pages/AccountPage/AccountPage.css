@@ -1,47 +1,42 @@
-/* Main container for the AccountPage */
 .account-page-container {
-  background-color: #1976d2;
-  display: flex;
-  height: 100vh; /* Full height */
-  width: 100vw;  /* Full width */
-  overflow: hidden; /* Prevent scrolling */
-}
-
-/* Sidebar with background image */
-.sidebar {
-  /* background-image: url('https://img.freepik.com/premium-photo/digital-tree-with-circuit-board-it_786255-12677.jpg'); */
   background-color: #f1f2f0;
-  /* background-size: cover; */
-  /* background-position: center; */
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  width: 100vw; 
+  overflow: hidden; 
+}
+
+.sidebar {
+  /* width: 30%; */
+  background-color: rgba(51, 75, 28, 1);
+  display: flex;
   justify-content: space-around;
-  padding: 20px;
+  /* align-items: center; */
+  padding: 10px 0px 0px 20px;
   box-sizing: border-box;
 }
 
 .menu-button {
-  font-size: 1.5rem;
-  padding: 15px;
-  color: #f1f2f0 !important;
-  background-color: rgba(51, 75, 28, 1) !important;
+  font-size: 16px !important;
+  font-weight: bold;
+  text-align: center;
+  color: rgba(51, 75, 28, 1) !important;
+  background-color: #f1f2f0 !important;
   border-radius: 10px;
-  border: none;
-  width: 300px;
-  height: 24%;
-  margin-bottom: 10px;
+  border: none !important;
+  width:85%;
+  height: 9%;
   transition: background-color 0.3s ease, color 0.3s ease;
-  font-size: 1.3rem !important;
+  cursor: pointer;
+
 }
 
-/* Hover effect on buttons */
 .menu-button:hover, .menu-button:active {
-  background-color: transparent;
-  color: #fff;
-  border: 2px solid white;
+  background-color: #0e4882 !important;
+  color: #f1f2f0 !important;
 }
 
-/* Main content section */
 .content {
   flex-grow: 1;
   width: 100%;
@@ -49,24 +44,21 @@
   margin: 0;
 }
 
-/* Hide sidebar on small screens */
 @media (max-width: 768px) {
   .sidebar {
-    display: none; /* Hide sidebar on small screens */
+    display: none;
   }
   
-  /* Full width content on small screens */
   .content {
     width: 100vw;
   }
 }
 
-/* Bottom navigation for small screens */
 .bottom-nav {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #1976d2;
+  background-color: #0e4882;
   display: flex;
   justify-content: space-around;
   padding: 10px 0;

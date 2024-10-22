@@ -1,56 +1,64 @@
-/* Основная стилизация секции инструкций */
 .instruction-section {
-  max-height: calc(100vh - 150px); /* Ограничиваем высоту */
-  overflow-y: auto; /* Прокрутка для длинного контента */
-  background-color: #f7f9fc; /* Легкий фон для отделения секции */
-  padding: 20px; /* Уменьшаем padding */
-  margin: 0; /* Убираем любые внешние отступы */
-  width: 100vw; /* Полная ширина для устранения горизонтальной прокрутки */
-  height: calc(100vh - 150px); /* Полная высота */
-  box-sizing: border-box;
-  border-radius: 15px; /* Закругляем углы */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Тень для глубины */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавный эффект */
-  overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+  padding: 20px;
+  width: 1000px;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #f1f2f0;
+  margin: 0; 
+  /* max-height: calc(100vh - 150px); */
+  /* width: 100vw; */
+  /* height: calc(100vh - 150px); */
+  /* box-sizing: border-box; */
+  /* border-radius: 15px; */
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow-x: hidden;
 }
 
-/* Стиль для заголовков */
-.instruction-section h2, .instruction-section h3 {
-  font-family: 'Arial', sans-serif; /* Меняем шрифт */
-  color: #1e88e5; /* Синий цвет для заголовков */
+.instruction-section h1{
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: #0e4882; 
+}
+
+.instruction-section h3{
+  font-family: 'Arial', sans-serif;
+  color: #0e4882; 
   margin-bottom: 20px;
-  border-bottom: 2px solid #1e88e5; /* Добавляем линию под заголовками */
+  border-bottom: 2px solid #0e4882; 
   padding-bottom: 10px;
-  word-wrap: break-word; /* Переносим длинные слова */
+  word-wrap: break-word; 
+  font-size: 25px;
+  font-weight: bold;
 }
 
-/* Стиль для текста */
 .instruction-section p {
-  font-size: 1.1rem; /* Немного увеличиваем текст */
-  color: #333; /* Тёмный цвет для текста */
-  line-height: 1.6; /* Увеличиваем межстрочный интервал */
-  margin-bottom: 15px;
-  word-wrap: break-word; /* Переносим длинные слова */
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  color: #0e4882; 
+  line-height: 1.6; 
+  margin-bottom: 30px;
+  word-wrap: break-word; 
+  text-align: center;
 }
 
-/* Слайдер */
 .slider-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 2px solid #1e88e5; /* Верхняя линия перед слайдером */
+  border-top: 2px solid #0e4882;
 }
 
 .slider-image {
   width: 80%;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень для изображений */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Анимация появления секции */
 @keyframes fadeIn {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -60,24 +68,23 @@
   animation: fadeIn 0.8s ease;
 }
 
-/* Респонсивность для мобильных устройств */
 @media (max-width: 768px) {
   .instruction-section {
-    padding: 15px; /* Уменьшаем padding для мобильных */
-    width: 100vw; /* Убедиться, что секция занимает всю ширину экрана */
-    height: 100vh; /* Занимает всю высоту экрана */
-    overflow-y: auto; /* Обеспечиваем вертикальную прокрутку */
-    overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+    padding: 15px;
+    width: 100vw; 
+    height: 100vh;
+    overflow-y: auto; 
+    overflow-x: hidden;
   }
 
   .instruction-section h2 {
     font-size: 1.8rem;
-    word-wrap: break-word; /* Переносим длинные слова */
+    word-wrap: break-word;
   }
 
   .instruction-section p {
     font-size: 1rem;
-    word-wrap: break-word; /* Переносим длинные слова */
+    word-wrap: break-word;
   }
 
   .slider-image {
@@ -92,9 +99,9 @@
 
 @media (min-width: 1200px) {
   .instruction-section {
-    width: 90vw; /* Ограничиваем ширину на больших экранах */
+    width: 90vw; 
     max-width: 1200px;
-    margin: 0 auto; /* Центрируем секцию на больших экранах */
+    margin: 0 auto;
     height: calc(100vh - 150px);
   }
 }
