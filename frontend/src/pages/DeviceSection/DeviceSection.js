@@ -1,43 +1,69 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './DeviceSection.css';
-import { Link } from '@mui/material';
-
+import SensorsIcon from '@mui/icons-material/Sensors'; // Importing the icon from Material UI
+import { useNavigate } from 'react-router-dom'; // For navigation
 const DeviceSection = () => {
-  const [scrollY, setScrollY] = useState(0);
-
-  const handleScroll = () => {
-    setScrollY(window.scrollY);
+  const navigate = useNavigate();
+  const handleOrderClick = () => {
+    navigate('/order'); // Redirect to the order page
   };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
-    <div className="device-section" style={{ backgroundPositionY: `${scrollY * 0.5}px`}}>
-      <h3>The Device</h3>
-      <div className="device-content" >
-        <div className='image'>
-        <img
-          src="https://img.freepik.com/premium-photo/dramatic-black-and-white-shot-of-a-motor-grader-agai_1295756-83616.jpg"
-          alt="Device"
-          className="device-image"
-        />
+    <div className="device-section">
+      <h3 className="device-title">Our Product</h3>
+      <div className="scan-animation-container">
+        <SensorsIcon className="device-icon" />
+        <div className="scanner-circle circle-1"></div>
+        <div className="scanner-circle circle-2"></div>
+        <div className="scanner-circle circle-3"></div>
+      </div>
+      <div className="card-container">
+        <div className="card">
+          <div className="card-inner">
+            <div className="card-front">
+              <img
+                src="https://via.placeholder.com/400x300"
+                alt="Device 1"
+                className="card-image"
+              />
+            </div>
+            <div className="card-back">
+              <p>Our device uses advanced technology to scan the soil for optimal results in agriculture.</p>
+            </div>
+          </div>
         </div>
-        <div className="device-description" >
-          <p>
-            Our device, built using Arduino technology, offers an innovative solution for land scanning. It is designed to deliver accurate and reliable data, making it an essential tool for farmers and researchers alike. The compact design allows seamless integration with existing monitoring systems.
-            <br />
-            One of the key advantages of the device is its affordability, making advanced scanning technology accessible to a wider audience. With this tool, you can gather valuable information about soil conditions, helping you optimize agricultural processes and improve yields.
-          </p>
-          <Link to="/ContactUsPage.js" className="order-button" style={{color: '#f1f2f0', textDecoration: 'none', fontSize: '20px'}}>Order now</Link>
+        <div className="card">
+          <div className="card-inner">
+            <div className="card-front">
+              <img
+                src="https://via.placeholder.com/400x300"
+                alt="Device 2"
+                className="card-image"
+              />
+            </div>
+            <div className="card-back">
+              <p>It's designed for ease of use, allowing you to monitor your land with minimal effort.</p>
+            </div>
+          </div>
+        </div>
+        <div className="card">
+          <div className="card-inner">
+            <div className="card-front">
+              <img
+                src="https://via.placeholder.com/400x300"
+                alt="Device 3"
+                className="card-image"
+              />
+            </div>
+            <div className="card-back">
+              <p>Compatible with all existing systems, it's a must-have for any modern farm.</p>
+            </div>
+          </div>
         </div>
       </div>
+      <button className="order-button" onClick={handleOrderClick}>
+        Order Now
+      </button>
     </div>
   );
 };
-
 export default DeviceSection;

@@ -6,9 +6,9 @@ const plantSuggestions = [
   { name: 'Tomatoes', icon: '🍅' },
   { name: 'Carrots', icon: '🥕' },
   { name: 'Lettuce', icon: '🥬' },
-  { name: 'Cucumbers', icon: '🥒' },
-  { name: 'Peppers', icon: '🌶️' },
-  { name: 'Potatoes', icon: '🥔' },
+  // { name: 'Cucumbers', icon: '🥒' },
+  // { name: 'Peppers', icon: '🌶️' },
+  // { name: 'Potatoes', icon: '🥔' },
 ];
 
 const AISection = () => {
