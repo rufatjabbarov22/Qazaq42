@@ -7,7 +7,7 @@ from services.logging import logger  # type: ignore
 router = APIRouter()
 
 
-@router.post("/predict")
+@router.post("/")
 async def make_prediction(telemetry: TelemetryCreate):
     try:
         input_data = [

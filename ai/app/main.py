@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api.v1.routes import setup_routers  # type: ignore
+from app.api import router  # type: ignore
 from app.core.config import settings  # type: ignore
 from app.core.lifespan import lifespan  # type: ignore
 from app.core.middleware import setup_middlewares  # type: ignore
@@ -9,7 +9,7 @@ from app.core.middleware import setup_middlewares  # type: ignore
 def create_app() -> FastAPI:
     app = FastAPI(title=settings.app_name, lifespan=lifespan)
     setup_middlewares(app)
-    setup_routers(app)
+    app.include_router(router)
     return app
 
 
