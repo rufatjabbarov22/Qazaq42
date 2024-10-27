@@ -4,6 +4,16 @@ from uuid import UUID
 from pydantic import BaseModel, Field
 
 
+class CropReportCreate(BaseModel):
+    field_id: UUID
+    crop_name: str
+    probability: float
+
+
+class CropReportUpdate(BaseModel):
+    pass
+
+
 class CropReportRead(BaseModel):
     id: UUID
     field_id: UUID
