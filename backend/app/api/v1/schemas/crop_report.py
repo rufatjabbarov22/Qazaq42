@@ -25,7 +25,7 @@ class CropReportRead(BaseSchema):
     updated_at: Optional[str] = None
 
 
-class CropReportAIResponse(BaseModel):
+class CropReportAIResponse(BaseSchema):
     device_id: UUID
     top_3_crops: List[dict] = Field(
         ...,
@@ -33,6 +33,6 @@ class CropReportAIResponse(BaseModel):
     )
 
 
-class CropProbability(BaseModel):
+class CropProbability(BaseSchema):
     crop: str = Field(..., description="The name of the crop")
     probability: float = Field(..., description="The probability percentage for the crop")
