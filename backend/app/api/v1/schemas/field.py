@@ -2,7 +2,7 @@ from uuid import UUID
 
 from typing import Optional, List
 
-from app.api.v1.schemas.base import BaseSchema
+from api.v1.schemas.abstract.base import BaseSchema
 
 
 class FieldCreate(BaseSchema):

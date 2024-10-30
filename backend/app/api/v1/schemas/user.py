@@ -7,7 +7,7 @@ from uuid import UUID
 from fastapi import HTTPException, status
 from pydantic import EmailStr, field_validator, Field
 
-from app.api.v1.schemas.base import BaseSchema
+from api.v1.schemas.abstract.base import BaseSchema
 from app.api.v1.schemas.device import DeviceRead
 
 
