@@ -14,7 +14,7 @@ class FieldRepository(BaseRepository[FieldModel, FieldCreate, FieldUpdate]):
     def __init__(self, database):
         super().__init__(database, FieldModel)  # type: ignore
 
-    async def get_field_by_device_id(self, device_id: int) -> Optional[FieldModel]:
+    async def get_field_by_device_id(self, device_id: UUID) -> Optional[FieldModel]:
         async with self.produce_session() as session:
             stmt = select(FieldModel).join(Device, FieldModel.devices).where(Device.id == device_id)  # type: ignore
             result = await session.execute(stmt)
