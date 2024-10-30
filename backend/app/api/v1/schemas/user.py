@@ -5,12 +5,13 @@ from typing import Optional, List
 from uuid import UUID
 
 from fastapi import HTTPException, status
-from pydantic import BaseModel, EmailStr, field_validator, Field
+from pydantic import EmailStr, field_validator, Field
 
+from app.api.v1.schemas.base import BaseSchema
 from app.api.v1.schemas.device import DeviceRead
 
 
-class UserCreate(BaseModel):
+class UserCreate(BaseSchema):
     fname: str = Field(min_length=1, max_length=255)
     lname: str = Field(min_length=1, max_length=255)
     email: EmailStr
@@ -22,7 +23,7 @@ class UserCreate(BaseModel):
         return validate_password(value)
 
 
-class UserUpdate(BaseModel):
+class UserUpdate(BaseSchema):
     fname: Optional[str] = Field(None, min_length=1, max_length=255)
     lname: Optional[str] = Field(None, min_length=1, max_length=255)
     email: Optional[EmailStr] = None

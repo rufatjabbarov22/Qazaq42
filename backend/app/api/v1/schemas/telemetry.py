@@ -1,11 +1,12 @@
 from uuid import UUID
 
-from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
+from app.api.v1.schemas.base import BaseSchema
 
-class TelemetryCreate(BaseModel):
+
+class TelemetryCreate(BaseSchema):
     device_id: UUID
     n: float
     p: float
@@ -20,7 +21,7 @@ class TelemetryCreate(BaseModel):
     o2: float
 
 
-class TelemetryUpdate(BaseModel):
+class TelemetryUpdate(BaseSchema):
     n: Optional[float] = None
     p: Optional[float] = None
     k: Optional[float] = None
@@ -34,7 +35,7 @@ class TelemetryUpdate(BaseModel):
     o2: Optional[float] = None
 
 
-class TelemetryRead(BaseModel):
+class TelemetryRead(BaseSchema):
     id: UUID
     device_id: UUID
     n: float

@@ -1,22 +1,23 @@
 from uuid import UUID
 
-from pydantic import BaseModel
 from typing import Optional, List
 
+from app.api.v1.schemas.base import BaseSchema
 
-class FieldCreate(BaseModel):
+
+class FieldCreate(BaseSchema):
     name: str
     size: float
     district_id: UUID
 
 
-class FieldUpdate(BaseModel):
+class FieldUpdate(BaseSchema):
     name: Optional[str] = None
     size: Optional[float] = None
     district_id: Optional[UUID] = None
 
 
-class FieldRead(BaseModel):
+class FieldRead(BaseSchema):
     id: UUID
     name: str
     size: float

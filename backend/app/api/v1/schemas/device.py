@@ -3,14 +3,15 @@ import re
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import Field, field_validator
 from uuid import UUID
 
+from app.api.v1.schemas.base import BaseSchema
 from app.utils.enums.device import DeviceTypeEnum
 from app.core.config import PREFIX_TYPE_MAP
 
 
-class DeviceCreate(BaseModel):
+class DeviceCreate(BaseSchema):
     serial_id: str = Field(..., max_length=8)
     name: Optional[str] = Field(None, max_length=255)
     description: Optional[str] = Field(None, max_length=255)
@@ -21,13 +22,13 @@ class DeviceCreate(BaseModel):
         return validate_serial_id(value, values)
 
 
-class DeviceUpdate(BaseModel):
+class DeviceUpdate(BaseSchema):
     name: Optional[str] = Field(None, max_length=255)
     description: Optional[str] = Field(None, max_length=255)
     field_id: Optional[UUID] = None
 
 
-class DeviceRead(BaseModel):
+class DeviceRead(BaseSchema):
     id: UUID
     serial_id: str
     name: Optional[str]

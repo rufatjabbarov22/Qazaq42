@@ -1,20 +1,22 @@
 from typing import Optional, List
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from app.api.v1.schemas.base import BaseSchema
 
 
-class CropReportCreate(BaseModel):
+class CropReportCreate(BaseSchema):
     field_id: UUID
     crop_name: str
     probability: float
 
 
-class CropReportUpdate(BaseModel):
+class CropReportUpdate(BaseSchema):
     pass
 
 
-class CropReportRead(BaseModel):
+class CropReportRead(BaseSchema):
     id: UUID
     field_id: UUID
     crop_name: str
