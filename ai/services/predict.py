@@ -5,7 +5,7 @@ from app.core.config import settings  # type: ignore
 from .logging import logger
 
 
-project_path = settings.project_path
+project_path = settings.PROJECT_PATH
 model_path = project_path + "/ml_models/crop_prediction_model.joblib"
 label_encoder_path = project_path + "/ml_models/label_encoder.joblib"
 clf = joblib.load(model_path)

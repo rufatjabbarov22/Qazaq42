@@ -6,7 +6,7 @@ from app.core.config import settings  # type: ignore
 def setup_middlewares(app: FastAPI):
     app.add_middleware(
         CORSMiddleware,  # type: ignore
-        allow_origins=settings.allowed_origins,
+        allow_origins=settings.ALLOWED_ORIGINS,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],

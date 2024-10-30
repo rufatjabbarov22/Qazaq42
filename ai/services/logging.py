@@ -6,7 +6,7 @@ from logging.handlers import TimedRotatingFileHandler
 from app.core.config import settings  # type: ignore
 
 
-log_directory = settings.project_path + '/logs'
+log_directory = settings.PROJECT_PATH + '/logs'
 if not os.path.exists(log_directory):
     os.makedirs(log_directory)
 
