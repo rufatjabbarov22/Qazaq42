@@ -1,6 +1,7 @@
-from typing import List, override
-from sqlalchemy.future import select
+from typing import List
 from uuid import UUID
+
+from sqlalchemy.future import select
 
 from app.api.v1.schemas.crop_report import CropReportCreate, CropReportUpdate
 from app.models.crop_report import CropReport

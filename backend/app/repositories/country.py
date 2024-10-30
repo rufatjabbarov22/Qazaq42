@@ -1,4 +1,5 @@
 from typing import Optional
+
 from sqlalchemy.future import select
 
 from app.api.v1.schemas.country import CountryCreate, CountryUpdate
