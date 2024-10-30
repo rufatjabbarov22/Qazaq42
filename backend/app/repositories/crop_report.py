@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, override
 from sqlalchemy.future import select
 from uuid import UUID
 
@@ -12,6 +12,20 @@ from app.repositories.abstract.base import BaseRepository
 class CropReportRepository(BaseRepository[CropReport, CropReportCreate, CropReportUpdate]):
     def __init__(self, database):
         super().__init__(database, CropReport)  # type: ignore
+
+    async def create_batch(self, field_id: UUID, crops: List[CropReportCreate]) -> List[CropReport]:
+        async with self.produce_session() as session:
+            created_reports = []
+            for crop_data in crops:
+                crop_report = CropReport(
+                    field_id=field_id,
+                    crop_name=crop_data.crop,
+                    probability=crop_data.probability / 100
+                )
+                session.add(crop_report)
+                created_reports.append(crop_report)
+            await session.commit()
+            return created_reports
 
     async def get_crop_report_by_field_id(self, field_id: UUID) -> List[CropReport]:
         async with self.produce_session() as session:
