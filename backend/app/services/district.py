@@ -58,4 +58,4 @@ class DistrictService(BaseService[DistrictRepository]):
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"No district found with ID {district_id}"
             )
-        return {"detail": "District deleted successfully"}
+        return {"detail": "District deleted successfully", "district": deleted_district}
