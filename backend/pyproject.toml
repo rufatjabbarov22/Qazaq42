@@ -11,7 +11,7 @@ flake8 = "^7.1.1"
 fastapi = "^0.115.0"
 alembic = "^1.13.2"
 python-dotenv = "^1.0.1"
-pydantic = "^2.9.2"
+pydantic = {extras = ["email"], version = "^2.9.2"}
 sqlmodel = "^0.0.22"
 sqlalchemy = "^2.0.35"
 cryptography = "^43.0.1"
