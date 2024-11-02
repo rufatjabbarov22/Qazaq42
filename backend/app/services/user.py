@@ -45,6 +45,15 @@ class UserService(BaseService[UserRepository]):
             )
         return UserRead.model_validate(user)
 
+    async def get_user_by_device_id(self, device_id: str) -> UserRead:
+        user = await self.repository.get_user_by_device_id(device_id)
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"No user found with device ID {device_id}"
+            )
+        return UserRead.model_validate(user)
+
     async def get_all_users(self) -> Dict[str, List[UserRead]]:
         users = await self.repository.get_all()
         return {"users": [UserRead.model_validate(user) for user in users]}
