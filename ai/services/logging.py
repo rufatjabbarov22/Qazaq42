@@ -11,11 +11,17 @@ if not os.path.exists(log_directory):
     os.makedirs(log_directory)
 
 
+class CustomFormatter(logging.Formatter):
+    def format(self, record):
+        if not hasattr(record, "ip"):
+            record.ip = ""
+        return super().format(record)
+
+
 def configure_logging():
     logger = logging.getLogger("ai_service")
     logger.setLevel(logging.DEBUG)
 
-    # Create handlers
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
 
@@ -24,12 +30,12 @@ def configure_logging():
     )
     file_handler.setLevel(logging.DEBUG)
 
-    # Create formatters and add them to the handlers
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = CustomFormatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(ip)s - %(message)s'
+    )
     console_handler.setFormatter(formatter)
     file_handler.setFormatter(formatter)
 
-    # Add handlers to the logger
     logger.addHandler(console_handler)
     logger.addHandler(file_handler)
 

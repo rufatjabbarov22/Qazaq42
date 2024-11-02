@@ -1,6 +1,11 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from app.core.config import settings  # type: ignore
+
+logger = logging.getLogger("ai_service")
 
 
 def setup_middlewares(app: FastAPI):
