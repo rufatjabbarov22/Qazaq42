@@ -1,4 +1,5 @@
 from typing import Optional
+from uuid import UUID
 
 from sqlalchemy.future import select
 
@@ -12,7 +13,7 @@ class CountryRepository(BaseRepository[Country, CountryCreate, CountryUpdate]):
     def __init__(self, database):
         super().__init__(database, Country)  # type: ignore
 
-    async def get_country_by_district_id(self, district_id: int) -> Optional[Country]:
+    async def get_country_by_district_id(self, district_id: UUID) -> Optional[Country]:
         async with self.produce_session() as session:
             stmt = select(Country).join(District, Country.districts).where(District.id == district_id)  # type: ignore
             result = await session.execute(stmt)
