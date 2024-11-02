@@ -5,7 +5,7 @@ from uuid import UUID
 from fastapi import HTTPException, status
 from sqlalchemy.exc import IntegrityError
 
-from app.api.v1.schemas.user import UserRead, UserCreate, UserUpdate
+from app.api.v1.schemas.user import UserCreate, UserRead, UserUpdate
 from app.repositories.user import UserRepository
 from app.services.abstract.base import BaseService
 
