@@ -45,7 +45,7 @@ class UserService(BaseService[UserRepository]):
             )
         return UserRead.model_validate(user)
 
-    async def get_user_by_device_id(self, device_id: str) -> UserRead:
+    async def get_user_by_device_id(self, device_id: UUID) -> UserRead:
         user = await self.repository.get_user_by_device_id(device_id)
         if not user:
             raise HTTPException(
