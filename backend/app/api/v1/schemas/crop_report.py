@@ -1,10 +1,22 @@
 from typing import Optional, List
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from api.v1.schemas.abstract.base import BaseSchema
 
 
-class CropReportRead(BaseModel):
+class CropReportCreate(BaseSchema):
+    field_id: UUID
+    crop_name: str
+    probability: float
+
+
+class CropReportUpdate(BaseSchema):
+    pass
+
+
+class CropReportRead(BaseSchema):
     id: UUID
     field_id: UUID
     crop_name: str
@@ -13,7 +25,7 @@ class CropReportRead(BaseModel):
     updated_at: Optional[str] = None
 
 
-class CropReportAIResponse(BaseModel):
+class CropReportAIResponse(BaseSchema):
     device_id: UUID
     top_3_crops: List[dict] = Field(
         ...,
@@ -21,6 +33,6 @@ class CropReportAIResponse(BaseModel):
     )
 
 
-class CropProbability(BaseModel):
+class CropProbability(BaseSchema):
     crop: str = Field(..., description="The name of the crop")
     probability: float = Field(..., description="The probability percentage for the crop")

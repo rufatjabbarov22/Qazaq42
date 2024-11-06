@@ -1,7 +1,7 @@
 from typing import Optional
 
 from pydantic import EmailStr
-from sqlmodel import Field
+from sqlmodel import Field, Relationship
 
 from app.models.abstract.base import Base
 

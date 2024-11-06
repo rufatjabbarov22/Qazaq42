@@ -2,22 +2,21 @@ from uuid import UUID
 
 from typing import Optional, List
 
-from pydantic import BaseModel
-
+from api.v1.schemas.abstract.base import BaseSchema
 from app.api.v1.schemas.field import FieldRead
 
 
-class DistrictCreate(BaseModel):
+class DistrictCreate(BaseSchema):
     name: str
     info: Optional[dict] = None
 
 
-class DistrictUpdate(BaseModel):
+class DistrictUpdate(BaseSchema):
     name: Optional[str] = None
     info: Optional[dict] = None
 
 
-class DistrictRead(BaseModel):
+class DistrictRead(BaseSchema):
     id: UUID
     country_id: str
     name: str

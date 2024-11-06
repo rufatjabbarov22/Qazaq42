@@ -1,4 +1,5 @@
 from uuid import UUID
+
 from sqlmodel import Field, Relationship
 
 from app.models.abstract.base import Base

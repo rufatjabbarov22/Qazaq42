@@ -2,11 +2,11 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    app_name: str
-    host: str
-    port: int
-    allowed_origins: list
-    project_path: str
+    APP_NAME: str
+    HOST: str
+    PORT: int
+    ALLOWED_ORIGINS: list
+    PROJECT_PATH: str
 
     class Config:
         env_file = ".env"

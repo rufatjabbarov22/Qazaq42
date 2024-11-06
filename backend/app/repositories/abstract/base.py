@@ -54,15 +54,19 @@ class BaseRepository(IRepository[M, C, U]):
 
             return obj
 
-    async def delete(self, id: UUID) -> None:
+    async def delete(self, id: UUID) -> bool:
         async with self.produce_session() as session:
 
             stmt = select(self.model).where(self.model.id == id)
             result = await session.execute(stmt)
             obj = result.scalars().unique().one_or_none()
 
+            if obj is None:
+                return False
+
             await session.delete(obj)
             await session.commit()
+            return True
 
     async def get_all(self) -> Iterable[M]:
         async with self.produce_session() as session:

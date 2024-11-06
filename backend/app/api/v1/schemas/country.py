@@ -1,20 +1,19 @@
 from typing import Optional, List
 
-from pydantic import BaseModel
-
+from api.v1.schemas.abstract.base import BaseSchema
 from app.api.v1.schemas.district import DistrictRead
 
 
-class CountryCreate(BaseModel):
+class CountryCreate(BaseSchema):
     id: str
     name: str
 
 
-class CountryUpdate(BaseModel):
+class CountryUpdate(BaseSchema):
     name: Optional[str] = None
 
 
-class CountryRead(BaseModel):
+class CountryRead(BaseSchema):
     id: str
     name: str
     districts: Optional[List[DistrictRead]] = None
