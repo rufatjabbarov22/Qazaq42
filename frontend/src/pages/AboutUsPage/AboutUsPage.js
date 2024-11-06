@@ -3,7 +3,7 @@ import { Box, Container, Typography, Grid, Link } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './AboutUsPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTractor } from '@fortawesome/free-solid-svg-icons';
+import { faTractor, faHandshake, faSeedling } from '@fortawesome/free-solid-svg-icons';
 
 const theme = createTheme();
 
@@ -26,31 +26,34 @@ const AboutUsPage = () => {
           }}
         >
           <Container maxWidth="md" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', borderRadius: '8px', padding: '20px' }}>
-            <Typography variant="h3" component="h1" align="center" gutterBottom className="rotate-scale-up" color='#654321'>
+            <Typography variant="h3" component="h1" align="center" gutterBottom className="rotate-scale-up" color='#263d60'>
               About Qazaq
             </Typography>
             <Grid container spacing={4}>
               {[
-                { title: 'Our Mission', text: 'At Qazaq, we are dedicated to revolutionizing the field of earth scanning by leveraging the power of artificial intelligence. Our mission is to provide precise and efficient scanning services for various industries, ensuring that we help clients make informed decisions based on accurate subsurface data.' },
-                { title: 'Focus on Azerbaijan', text: 'We are proud to operate in Azerbaijan, a country known for its vast and fertile land. Our earth scanning technology optimizes land use by identifying hidden resources and potential issues beneath the surface.' },
-                { title: 'Artificial Intelligence in Earth Scanning', text: 'Qazaq\'s AI-powered systems analyze massive amounts of data from earth-scanning devices, providing real-time insights and accurate predictions. This allows industries to plan projects with precision, reducing risks and increasing efficiency.' },
-                { title: 'Our Commitment to the Future', text: 'We are committed to refining our AI technology and developing advanced earth-scanning techniques to meet evolving industry needs. Our focus on innovation will benefit Azerbaijan and industries worldwide.' },
+                { title: 'Our Mission', text: 'At Qazaq, we are dedicated to revolutionizing the field of earth scanning by leveraging the power of artificial intelligence. Our mission is to provide precise and efficient scanning services for various industries, ensuring that we help clients make informed decisions based on accurate subsurface data.', icon: faSeedling },
+                { title: 'Focus on Azerbaijan', text: 'We are proud to operate in Azerbaijan, a country known for its vast and fertile land. Our earth scanning technology optimizes land use by identifying hidden resources and potential issues beneath the surface.', icon: faHandshake },
+                { title: 'Artificial Intelligence in Earth Scanning', text: 'Qazaq\'s AI-powered systems analyze massive amounts of data from earth-scanning devices, providing real-time insights and accurate predictions. This allows industries to plan projects with precision, reducing risks and increasing efficiency.', icon: faTractor },
+                { title: 'Our Commitment to the Future', text: 'We are committed to refining our AI technology and developing advanced earth-scanning techniques to meet evolving industry needs. Our focus on innovation will benefit Azerbaijan and industries worldwide.', icon: faSeedling },
               ].map((section, index) => (
                 <Grid item xs={12} md={6} key={index}>
-                  <Box sx={{ padding: '20px' }}>
-                    <Typography variant="h5" component="h2" gutterBottom sx={{ color: "#263d60" }}>
-                      {section.title}
-                    </Typography>
-                    <Typography variant="body1" align="justify">
-                      {section.text}
-                    </Typography>
+                  <Box className="section-container">
+                    <Box className="section-content">
+                      <FontAwesomeIcon icon={section.icon} size="3x" color="#263d60" className="icon-hover"/>
+                      <Typography variant="h5" component="h2" gutterBottom sx={{ color: "#263d60", marginTop: '10px' }}>
+                        {section.title}
+                      </Typography>
+                      <Typography variant="body1" align="center" sx={{ marginTop: '10px' }}>
+                        {section.text}
+                      </Typography>
+                    </Box>
                   </Box>
                 </Grid>
               ))}
             </Grid>
           </Container>
         </Box>
-        
+
         <Container className="team-section">
           <Typography variant="h3" component="h2" className="team-title">
             Our Team
@@ -77,17 +80,17 @@ const AboutUsPage = () => {
         </Container>
 
         <Box sx={{ position: 'relative', margin: '50px 0', textAlign: 'center' }}>
-          <Box sx={{ 
-            width: '100%', 
+          <Box sx={{
+            width: '100%',
             height: '10px',
-            backgroundColor: 'black', 
-            position: 'relative', 
-            display: 'flex', 
+            backgroundColor: 'black',
+            position: 'relative',
+            display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
           }}>
-            <Box className="tractor-animation" sx={{ 
-              position: 'absolute', 
+            <Box className="tractor-animation" sx={{
+              position: 'absolute',
               top: '-30px',
               left: '0',
               animation: 'moveTractor 10s linear infinite'

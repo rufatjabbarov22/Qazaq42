@@ -1,33 +1,39 @@
-/* Основные стили для секции */
+/* Main container for the team section */
 .team-section1 {
-  background-color: #e1e7ee40 !important; /* Темный фон */
+  background-color: #000000 !important; /* Completely black background */
   color: white;
   text-align: center;
-  padding: 45px 20px;
+  padding: 60px 20px;
   width: 100vw;
-  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-/* Команда */
+/* Team member container with equal height enforcement */
 .team-member {
+  background-color: #1a1a1a; /* Light black background for cards */
+  padding: 20px;
+  border-radius: 10px;
   text-align: center;
-  margin-bottom: 30px;
-  margin-top: 10px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Ensure all cards have the same height */
 }
 
 .team-member:hover {
   transform: translateY(-10px);
-  color: white;
+  background-color: #333333; /* Even lighter black on hover */
 }
 
+/* Equal height and width for images */
 .team-member img {
-  width: 150px;
-  height: 150px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
@@ -39,48 +45,50 @@
   box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
 }
 
-/* Тексты */
+/* Text styles for team members */
 .team-name {
-  color: #ffffff;
-  font-size: 1.5rem;
+  color: #ffd700; /* Golden color */
+  font-size: 1.6rem;
+  font-weight: bold;
   margin-top: 15px;
 }
 
 .team-role {
-  color: #ffd700;
+  color: #ffffff;
   margin-top: 5px;
   font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .team-quote {
-  color: #aaaaaa;
+  color: #cccccc;
   margin-top: 10px;
   font-style: italic;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
-/* Заголовок */
+/* Title styling */
 .team-title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
-  margin-bottom: 40px;
-  color: #ffd700;
+  margin-bottom: 50px;
+  color: #ffd700; /* Golden color for title */
 }
 
-/* Респонсивные стили для мобильных устройств */
+/* Responsive styles */
 @media (max-width: 768px) {
   .team-title {
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 
   .team-member img {
     width: 120px;
     height: 120px;
   }
-  
+
   .team-name {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 
   .team-role,
@@ -93,7 +101,11 @@
   .team-title {
     font-size: 1.8rem;
   }
-  
+
+  .team-member {
+    height: auto; /* Ensures the cards adjust but stay equal in height */
+  }
+
   .team-member img {
     width: 100px;
     height: 100px;

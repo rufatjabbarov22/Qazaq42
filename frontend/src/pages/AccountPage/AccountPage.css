@@ -1,70 +1,104 @@
+/* Main container for the Account Page */
 .account-page-container {
-  background-color: #f1f2f0;
+  display: flex;
+  height: 100vh;
+  background-color: #000; /* Black background */
+  padding: 0; /* Remove padding from the container */
+  box-sizing: border-box;
+  gap: 20px; /* Space between the sidebar and content */
+  overflow: hidden; /* Prevent vertical scrolling */
+}
+
+/* Sidebar (left) */
+.sidebar {
+  flex: 0 0 20%; /* Sidebar takes 20% width */
+  background-color: #1a1a1a; /* Slightly lighter black */
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw; 
-  overflow: hidden; 
-}
-
-.sidebar {
-  /* width: 30%; */
-  background-color: rgba(51, 75, 28, 1);
-  display: flex;
   justify-content: space-around;
-  /* align-items: center; */
-  padding: 10px 0px 0px 20px;
-  box-sizing: border-box;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+  margin-right: 20px; /* Add space between sidebar and content */
 }
 
+/* Navigation buttons */
 .menu-button {
-  font-size: 16px !important;
+  font-size: 16px;
   font-weight: bold;
-  text-align: center;
-  color: rgba(51, 75, 28, 1) !important;
-  background-color: #f1f2f0 !important;
+  color: #f1f2f0;
+  background-color: #333; /* Lighter black for button background */
   border-radius: 10px;
-  border: none !important;
-  width:85%;
-  height: 9%;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  cursor: pointer;
-
+  padding: 10px;
+  margin-bottom: 10px; /* Space between buttons */
+  transition: background-color 0.3s ease;
 }
 
-.menu-button:hover, .menu-button:active {
-  background-color: #0e4882 !important;
-  color: #f1f2f0 !important;
+.menu-button:hover {
+  background-color: #0e4882; /* Blue hover effect */
+  color: #f1f2f0;
 }
 
+/* Main content area (right) */
 .content {
-  flex-grow: 1;
-  width: 100%;
-  padding: 0;
-  margin: 0;
+  flex: 1;
+  background-color: #1a1a1a; /* Slightly lighter black */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+  overflow-y: auto;
+  margin-left: 20px; /* Add space between content and sidebar */
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
-  
-  .content {
-    width: 100vw;
-  }
-}
-
+/* Bottom navigation for small screens */
 .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #0e4882;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
+  display: none; /* Hidden on larger screens */
+  padding: 0; /* Ensure no padding for bottom nav */
 }
 
-.bottom-nav .nav-icon {
-  color: white;
-  font-size: 2rem;
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .account-page-container {
+    flex-direction: column;
+    gap: 0; /* Remove gap between sections */
+    padding: 0; /* Remove extra padding */
+    overflow: hidden; /* Prevent vertical scrolling */
+  }
+
+  .sidebar {
+    display: none; /* Hide sidebar on small screens */
+  }
+
+  .content {
+    flex: 1;
+    margin-left: 0;
+    width: 100%; /* Full width for content */
+    padding-left: 0; /* Ensure no padding on the left */
+  }
+
+  .bottom-nav {
+    display: flex; /* Show bottom navigation */
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #0e4882; /* Blue background for bottom nav */
+    padding: 10px 0;
+    z-index: 10;
+    left: 0; /* Ensure it stretches full width */
+  }
+}
+
+/* Responsive design for extra-small screens (mobile) */
+@media (max-width: 480px) {
+  .menu-button {
+    font-size: 12px;
+  }
+}
+
+/* Hide bottom navigation on larger screens */
+@media (min-width: 769px) {
+  .bottom-nav {
+    display: none !important; /* Ensure it's hidden on larger screens */
+  }
 }

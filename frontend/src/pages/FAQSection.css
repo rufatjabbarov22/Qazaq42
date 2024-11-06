@@ -1,0 +1,89 @@
+/* FAQSection.css */
+.faq-section {
+    background-color: #000; /* Black background */
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+    box-sizing: border-box; /* Ensures padding is included in width/height */
+    overflow-x: hidden; /* Prevents horizontal scroll */
+  }
+  
+  .faq-section .section-title {
+    margin-bottom: 40px;
+    color: #f1f2f0;
+    font-size: 2.5rem;
+    max-width: 100%;
+    word-wrap: break-word; /* Ensures long words are wrapped */
+    overflow-wrap: break-word; /* Ensures text wraps properly */
+  }
+  
+  /* Accordion styles */
+  .MuiAccordion-root {
+    background-color: #1a1a1a; /* Dark background for each accordion */
+    color: white;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .MuiAccordion-root:hover {
+    background-color: #333; /* Slight hover effect */
+  }
+  
+  /* Accordion summary */
+  .MuiAccordionSummary-root {
+    font-weight: bold;
+    color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+  }
+  
+  /* Accordion details */
+  .MuiAccordionDetails-root {
+    color: black; /* Change to black when expanded */
+    background-color: #f5f5f5; /* Lighter background for the details */
+    border-radius: 8px;
+    padding: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Icons for each question */
+  .faq-icon {
+    color: #0e4882;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .accordion-summary:hover .faq-icon {
+    transform: rotate(20deg); /* Slight rotation on hover */
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .faq-section {
+      padding: 20px 10px;
+    }
+  
+    .section-title {
+      font-size: 2rem; /* Reduce font size for medium devices */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .faq-section {
+      padding: 20px 10px;
+    }
+  
+    .section-title {
+      font-size: 1.5rem; /* Further reduce font size for small devices */
+    }
+  
+    .MuiAccordionSummary-root {
+      font-size: 1rem;
+    }
+  
+    .faq-icon {
+      font-size: 1.5rem;
+    }
+  }
+  

@@ -1,14 +1,34 @@
+/* Main container for the map section, set to occupy full area */
 .map-section {
-  width: 100vw;  /* Ensures the map takes up the full width of the viewport */
-  height: 100vh; /* Ensures the map takes up the full height of the viewport */
-  margin: 0;
+  width: 100%; /* Take full width of the right div */
+  height: 100%; /* Take full height of the right div */
   padding: 0;
-  overflow: hidden; /* Prevents scrolling issues */
-  box-sizing: border-box; /* Ensure the width and height include padding and border */
+  margin: 0;
+  overflow: hidden; /* No scrollbars */
+  box-sizing: border-box;
 }
 
-iframe {
-  width: 100%;
-  height: 100%;
-  border: none; /* Remove default border for the iframe */
+/* Ensure the iframe takes up full space within the right div */
+.responsive-iframe {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  border: none; /* No border around iframe */
+}
+
+/* For medium screens and tablets */
+@media (max-width: 768px) {
+  .map-section {
+    height: 90vh; /* Adjust height for smaller screens */
+  }
+}
+
+/* For small screens (mobile phones) */
+@media (max-width: 480px) {
+  .map-section {
+    height: 85vh; /* Further adjust height to fit smaller devices */
+  }
+  
+  .responsive-iframe {
+    width: 100vw; /* Ensure the map fills the screen width without scrolling */
+  }
 }

@@ -4,13 +4,19 @@ import Section2 from '../components/Section2/Section2';  // Импортируе
 import DeviceSection from './DeviceSection/DeviceSection';
 import TeamSection from '../components/TeamSection/TeamSection';
 import SliderSection from '../components/SliderSection/SliderSection';
+import VideoSection from '../components/TeamSection/VideSection/VideoSection';
+import StatisticsSection from './StatisticsSection';
+import FAQSection from './FAQSection';
 
 const HomePage = () => {
   return (
     <div>
       <Section1 />
-      <Section2 /> {/* Добавляем Section2 после Section1 */}
+      <Section2 />
+      <StatisticsSection />
       <DeviceSection />
+      <VideoSection />
+      <FAQSection />
       <SliderSection />
       <TeamSection />
     </div>

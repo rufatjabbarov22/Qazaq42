@@ -2,7 +2,7 @@
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://wallup.net/wp-content/uploads/2016/01/270427-nature-landscape-field-sunrise-trees-farm-sky-clouds-mist-Finland.jpg);
   background-size: cover;
   background-position: center;
-  height: 100vh; /* Теперь секция занимает 100% высоты экрана */
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,11 +11,11 @@
   transition: background-position 0.2s ease-out;
 
   @media (max-width: 768px) {
-    height: 80vh; /* Для меньших экранов можно уменьшить высоту */
+    height: 80vh;
   }
 
   @media (max-width: 480px) {
-    height: 60vh; /* Для самых маленьких экранов */
+    height: 60vh;
   }
 }
 
@@ -38,5 +38,5 @@
 
 
 .section1-text:hover {
-  transform: scale(1.05); /* Небольшое увеличение текста при наведении */
+  transform: scale(1.05);
 }

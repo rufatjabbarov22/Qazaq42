@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, BottomNavigation, BottomNavigationAction } from '@mui/material';
+import MapIcon from '@mui/icons-material/Map';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import SensorsIcon from '@mui/icons-material/Sensors';
+import ComputerIcon from '@mui/icons-material/Computer';
 import MapSection from './MapSection';
 import InstructionSection from './InstructionSection';
 import ControlDeviceSection from './ControlDeviceSection';
 import AISection from './AISection';
-import HomeIcon from '@mui/icons-material/Home';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import DeviceHubIcon from '@mui/icons-material/DeviceHub';
-import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import './AccountPage.css';
 
 const AccountPage = () => {
@@ -29,30 +29,48 @@ const AccountPage = () => {
   };
 
   return (
-    <Grid container className="account-page-container" >
+    <Box className="account-page-container">
       {/* Sidebar for larger screens */}
-      <Grid item xs={2} className="sidebar">
-        <Box display="flex" flexDirection="column" justifyContent="space-around" height="100%">
-          <Button className="menu-button" onClick={() => setSelectedSection('map')}>Map</Button>
-          <Button className="menu-button" onClick={() => setSelectedSection('instruction')}>Instruction</Button>
-          <Button className="menu-button" onClick={() => setSelectedSection('control')}>Control Device</Button>
-          <Button className="menu-button" onClick={() => setSelectedSection('ai')}>AI</Button>
-        </Box>
-      </Grid>
+      <Box className="sidebar">
+        <Button className="menu-button" onClick={() => setSelectedSection('map')}>Map</Button>
+        <Button className="menu-button" onClick={() => setSelectedSection('instruction')}>Instruction</Button>
+        <Button className="menu-button" onClick={() => setSelectedSection('control')}>Control Device</Button>
+        <Button className="menu-button" onClick={() => setSelectedSection('ai')}>AI</Button>
+      </Box>
 
       {/* Main content */}
-      <Grid item xs={10} className="content">
+      <Box className="content">
         {renderSection()}
-      </Grid>
+      </Box>
 
       {/* Bottom navigation for small screens */}
-      <Box className="bottom-nav" sx={{ display: { xs: 'flex', md: 'none' } }}>
-        <HomeIcon className="nav-icon" onClick={() => setSelectedSection('map')} />
-        <MenuBookIcon className="nav-icon" onClick={() => setSelectedSection('instruction')} />
-        <DeviceHubIcon className="nav-icon" onClick={() => setSelectedSection('control')} />
-        <EmojiObjectsIcon className="nav-icon" onClick={() => setSelectedSection('ai')} />
-      </Box>
-    </Grid>
+      <BottomNavigation
+        className="bottom-nav"
+        value={selectedSection}
+        onChange={(event, newValue) => setSelectedSection(newValue)}
+      >
+        <BottomNavigationAction
+          label="Map"
+          value="map"
+          icon={<MapIcon />}
+        />
+        <BottomNavigationAction
+          label="Instruction"
+          value="instruction"
+          icon={<MenuBookIcon />}
+        />
+        <BottomNavigationAction
+          label="Control"
+          value="control"
+          icon={<SensorsIcon />}
+        />
+        <BottomNavigationAction
+          label="AI"
+          value="ai"
+          icon={<ComputerIcon />}
+        />
+      </BottomNavigation>
+    </Box>
   );
 };
 

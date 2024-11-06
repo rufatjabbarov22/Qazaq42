@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Box, Container, Typography, TextField, Button, Grid } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 const theme = createTheme();
 
@@ -34,12 +37,28 @@ const ContactUsPage = () => {
           padding: '20px',
         }}
       >
-        <Container maxWidth="md" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '8px', padding: '20px' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+        <Container
+          maxWidth="md"
+          sx={{
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            borderRadius: '8px',
+            padding: '20px',
+            boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              mb: 4,
+              animation: 'fadeIn 1s ease-in-out',
+            }}
+          >
             <Typography variant="h3" component="h1" align="left" gutterBottom>
               Contact Us
             </Typography>
-            <ConnectWithoutContactIcon sx={{ fontSize: "30px" }} />
+            <ConnectWithoutContactIcon sx={{ fontSize: '40px', color: '#0e4882' }} />
           </Box>
 
           <form onSubmit={handleSubmit}>
@@ -52,6 +71,7 @@ const ContactUsPage = () => {
                   fullWidth
                   value={name}
                   onChange={(event) => setName(event.target.value)}
+                  sx={{ fontSize: { xs: '16px', sm: '18px' }, animation: 'slideInUp 0.5s ease-in-out' }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -63,6 +83,7 @@ const ContactUsPage = () => {
                   type="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
+                  sx={{ fontSize: { xs: '16px', sm: '18px' }, animation: 'slideInUp 0.7s ease-in-out' }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -75,6 +96,7 @@ const ContactUsPage = () => {
                   rows={4}
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
+                  sx={{ fontSize: { xs: '16px', sm: '18px' }, animation: 'slideInUp 0.9s ease-in-out' }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -82,32 +104,45 @@ const ContactUsPage = () => {
                   variant="contained"
                   component="label"
                   fullWidth
+                  sx={{
+                    transition: 'transform 0.2s ease-in-out',
+                    padding: '12px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: '8px',
+                  }}
+                  onMouseEnter={(e) => (e.target.style.transform = 'scale(1.05)')}
+                  onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
                 >
+                  <UploadFileIcon />
                   Upload File
-                  <input
-                    type="file"
-                    hidden
-                    onChange={handleFileChange}
-                  />
+                  <input type="file" hidden onChange={handleFileChange} />
                 </Button>
               </Grid>
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" fullWidth sx={{ transition: 'transform 0.2s ease-in-out' }} onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"} onMouseLeave={(e) => e.target.style.transform = "scale(1)"}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  sx={{ transition: 'transform 0.2s ease-in-out', padding: '12px' }}
+                  onMouseEnter={(e) => (e.target.style.transform = 'scale(1.05)')}
+                  onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
+                >
                   Send Message
                 </Button>
               </Grid>
             </Grid>
           </form>
-          
-          <Box sx={{ mt: 4, borderTop: '1px solid #ccc', pt: 2 }}>
+
+          <Box sx={{ mt: 4, borderTop: '1px solid #ccc', pt: 2, animation: 'fadeIn 1.2s ease-in-out' }}>
             <Typography variant="h6" gutterBottom>
               Get in Touch
             </Typography>
-            <Typography variant="body1" align="left">
-              <strong>Email:</strong> info@qazaq.com
+            <Typography variant="body1" align="left" sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <EmailIcon /> <strong>Email:</strong> info@qazaq.com
             </Typography>
-            <Typography variant="body1" align="left">
-              <strong>Phone:</strong> +994 55 555 93 42
+            <Typography variant="body1" align="left" sx={{ display: 'flex', alignItems: 'center', gap: '8px', mt: 1 }}>
+              <PhoneIcon /> <strong>Phone:</strong> +994 55 555 93 42
             </Typography>
           </Box>
 
@@ -136,7 +171,6 @@ const ContactUsPage = () => {
               />
             </Box>
           </Box>
-
         </Container>
       </Box>
     </ThemeProvider>

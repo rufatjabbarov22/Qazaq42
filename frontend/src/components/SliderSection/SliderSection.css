@@ -1,64 +1,55 @@
-/* Скрываем секцию на маленьких экранах */
-@media (max-width: 768px) {
-  .slider-section {
-    display: none !important; /* Полностью скрываем секцию на мобильных устройствах */
-  }
+/* Main container for the slider section */
+.slider-section-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+  box-sizing: border-box;
+  padding: 20px;
+  gap: 20px;
 }
 
-.slider-section {
-  width: 100vw;
-  height: auto;
-  position: relative;
-  overflow: hidden;
+/* Left section containing the mini slider */
+.left-slider-section {
+  flex: 0 0 65%; /* Slider section takes 65% width */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-color: rgba(20, 20, 20, 0.6);
-  font-family: Anton, sans-serif;
-  color: #f1f2f0;
-  font-size: 1.3rem;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  padding: 10px;
 }
 
-.slider-section img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  margin: 0 20px;
+.slider {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
-/* Стили для средних экранов */
-@media (min-width: 768px) {
-  .slider-section .MuiTypography-h3 {
-    font-size: 3rem;
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для текста */
-    padding: 10px;
-    border-radius: 5px;
-  }
-
-  .slider-section .MuiTypography-h6 {
-    font-size: 1.5rem;
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для описания */
-    padding: 10px;
-    border-radius: 5px;
-    max-width: 80%;
-  }
+/* Right section containing the text */
+.right-text-section {
+  flex: 0 0 35%; /* Text section takes the remaining 35% width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  color: #fff;
+  box-sizing: border-box;
 }
 
-/* Стили для больших экранов */
-@media (min-width: 1200px) {
-  .slider-section img {
-    max-width: 70%;
-    height: auto;
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .left-slider-section {
+    display: none; /* Hide slider on small screens */
   }
 
-  .slider-section .MuiTypography-h3 {
-    font-size: 4rem;
-  }
-
-  .slider-section .MuiTypography-h6 {
-    font-size: 1.8rem;
+  .right-text-section {
+    flex: 1 0 100%;
+    width: 100%;
+    padding: 20px; /* Add padding on small screens */
   }
 }

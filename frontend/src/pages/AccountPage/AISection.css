@@ -1,29 +1,73 @@
 .ai-section {
-  width: 100vw;
-  min-height: 100vh; /* Минимальная высота секции на весь экран */
-  background-image: url('https://www.supplychainbrain.com/ext/resources/2024/02/06/HEALTHCARE-ARTIFICIAL-INTELLIGENCE-AI-iStock--FotografieLink--1517344698.jpg');
-  background-size: cover;
-  background-position: center;
-  padding-bottom: 20px; /* Отступ снизу */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Fade-in animation for the entire section */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .ai-result-box {
-  max-width: 600px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 15px;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-  padding: 20px;
+  max-width: 800px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.8s ease-in-out;
 }
 
-/* Респонсивные стили для маленьких экранов */
+/* Slide-up animation for the result box */
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.soil-analysis {
+  margin-bottom: 20px;
+}
+
+/* Chart container with responsive scaling */
+.chart-container {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  background-color: #f1f2f0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.animated-title {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.animated-table-row {
+  transition: background-color 0.3s ease;
+}
+
+.animated-table-row:hover {
+  background-color: rgba(14, 72, 130, 0.1);
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
-  .ai-section {
-    padding: 10px;
+  .ai-result-box {
+    padding: 20px;
   }
 
-  .ai-result-box {
-    width: 100%;
-    max-width: 100%;
+  .chart-container {
     padding: 15px;
+  }
+
+  .soil-analysis {
+    text-align: center;
   }
 }

@@ -1,84 +1,80 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden; 
-}
-
 .control-device-section {
-  background-image: url('https://www.supplychainbrain.com/ext/resources/2024/02/06/HEALTHCARE-ARTIFICIAL-INTELLIGENCE-AI-iStock--FotografieLink--1517344698.jpg?t=1707282440&width=1080');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.3s ease-in-out;
   overflow-x: hidden;
-  width: 100vw;
-  padding: 20px;
-  box-sizing: border-box;
 }
 
-.device-control-box, .scan-result-box, .device-loading-box {
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 10px;
-  padding: 40px;
+.device-control-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 600px;
-  box-sizing: border-box;
-  margin: 0 auto;
+}
+
+.device-icon {
+  font-size: 80px;
+  color: #0e4882;
+}
+
+.loading-section {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.loading-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #ccc;
+  margin-top: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.loading-track {
+  width: 100%;
+  height: 100%;
+  background-color: #0e4882;
+  animation: loadingBarAnimation 3s linear forwards;
+}
+
+@keyframes loadingBarAnimation {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.scan-result-box {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.result-item {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.ai-button {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #0e4882;
+  color: #fff;
 }
 
 @media (max-width: 768px) {
-  .control-device-section {
-    height: 100vh;
-    padding: 10px;
-    width: 100vw;
-    overflow-x: hidden;
-  }
-
-  .device-control-box, .scan-result-box, .device-loading-box {
-    width: 100%;
-    height: auto;
-    padding: 20px;
-    margin: 0 auto;
-  }
-
-  .ai-button {
-    width: 100%;
-    margin-top: 20px;
-  }
+  .device-icon { font-size: 60px; }
 }
-
-@media (min-width: 1200px) {
-  .control-device-section {
-    background-image: url('https://www.supplychainbrain.com/ext/resources/2024/02/06/HEALTHCARE-ARTIFICIAL-INTELLIGENCE-AI-iStock--FotografieLink--1517344698.jpg?t=1707282440&width=1080');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .device-control-box, .device-loading-box, .scan-result-box {
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
-    padding: 40px;
-    text-align: center;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-    width: 60%;
-    height: 60%;
-  }
-
-  .ai-button {
-    font-size: 38px;
-    padding: 15px;
-    width: 30%;
-  }
-  
-}
-

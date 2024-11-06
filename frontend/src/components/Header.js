@@ -1,45 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Button, Box, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { AppBar, Toolbar, Button, Box, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
+import logo from '../assets/logo.svg';  // Importing the SVG file
 
 const NavButton = styled(Button)(({ theme }) => ({
   color: '#f1f2f0',
   marginLeft: theme.spacing(2),
   fontSize: '18px',
   fontWeight: 'bold',
+  position: 'relative',
+  overflow: 'hidden',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    width: '0%',
+    height: '3px',
+    bottom: 0,
+    left: 0,
+    backgroundColor: '#f1f2f0',
+    transition: 'width 0.3s ease-in-out',
+  },
+  '&:hover::before': {
+    width: '100%', // Underline animation on hover
+  },
   '&:hover': {
-    color: '#f1f2f0', // Изменение цвета текста при наведении
-
+    color: '#f1f2f0',
   },
 }));
 
 const LoginButton = styled(Button)(({ theme }) => ({
   backgroundColor: '#f1f2f0',
-  color: 'rgba(51, 75, 28, 1)',
+  color: '#333',
   paddingLeft: '25px',
   paddingRight: '25px',
   marginLeft: theme.spacing(10),
   marginRight: theme.spacing(5),
   fontSize: '18px',
   fontWeight: 'bold',
+  position: 'relative',
+  overflow: 'hidden',
+  border: '2px solid transparent',
   '&:hover': {
-  backgroundColor: '#0e4882',
-  color: '#f1f2f0'
-  },
-  '&:active': {
-    backgroundColor: '#0e4882',
-  },
-  cursor: 'pointer',
-}));
-
-const DrawerListItem = styled(ListItem)(({ theme }) => ({
-  color: 'white',
-  fontSize: '22px',
-  textTransform: 'uppercase',
-  '&:hover': {
-    backgroundColor: '#333', // Фоновый цвет при наведении
+    backgroundColor: 'rgba(173, 255, 47, 0.2)',
+    border: '2px solid rgba(173, 255, 47, 1)',
+    color: '#f1f2f0',
   },
 }));
 
@@ -65,9 +71,9 @@ const Header = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       if (scrollY > 50) {
-        setHeaderBackground('rgba(160, 160, 169, 0.7)');
+        setHeaderBackground(`rgba(51, 75, 28, ${1 - scrollY / 500})`);
       } else {
-        setHeaderBackground('rgba(160, 160, 169, 1)');
+        setHeaderBackground('rgba(51, 75, 28, 1)');
       }
     };
 
@@ -92,18 +98,18 @@ const Header = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <DrawerListItem button component={Link} to="/">
+        <ListItem button component={Link} to="/">
           <ListItemText primary="Home" />
-        </DrawerListItem>
-        <DrawerListItem button component={Link} to="/about">
+        </ListItem>
+        <ListItem button component={Link} to="/about">
           <ListItemText primary="About Us" />
-        </DrawerListItem>
-        <DrawerListItem button component={Link} to="/contact">
+        </ListItem>
+        <ListItem button component={Link} to="/contact">
           <ListItemText primary="Contact Us" />
-        </DrawerListItem>
-        <DrawerListItem button component={Link} to="/login">
+        </ListItem>
+        <ListItem button component={Link} to="/login">
           <ListItemText primary="LogIn" />
-        </DrawerListItem>
+        </ListItem>
       </List>
     </Box>
   );
@@ -118,26 +124,25 @@ const Header = () => {
       }}
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography
+        <Box
           component={Link}
           to="/"
-          variant="h6"
           sx={{
-            fontFamily: 'Anton, sans-serif',
-            fontWeight: 'bold',
-            fontSize: { xs: '26px', md: '38px' }, // Респонсивное изменение размера шрифта
-            letterSpacing: '12px',
-            color: '#f1f2f0',
-            margin: '15px',
+            display: 'flex',
+            alignItems: 'center',
             textDecoration: 'none',
-            textTransform: 'uppercase',
-            '&:hover': {
-              // color: '#555',
-            },
           }}
         >
-          Qazaq
-        </Typography>
+          <img
+            src={logo}  // Use the logo
+            alt="Qazaq Logo"
+            style={{
+              height: '60px',  // Adjust the size to your needs
+              width: 'auto',
+              marginRight: '15px',
+            }}
+          />
+        </Box>
 
         {isMobile ? (
           <>
@@ -148,7 +153,7 @@ const Header = () => {
               anchor="right"
               open={drawerOpen}
               onClose={toggleDrawer(false)}
-              transitionDuration={500} // Плавное открытие/закрытие меню
+              transitionDuration={500}
             >
               {drawerContent}
             </Drawer>

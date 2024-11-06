@@ -1,0 +1,26 @@
+/* TopNavigationBar.css */
+.MuiAppBar-root {
+    box-shadow: none;
+  }
+  
+  .MuiToolbar-dense {
+    justify-content: space-between;
+  }
+  
+  .MuiIconButton-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .MuiIconButton-root .MuiTypography-caption {
+    font-size: 0.7rem;
+    margin-top: 3px;
+  }
+  
+  @media (min-width: 768px) {
+    .MuiIconButton-root .MuiTypography-caption {
+      font-size: 0.9rem;
+    }
+  }
+  

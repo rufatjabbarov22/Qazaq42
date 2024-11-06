@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
 import { useNavigate } from 'react-router-dom';
+import './Login.css'; // Подключаем CSS для анимаций
 
 const theme = createTheme();
 
@@ -28,8 +29,6 @@ export default function Login() {
     console.log('Email:', email);
     console.log('Password:', password);
 
-    // Логика аутентификации пользователя.
-    // Если аутентификация прошла успешно, перенаправляем на AccountPage
     navigate('/account');
   };
 
@@ -53,6 +52,7 @@ export default function Login() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          animation: 'fadeIn 1s ease-in-out',
         }}
       >
         <Container
@@ -60,15 +60,16 @@ export default function Login() {
           maxWidth="xs"
           sx={{
             border: '1px solid #ccc',
-            borderRadius: '8px',
-            backgroundColor: '#e0e0e0',
-            padding: '20px',
-            boxShadow: 3,
+            borderRadius: '12px',
+            backgroundColor: 'rgba(240, 240, 240, 0.9)', // Полупрозрачный серый фон
+            padding: '30px',
+            boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+            animation: 'slideUp 0.8s ease',
           }}
         >
           <Box
             sx={{
-              marginTop: 8,
+              marginTop: 2,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -77,7 +78,7 @@ export default function Login() {
             <Avatar sx={{ m: 1, bgcolor: 'black' }}>
               <AccountCircleIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" sx={{ fontWeight: 'bold' }}>
               Sign in
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
@@ -92,7 +93,21 @@ export default function Login() {
                 autoFocus
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                sx={{ fontSize: { xs: '16px', sm: '18px' } }}
+                sx={{
+                  fontSize: { xs: '16px', sm: '18px' },
+                  '& .MuiInputBase-input': { color: 'black' }, // Темные цвета текста
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#888', // Серый цвет рамки
+                    },
+                    '&:hover fieldset': {
+                      borderColor: '#555',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#333',
+                    },
+                  },
+                }}
               />
               <TextField
                 margin="normal"
@@ -105,7 +120,21 @@ export default function Login() {
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                sx={{ fontSize: { xs: '16px', sm: '18px' } }}
+                sx={{
+                  fontSize: { xs: '16px', sm: '18px' },
+                  '& .MuiInputBase-input': { color: 'black' }, 
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                      borderColor: '#888',
+                    },
+                    '&:hover fieldset': {
+                      borderColor: '#555',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#333',
+                    },
+                  },
+                }}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -115,7 +144,17 @@ export default function Login() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, fontSize: { xs: '16px', sm: '18px' }, padding: { xs: '8px', sm: '10px' } }}
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  fontSize: { xs: '16px', sm: '18px' },
+                  padding: { xs: '8px', sm: '10px' },
+                  backgroundColor: '#333',
+                  '&:hover': {
+                    backgroundColor: '#000',
+                  },
+                  transition: 'background-color 0.3s ease',
+                }}
               >
                 Sign In
               </Button>

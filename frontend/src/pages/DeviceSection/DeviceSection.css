@@ -1,18 +1,46 @@
+/* Main container for the Device section */
 .device-section {
-  background-color: rgb(12, 12, 12);
-  padding: 50px 20px;
-  color: white;
-  text-align: center;
-  font-family: Anton, sans-serif;
-}
-.device-title {
-  font-size: 3rem;
-  margin-bottom: 40px;
-}
-.scan-animation-container {
-  position: relative;
+  display: flex;
   width: 100%;
-  height: 500px;
+  height: 100vh; /* Full-screen height */
+  background-color: #000; /* Black background */
+  padding: 20px;
+  box-sizing: border-box;
+  gap: 20px; /* Space between left and right sections */
+}
+
+/* Left section with text */
+.left-section {
+  flex: 1;
+  background-color: #1a1a1a; /* Slightly lighter black */
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section2-content {
+  max-width: 90%; /* Limits the width of the text within the section */
+  color: #f5f5f5;
+}
+
+/* Right section with photo and animation */
+.right-section {
+  flex: 1;
+  background-color: #1a1a1a; /* Slightly lighter black */
+  border-radius: 10px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Scan animation container */
+.scan-animation-container {
+  width: 100%;
+  height: 100%;
+  position: relative; /* For absolute positioning of animation */
   background-image: url('https://kartinki.pibig.info/uploads/posts/2023-04/1681504369_kartinki-pibig-info-p-kartinka-chernozem-pochva-arti-pinterest-40.jpg');
   background-size: cover;
   background-position: center;
@@ -20,10 +48,13 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  border-radius: 10px; /* Ensures the content has rounded corners */
 }
+
+/* Device icon and animation */
 .device-icon {
   position: relative;
-  font-size: 150px !important; /* Large icon size */
+  font-size: 150px !important;
   color: white;
   z-index: 2;
 }
@@ -48,6 +79,7 @@
   height: 140px;
   animation-delay: 1s;
 }
+
 @keyframes expand {
   0% {
     opacity: 1;
@@ -58,93 +90,30 @@
     transform: scale(5); /* Larger scale for bigger circles */
   }
 }
-/* Card Flip Animation */
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
-}
-.card {
-  width: 300px;
-  height: 400px;
-  perspective: 1000px; /* Perspective for 3D effect */
-}
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s;
-}
-.card:hover .card-inner,
-.card.flipped .card-inner {
-  transform: rotateY(180deg);
-}
-.card-front, .card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-.card-front {
-  background-color: white;
-}
-.card-back {
-  background-color: #263D60;
-  color: white;
-  transform: rotateY(180deg);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  font-size: 1.2rem;
-}
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-/* Order Button Below Cards */
-.order-button {
-  background-color: #FF5722;
-  color: white;
-  padding: 15px 40px;
-  font-size: 1.5rem;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
-  transition: all 0.4s ease;
-  margin-top: 50px;
-}
-.order-button:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.5);
-}
-.order-button:active {
-  transform: scale(0.98);
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-}
+
+/* Responsive design for smaller screens */
 @media (max-width: 768px) {
-  .card-container {
+  .device-section {
     flex-direction: column;
-    align-items: center;
+    height: auto;
   }
-  .card {
+
+  .left-section, .right-section {
     width: 100%;
-    max-width: 400px;
+    height: auto;
   }
-  /* On mobile, the card flips on click */
-  .card:active .card-inner {
-    transform: rotateY(180deg);
+
+  .scan-animation-container {
+    height: 300px;
   }
 }
+
 @media (max-width: 480px) {
   .device-title {
     font-size: 2rem;
+  }
+
+  .device-icon {
+    font-size: 100px !important;
   }
 }

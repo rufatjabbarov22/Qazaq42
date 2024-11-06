@@ -5,7 +5,7 @@ import { Box, Container, Grid, Link, Typography } from '@mui/material';
 const TeamSection = () => {
   return (
     <Container className="team-section1" maxWidth={false}>
-      <Typography variant="h3" component="h2" className="team-title" style={{color: '#263d60'}}>
+      <Typography variant="h3" component="h2" className="team-title">
         Our Team
       </Typography>
       <Grid container spacing={3} justifyContent="center">
@@ -15,7 +15,7 @@ const TeamSection = () => {
             <Link href="https://www.linkedin.com/in/simar%C9%99k%C9%99rimli/" underline="none">
               <img
                 src="https://ca.slack-edge.com/T0423U1MW21-U06GZL3HWJ0-dfb69c792ca9-512"
-                alt="Team Member 1"
+                alt="Simara Karimli"
                 className="team-photo"
               />
               <Typography className="team-name">Simara Karimli</Typography>
@@ -30,7 +30,7 @@ const TeamSection = () => {
             <Link href="https://www.linkedin.com/in/samiribrh/" underline="none">
               <img
                 src="https://ca.slack-edge.com/T0423U1MW21-U06GX6LL0AW-5c8b0814ecb1-512"
-                alt="Team Member 2"
+                alt="Samir Ibrahimov"
                 className="team-photo"
               />
               <Typography className="team-name">Samir Ibrahimov</Typography>
@@ -45,7 +45,7 @@ const TeamSection = () => {
             <Link href="https://www.linkedin.com/in/kamran-mahmudov-546532240/" underline="none">
               <img
                 src="https://ca.slack-edge.com/T0423U1MW21-U06HL084LD6-a32967ebed0d-512"
-                alt="Team Member 3"
+                alt="Kamran Mahmudov"
                 className="team-photo"
               />
               <Typography className="team-name">Kamran Mahmudov</Typography>
@@ -60,12 +60,12 @@ const TeamSection = () => {
             <Link href="https://www.linkedin.com/in/rufat-jabbarov-b73872310/" underline="none">
               <img
                 src="https://ca.slack-edge.com/T0423U1MW21-U06H6J3APNY-5a78d8002ca6-512"
-                alt="Team Member 4"
+                alt="Rufat Jabbarov"
                 className="team-photo"
               />
               <Typography className="team-name">Rufat Jabbarov</Typography>
             </Link>
-            <Typography className="team-role">"You know who I am"</Typography>
+            <Typography className="team-role">father of chatgpt</Typography>
             <Typography className="team-quote">"Looking deep to build a better future."</Typography>
           </Box>
         </Grid>

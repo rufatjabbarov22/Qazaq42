@@ -12,14 +12,17 @@ import {
 } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import './SignupForm.css'; // Добавляем CSS для анимаций и стилей
 
 const theme = createTheme();
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   border: '1px solid #ccc',
-  borderRadius: '8px',
-  backgroundColor: '#e0e0e0',
-  padding: '20px',
+  borderRadius: '12px',
+  backgroundColor: 'rgba(240, 240, 240, 0.9)', // Полупрозрачный серый фон
+  padding: '30px',
+  boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+  animation: 'slideUp 0.8s ease', // Анимация появления
 }));
 
 function SignupForm() {
@@ -45,6 +48,7 @@ function SignupForm() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          animation: 'fadeIn 1s ease-in-out',
         }}
       >
         <StyledContainer component="main" maxWidth="xs">
@@ -56,7 +60,7 @@ function SignupForm() {
               padding: { xs: '10px', sm: '20px' },
             }}
           >
-            <Typography variant="h4" component="h1" gutterBottom>
+            <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
               Sign up
             </Typography>
             <form onSubmit={handleSubmit}>
@@ -69,7 +73,14 @@ function SignupForm() {
                     fullWidth
                     value={fullName}
                     onChange={(event) => setFullName(event.target.value)}
-                    sx={{ fontSize: { xs: '14px', sm: '16px' } }}
+                    sx={{
+                      fontSize: { xs: '14px', sm: '16px' },
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': { borderColor: '#888' },
+                        '&:hover fieldset': { borderColor: '#555' },
+                        '&.Mui-focused fieldset': { borderColor: '#333' },
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -81,7 +92,14 @@ function SignupForm() {
                     type="email"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
-                    sx={{ fontSize: { xs: '14px', sm: '16px' } }}
+                    sx={{
+                      fontSize: { xs: '14px', sm: '16px' },
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': { borderColor: '#888' },
+                        '&:hover fieldset': { borderColor: '#555' },
+                        '&.Mui-focused fieldset': { borderColor: '#333' },
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -93,7 +111,14 @@ function SignupForm() {
                     type="password"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
-                    sx={{ fontSize: { xs: '14px', sm: '16px' } }}
+                    sx={{
+                      fontSize: { xs: '14px', sm: '16px' },
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': { borderColor: '#888' },
+                        '&:hover fieldset': { borderColor: '#555' },
+                        '&.Mui-focused fieldset': { borderColor: '#333' },
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -103,13 +128,27 @@ function SignupForm() {
                         id="updates"
                         checked={updates}
                         onChange={(event) => setUpdates(event.target.checked)}
+                        sx={{
+                          color: '#333',
+                          '&.Mui-checked': { color: '#000' },
+                        }}
                       />
                     }
                     label="I want to receive updates via email."
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Button type="submit" variant="contained" fullWidth sx={{ padding: { xs: '10px', sm: '12px' } }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    sx={{
+                      padding: { xs: '10px', sm: '12px' },
+                      backgroundColor: '#333',
+                      '&:hover': { backgroundColor: '#000' },
+                      transition: 'background-color 0.3s ease',
+                    }}
+                  >
                     Sign up
                   </Button>
                 </Grid>
@@ -133,4 +172,3 @@ function SignupForm() {
 }
 
 export default SignupForm;
-
