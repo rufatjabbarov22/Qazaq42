@@ -3,7 +3,7 @@ from uuid import UUID
 from typing import Optional
 from datetime import datetime
 
-from api.v1.schemas.abstract.base import BaseSchema
+from app.api.v1.schemas.abstract.base import BaseSchema
 
 
 class TelemetryCreate(BaseSchema):

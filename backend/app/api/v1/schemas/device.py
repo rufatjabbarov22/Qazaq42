@@ -6,7 +6,7 @@ from typing import Optional
 from pydantic import Field, field_validator
 from uuid import UUID
 
-from api.v1.schemas.abstract.base import BaseSchema
+from app.api.v1.schemas.abstract.base import BaseSchema
 from app.utils.enums.device import DeviceTypeEnum
 from app.core.config import PREFIX_TYPE_MAP
 

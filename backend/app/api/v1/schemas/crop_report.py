@@ -3,7 +3,7 @@ from uuid import UUID
 
 from pydantic import Field
 
-from api.v1.schemas.abstract.base import BaseSchema
+from app.api.v1.schemas.abstract.base import BaseSchema
 
 
 class CropReportCreate(BaseSchema):
