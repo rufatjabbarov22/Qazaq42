@@ -12,7 +12,7 @@ from app.services.abstract.base import BaseService
 
 class UserService(BaseService[UserRepository]):
     def __init__(self):
-        super().__init__(UserRepository)  # type: ignore
+        super().__init__(UserRepository())  # type: ignore
 
     async def create_user(self, user_data: UserCreate) -> UserRead:
         try:

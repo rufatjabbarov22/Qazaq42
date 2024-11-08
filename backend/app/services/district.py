@@ -10,7 +10,7 @@ from app.services.abstract.base import BaseService
 
 class DistrictService(BaseService[DistrictRepository]):
     def __init__(self):
-        super().__init__(DistrictRepository)  # type: ignore
+        super().__init__(DistrictRepository())  # type: ignore
 
     async def create_district(self, district_data: DistrictCreate) -> DistrictRead:
         created_district = await self.repository.create(**district_data.model_dump())

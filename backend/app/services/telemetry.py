@@ -10,7 +10,7 @@ from app.services.abstract.base import BaseService
 
 class TelemetryService(BaseService[TelemetryRepository]):
     def __init__(self):
-        super().__init__(TelemetryRepository)  # type: ignore
+        super().__init__(TelemetryRepository())  # type: ignore
 
     async def create_telemetry(self, telemetry_data: TelemetryCreate) -> TelemetryRead:
         created_telemetry = await self.repository.create(**telemetry_data.model_dump())

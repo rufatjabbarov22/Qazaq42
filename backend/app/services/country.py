@@ -10,7 +10,7 @@ from app.services.abstract.base import BaseService
 
 class CountryService(BaseService[CountryRepository]):
     def __init__(self):
-        super().__init__(CountryRepository)  # type: ignore
+        super().__init__(CountryRepository())  # type: ignore
 
     async def create_country(self, country_data: CountryCreate) -> CountryRead:
         created_country = await self.repository.create(**country_data.model_dump())

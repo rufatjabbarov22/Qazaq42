@@ -11,7 +11,7 @@ from app.services.abstract.base import BaseService
 
 class DeviceService(BaseService[DeviceRepository]):
     def __init__(self):
-        super().__init__(DeviceRepository)  # type: ignore
+        super().__init__(DeviceRepository())  # type: ignore
 
     async def create_device(self, device_data: DeviceCreate) -> DeviceRead:
         try:

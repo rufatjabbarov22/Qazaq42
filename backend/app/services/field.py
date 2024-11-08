@@ -10,7 +10,7 @@ from app.services.abstract.base import BaseService
 
 class FieldModelService(BaseService[FieldRepository]):
     def __init__(self):
-        super().__init__(FieldRepository)  # type: ignore
+        super().__init__(FieldRepository())  # type: ignore
 
     async def create_field(self, field_data: FieldCreate) -> FieldRead:
         created_field = await self.repository.create(**field_data.model_dump())
