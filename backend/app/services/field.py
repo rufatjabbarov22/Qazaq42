@@ -4,13 +4,13 @@ from uuid import UUID
 from fastapi import Depends, HTTPException, status
 
 from app.api.v1.schemas.field import FieldCreate, FieldRead, FieldUpdate
-from app.core.database import Database
+from app.core.database import Database, get_database
 from app.repositories.field import FieldRepository
 from app.services.abstract.base import BaseService
 
 
 class FieldModelService(BaseService[FieldRepository]):
-    def __init__(self, database: Database = Depends()):
+    def __init__(self, database: Database = Depends(get_database)):
         super().__init__(FieldRepository(database))
 
     async def create_field(self, field_data: FieldCreate) -> FieldRead:

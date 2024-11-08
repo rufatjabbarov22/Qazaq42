@@ -4,13 +4,13 @@ from uuid import UUID
 from fastapi import Depends, HTTPException, status
 
 from app.api.v1.schemas.telemetry import TelemetryCreate, TelemetryRead, TelemetryUpdate
-from app.core.database import Database
+from app.core.database import Database, get_database
 from app.repositories.telemetry import TelemetryRepository
 from app.services.abstract.base import BaseService
 
 
 class TelemetryService(BaseService[TelemetryRepository]):
-    def __init__(self, database: Database = Depends()):
+    def __init__(self, database: Database = Depends(get_database)):
         super().__init__(TelemetryRepository(database))
 
     async def create_telemetry(self, telemetry_data: TelemetryCreate) -> TelemetryRead:

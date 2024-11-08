@@ -5,13 +5,13 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import Depends, HTTPException, status
 
 from app.api.v1.schemas.device import DeviceCreate, DeviceRead, DeviceUpdate
-from app.core.database import Database
+from app.core.database import Database, get_database
 from app.repositories.device import DeviceRepository
 from app.services.abstract.base import BaseService
 
 
 class DeviceService(BaseService[DeviceRepository]):
-    def __init__(self, database: Database = Depends()):
+    def __init__(self, database: Database = Depends(get_database)):
         super().__init__(DeviceRepository(database))
 
     async def create_device(self, device_data: DeviceCreate) -> DeviceRead:

@@ -4,14 +4,14 @@ from uuid import UUID
 from fastapi import Depends, HTTPException, status
 
 from app.api.v1.schemas.crop_report import CropReportCreate, CropReportRead
-from app.core.database import Database
+from app.core.database import Database, get_database
 from app.repositories.crop_report import CropReportRepository
 from app.repositories.field import FieldRepository
 from app.services.abstract.base import BaseService
 
 
 class CropReportService(BaseService[CropReportRepository]):
-    def __init__(self, field_repository: FieldRepository, database: Database = Depends()):
+    def __init__(self, field_repository: FieldRepository, database: Database = Depends(get_database)):
         super().__init__(CropReportRepository(database))
         self.field_repository = field_repository
 

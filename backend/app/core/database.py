@@ -47,3 +47,8 @@ class Database:
             )
         finally:
             await session.close()
+
+
+def get_database() -> Database:
+    settings = Settings()
+    return Database(settings=settings)

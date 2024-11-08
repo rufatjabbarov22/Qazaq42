@@ -3,13 +3,13 @@ from typing import Dict, List
 from fastapi import Depends, HTTPException, status
 
 from app.api.v1.schemas.country import CountryCreate, CountryRead, CountryUpdate
-from app.core.database import Database
+from app.core.database import Database, get_database
 from app.repositories.country import CountryRepository
 from app.services.abstract.base import BaseService
 
 
 class CountryService(BaseService[CountryRepository]):
-    def __init__(self, database: Database = Depends()):
+    def __init__(self, database: Database = Depends(get_database)):
         super().__init__(CountryRepository(database))
 
     async def create_country(self, country_data: CountryCreate) -> CountryRead:
