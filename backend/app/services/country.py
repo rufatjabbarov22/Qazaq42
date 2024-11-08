@@ -25,9 +25,9 @@ class CountryService(BaseService[CountryRepository]):
             )
         return CountryRead.model_validate(country)
 
-    async def get_all_countries(self) -> Dict[str, List[CountryRead]]:
+    async def get_all_countries(self) -> List[CountryRead]:
         countries = await self.repository.get_all()
-        return {"countries": [CountryRead.model_validate(country) for country in countries]}
+        return [CountryRead.model_validate(country) for country in countries]
 
     async def update_country(self, country_data: CountryUpdate, country_id: str) -> CountryRead:
         updated_country = await self.repository.update(country_id, **country_data.model_dump())

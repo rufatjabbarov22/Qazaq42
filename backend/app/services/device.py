@@ -42,9 +42,9 @@ class DeviceService(BaseService[DeviceRepository]):
             )
         return DeviceRead.model_validate(device)
 
-    async def get_all_devices(self) -> Dict[str, List[DeviceRead]]:
+    async def get_all_devices(self) -> List[DeviceRead]:
         devices = await self.repository.get_all()
-        return {"devices": [DeviceRead.model_validate(device) for device in devices]}
+        return [DeviceRead.model_validate(device) for device in devices]
 
     async def update_device(self, device_data: DeviceUpdate, device_id: UUID) -> DeviceRead:
         updated_device = await self.repository.update(device_id, **device_data.model_dump())

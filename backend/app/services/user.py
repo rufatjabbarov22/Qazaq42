@@ -55,9 +55,9 @@ class UserService(BaseService[UserRepository]):
             )
         return UserRead.model_validate(user)
 
-    async def get_all_users(self) -> Dict[str, List[UserRead]]:
+    async def get_all_users(self) -> List[UserRead]:
         users = await self.repository.get_all()
-        return {"users": [UserRead.model_validate(user) for user in users]}
+        return [UserRead.model_validate(user) for user in users]
 
     async def update_user(self, user_data: UserUpdate, user_id: UUID) -> UserRead:
         updated_user = await self.repository.update(user_id, **user_data.model_dump())

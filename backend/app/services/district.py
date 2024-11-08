@@ -39,9 +39,9 @@ class DistrictService(BaseService[DistrictRepository]):
         districts = await self.repository.get_district_by_country_id(country_id)
         return [DistrictRead.model_validate(district) for district in districts]
 
-    async def get_all_districts(self) -> Dict[str, List[DistrictRead]]:
+    async def get_all_districts(self) -> List[DistrictRead]:
         districts = await self.repository.get_all()
-        return {"districts": [DistrictRead.model_validate(district) for district in districts]}
+        return [DistrictRead.model_validate(district) for district in districts]
 
     async def update_district(self, district_data: DistrictUpdate, district_id: UUID) -> DistrictRead:
         updated_district = await self.repository.update(district_id, **district_data.model_dump())

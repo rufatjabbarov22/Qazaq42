@@ -44,9 +44,9 @@ class TelemetryService(BaseService[TelemetryRepository]):
             )
         return [TelemetryRead.model_validate(telemetry) for telemetry in telemetry]
 
-    async def get_all_telemetry(self) -> Dict[str, List[TelemetryRead]]:
+    async def get_all_telemetry(self) -> List[TelemetryRead]:
         telemetry = await self.repository.get_all()
-        return {"telemetry": [TelemetryRead.model_validate(telemetry) for telemetry in telemetry]}
+        return [TelemetryRead.model_validate(telemetry) for telemetry in telemetry]
 
     async def update_telemetry(self, telemetry_data: TelemetryUpdate, telemetry_id: UUID) -> TelemetryRead:
         updated_telemetry = await self.repository.update(telemetry_id, **telemetry_data.model_dump())

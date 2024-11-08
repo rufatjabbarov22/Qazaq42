@@ -52,9 +52,9 @@ class FieldModelService(BaseService[FieldRepository]):
         fields = await self.repository.get_field_by_user_id(user_id)
         return [FieldRead.model_validate(field) for field in fields]
 
-    async def get_all_fields(self) -> Dict[str, List[FieldRead]]:
+    async def get_all_fields(self) -> List[FieldRead]:
         fields = await self.repository.get_all()
-        return {"fields": [FieldRead.model_validate(field) for field in fields]}
+        return [FieldRead.model_validate(field) for field in fields]
 
     async def update_field(self, field_data: FieldUpdate, field_id: UUID) -> FieldRead:
         updated_field = await self.repository.update(field_id, **field_data.model_dump())
