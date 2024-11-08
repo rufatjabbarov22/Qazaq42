@@ -11,16 +11,16 @@ from app.services.abstract.base import BaseService
 
 
 class CropReportService(BaseService[CropReportRepository]):
-    def __init__(self):
+    def __init__(self, field_repository: FieldRepository = container.resolve(FieldRepository)):
         super().__init__(CropReportRepository())  # type: ignore
+        self.field_repository = field_repository
 
     async def create_crop_reports(
             self,
             device_id: UUID,
             top_3_crops: List[CropReportCreate],
-            field_repository: FieldRepository,
     ) -> Dict:
-        field = await field_repository.get_field_by_device_id(device_id)
+        field = await self.field_repository.get_field_by_device_id(device_id)
 
         if not field:
             raise HTTPException(
