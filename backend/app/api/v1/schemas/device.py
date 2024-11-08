@@ -18,7 +18,8 @@ class DeviceCreate(BaseSchema):
     field_id: Optional[UUID] = None
 
     @field_validator('serial_id', mode='before')
-    def validate_serial_id(self, value: str, values: dict) -> str:
+    @classmethod
+    def validate_serial_id(cls, value: str, values: dict) -> str:
         return validate_serial_id(value, values)
 
 

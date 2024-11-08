@@ -19,7 +19,8 @@ class UserCreate(BaseSchema):
     profile_img_path: Optional[str] = None
 
     @field_validator("password", mode="before")
-    def validate_password(self, value: str) -> str:
+    @classmethod
+    def validate_password(cls, value: str) -> str:
         return validate_password(value)
 
 
@@ -33,13 +34,14 @@ class UserUpdate(BaseSchema):
     is_admin: Optional[bool] = None
 
     @field_validator("password", mode="before")
-    def validate_password(self, value: Optional[str]) -> Optional[str]:
+    @classmethod
+    def validate_password(cls, value: Optional[str]) -> Optional[str]:
         if value:
             return validate_password(value)
         return value
 
 
-class UserRead(BaseModel):
+class UserRead(BaseSchema):
     id: UUID
     fname: str
     lname: str
