@@ -16,7 +16,7 @@ class DeviceService(BaseService[DeviceRepository]):
 
     async def create_device(self, device_data: DeviceCreate) -> DeviceRead:
         try:
-            created_device = await self.repository.create(**device_data.model_dump())
+            created_device = await self.repository.create(device_data)
             return DeviceRead.model_validate(created_device)
 
         except IntegrityError as e:
@@ -47,7 +47,7 @@ class DeviceService(BaseService[DeviceRepository]):
         return [DeviceRead.model_validate(device) for device in devices]
 
     async def update_device(self, device_data: DeviceUpdate, device_id: UUID) -> DeviceRead:
-        updated_device = await self.repository.update(device_id, **device_data.model_dump())
+        updated_device = await self.repository.update(device_id, device_data)
         if not updated_device:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,

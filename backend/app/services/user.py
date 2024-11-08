@@ -17,7 +17,7 @@ class UserService(BaseService[UserRepository]):
 
     async def create_user(self, user_data: UserCreate) -> UserRead:
         try:
-            created_user = await self.repository.create(**user_data.model_dump())
+            created_user = await self.repository.create(user_data)
             return UserRead.model_validate(created_user)
 
         except IntegrityError as e:
@@ -60,7 +60,7 @@ class UserService(BaseService[UserRepository]):
         return [UserRead.model_validate(user) for user in users]
 
     async def update_user(self, user_data: UserUpdate, user_id: UUID) -> UserRead:
-        updated_user = await self.repository.update(user_id, **user_data.model_dump())
+        updated_user = await self.repository.update(user_id, user_data)
         if not updated_user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,

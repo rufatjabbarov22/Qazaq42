@@ -13,7 +13,7 @@ class CountryService(BaseService[CountryRepository]):
         super().__init__(CountryRepository(database))
 
     async def create_country(self, country_data: CountryCreate) -> CountryRead:
-        created_country = await self.repository.create(**country_data.model_dump())
+        created_country = await self.repository.create(country_data)
         return CountryRead.model_validate(created_country)
 
     async def get_country_by_id(self, country_id: str) -> CountryRead:
@@ -30,7 +30,7 @@ class CountryService(BaseService[CountryRepository]):
         return [CountryRead.model_validate(country) for country in countries]
 
     async def update_country(self, country_data: CountryUpdate, country_id: str) -> CountryRead:
-        updated_country = await self.repository.update(country_id, **country_data.model_dump())
+        updated_country = await self.repository.update(country_id, country_data)
         if not updated_country:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,

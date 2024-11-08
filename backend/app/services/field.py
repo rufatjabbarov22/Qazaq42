@@ -14,7 +14,7 @@ class FieldModelService(BaseService[FieldRepository]):
         super().__init__(FieldRepository(database))
 
     async def create_field(self, field_data: FieldCreate) -> FieldRead:
-        created_field = await self.repository.create(**field_data.model_dump())
+        created_field = await self.repository.create(field_data)
         return FieldRead.model_validate(created_field)
 
     async def get_field_by_id(self, field_id: UUID) -> FieldRead:
@@ -57,7 +57,7 @@ class FieldModelService(BaseService[FieldRepository]):
         return [FieldRead.model_validate(field) for field in fields]
 
     async def update_field(self, field_data: FieldUpdate, field_id: UUID) -> FieldRead:
-        updated_field = await self.repository.update(field_id, **field_data.model_dump())
+        updated_field = await self.repository.update(field_id, field_data)
         if not updated_field:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
