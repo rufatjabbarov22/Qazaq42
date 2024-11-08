@@ -17,4 +17,4 @@ class User(Base, table=True):
     is_verified: bool = Field(default=False)
     is_admin: bool = Field(default=False)
 
-    devices: "Device" = Relationship(back_populates="user")  # type: ignore
+    devices: Optional["Device"] = Relationship(back_populates="user")  # type: ignore
