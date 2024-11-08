@@ -1,16 +1,17 @@
 from typing import Dict, List
 from uuid import UUID
 
-from fastapi import HTTPException, status
+from fastapi import Depends, HTTPException, status
 
 from app.api.v1.schemas.field import FieldCreate, FieldRead, FieldUpdate
+from app.core.database import Database
 from app.repositories.field import FieldRepository
 from app.services.abstract.base import BaseService
 
 
 class FieldModelService(BaseService[FieldRepository]):
-    def __init__(self):
-        super().__init__(FieldRepository())  # type: ignore
+    def __init__(self, database: Database = Depends()):
+        super().__init__(FieldRepository(database))
 
     async def create_field(self, field_data: FieldCreate) -> FieldRead:
         created_field = await self.repository.create(**field_data.model_dump())

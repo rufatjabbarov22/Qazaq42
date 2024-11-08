@@ -1,16 +1,16 @@
 from typing import Dict, List
-from uuid import UUID
 
-from fastapi import HTTPException, status
+from fastapi import Depends, HTTPException, status
 
 from app.api.v1.schemas.country import CountryCreate, CountryRead, CountryUpdate
+from app.core.database import Database
 from app.repositories.country import CountryRepository
 from app.services.abstract.base import BaseService
 
 
 class CountryService(BaseService[CountryRepository]):
-    def __init__(self):
-        super().__init__(CountryRepository())  # type: ignore
+    def __init__(self, database: Database = Depends()):
+        super().__init__(CountryRepository(database))
 
     async def create_country(self, country_data: CountryCreate) -> CountryRead:
         created_country = await self.repository.create(**country_data.model_dump())

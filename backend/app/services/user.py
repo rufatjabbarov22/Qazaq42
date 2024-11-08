@@ -2,17 +2,18 @@ from pydantic import EmailStr
 from typing import Dict, List
 from uuid import UUID
 
-from fastapi import HTTPException, status
+from fastapi import Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
 
 from app.api.v1.schemas.user import UserCreate, UserRead, UserUpdate
+from app.core.database import Database
 from app.repositories.user import UserRepository
 from app.services.abstract.base import BaseService
 
 
 class UserService(BaseService[UserRepository]):
-    def __init__(self):
-        super().__init__(UserRepository())  # type: ignore
+    def __init__(self, database: Database = Depends()):
+        super().__init__(UserRepository(database))
 
     async def create_user(self, user_data: UserCreate) -> UserRead:
         try:

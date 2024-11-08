@@ -2,16 +2,17 @@ from typing import Dict, List
 from uuid import UUID
 
 from sqlalchemy.exc import IntegrityError
-from fastapi import HTTPException, status
+from fastapi import Depends, HTTPException, status
 
 from app.api.v1.schemas.device import DeviceCreate, DeviceRead, DeviceUpdate
+from app.core.database import Database
 from app.repositories.device import DeviceRepository
 from app.services.abstract.base import BaseService
 
 
 class DeviceService(BaseService[DeviceRepository]):
-    def __init__(self):
-        super().__init__(DeviceRepository())  # type: ignore
+    def __init__(self, database: Database = Depends()):
+        super().__init__(DeviceRepository(database))
 
     async def create_device(self, device_data: DeviceCreate) -> DeviceRead:
         try:

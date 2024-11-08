@@ -1,16 +1,17 @@
 from typing import Dict, List
 from uuid import UUID
 
-from fastapi import HTTPException, status
+from fastapi import Depends, HTTPException, status
 
 from app.api.v1.schemas.district import DistrictCreate, DistrictRead, DistrictUpdate
+from app.core.database import Database
 from app.repositories.district import DistrictRepository
 from app.services.abstract.base import BaseService
 
 
 class DistrictService(BaseService[DistrictRepository]):
-    def __init__(self):
-        super().__init__(DistrictRepository())  # type: ignore
+    def __init__(self, database: Database = Depends()):
+        super().__init__(DistrictRepository(database))
 
     async def create_district(self, district_data: DistrictCreate) -> DistrictRead:
         created_district = await self.repository.create(**district_data.model_dump())
