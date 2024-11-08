@@ -30,7 +30,7 @@ class CountryRepository(BaseRepository[Country, CountryCreate, CountryUpdate]):
             return country
 
     @override
-    async def update(self, id: str, schema: Country) -> Optional[Country]:
+    async def update(self, id: str, schema: CountryUpdate) -> Optional[Country]:
         async with self.produce_session() as session:
 
             stmt = select(self.model).where(self.model.id == id)  # type: ignore
