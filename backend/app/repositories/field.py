@@ -5,6 +5,7 @@ from sqlalchemy.future import select
 from wireup import service
 
 from app.api.v1.schemas.field import FieldCreate, FieldUpdate
+from app.core.database import Database
 from app.models.crop_report import CropReport
 from app.models.device import Device
 from app.models.field import FieldModel
@@ -14,7 +15,7 @@ from app.repositories.abstract.base import BaseRepository
 
 @service
 class FieldRepository(BaseRepository[FieldModel, FieldCreate, FieldUpdate]):
-    def __init__(self, database):
+    def __init__(self, database: Database):
         super().__init__(database, FieldModel)  # type: ignore
 
     async def get_field_by_device_id(self, device_id: UUID) -> Optional[FieldModel]:
