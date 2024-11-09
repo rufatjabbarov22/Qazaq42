@@ -45,7 +45,6 @@ class UserRead(BaseSchema):
     email: EmailStr
     profile_img_path: Optional[str]
     is_verified: Optional[bool]
-    is_admin: Optional[bool]
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 
