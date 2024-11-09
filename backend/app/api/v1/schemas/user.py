@@ -1,14 +1,13 @@
 import re
 
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional
 from uuid import UUID
 
 from fastapi import HTTPException, status
 from pydantic import EmailStr, field_validator, Field
 
 from app.api.v1.schemas.abstract.base import BaseSchema
-from app.api.v1.schemas.device import DeviceRead
 
 
 class UserCreate(BaseSchema):
@@ -30,8 +29,6 @@ class UserUpdate(BaseSchema):
     email: Optional[EmailStr] = None
     password: Optional[str] = Field(None, min_length=8, max_length=128)
     profile_img_path: Optional[str] = None
-    is_verified: Optional[bool] = None
-    is_admin: Optional[bool] = None
 
     @field_validator("password", mode="before")
     @classmethod
@@ -47,11 +44,14 @@ class UserRead(BaseSchema):
     lname: str
     email: EmailStr
     profile_img_path: Optional[str]
-    devices: Optional[List[DeviceRead]] = None
     is_verified: Optional[bool]
     is_admin: Optional[bool]
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
+
+
+class AdminUserUpdate(BaseSchema):
+    is_admin: Optional[bool] = None
 
 
 def validate_password(value: str) -> str:
