@@ -72,7 +72,7 @@ class DeviceService(BaseService[DeviceRepository]):
 
         device.user_id = user_id
         device.is_assigned = True
-        device_update = DeviceAssign(
+        device_update = DeviceUpdate(
             user_id=user_id,
             is_assigned=True
         )

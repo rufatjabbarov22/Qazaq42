@@ -6,7 +6,7 @@ from app.models.abstract.base import Base
 
 
 class Telemetry(Base, table=True):
-    __tablename__ = "telemetry"
+    __tablename__ = "telemetries"
 
     device_id: UUID = Field(foreign_key="devices.id", nullable=False)
     n: float = Field(nullable=False)

@@ -1,10 +1,9 @@
-from typing import List
+from typing import Dict, List
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, status
 
 from app.api.v1.schemas.device import DeviceCreate, DeviceRead, DeviceUpdate
-from app.repositories.user import UserRepository
 from app.services.device import DeviceService
 
 router = APIRouter()
@@ -41,6 +40,6 @@ async def update_device(device_id: UUID, device_data: DeviceUpdate, device_servi
     return await device_service.update_device(device_data, device_id)
 
 
-@router.delete("/{device_id}", response_model=dict, status_code=status.HTTP_200_OK)
+@router.delete("/{device_id}", response_model=Dict, status_code=status.HTTP_200_OK)
 async def delete_device(device_id: UUID, device_service: DeviceService = Depends()):
     return await device_service.delete_device(device_id)
