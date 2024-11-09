@@ -3,7 +3,6 @@ from typing import Dict, List
 from uuid import UUID
 
 from fastapi import Depends, HTTPException, status
-from sqlalchemy.exc import IntegrityError
 
 from app.api.v1.schemas.user import UserCreate, UserRead, UserUpdate
 from app.core.database import Database, get_database
@@ -20,13 +19,16 @@ class UserService(BaseService[UserRepository]):
             created_user = await self.repository.create(user_data)
             return UserRead.model_validate(created_user)
 
-        except IntegrityError as e:
-            if "unique constraint" in str(e.orig):
+        except Exception as e:
+            if "unique constraint" in str(e):
                 raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail="A user with this email already exists."
+                    status_code=status.HTTP_409_CONFLICT,
+                    detail=f"User with email {user_data.email} already exists",
                 )
-            raise
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="User creation failed due to an unexpected error.",
+            )
 
     async def get_user_by_id(self, user_id: UUID) -> UserRead:
         user = await self.repository.get(user_id)
