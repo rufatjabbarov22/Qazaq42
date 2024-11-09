@@ -15,11 +15,6 @@ async def get_users(user_service: UserService = Depends()):
     return await user_service.get_all_users()
 
 
-@router.post("/", response_model=UserRead, status_code=status.HTTP_201_CREATED)
-async def create_user(user_data: UserCreate, user_service: UserService = Depends()):
-    return await user_service.create_user(user_data)
-
-
 @router.get("/{user_id}", response_model=UserRead, status_code=status.HTTP_200_OK)
 async def get_user(user_id: UUID, user_service: UserService = Depends()):
     return await user_service.get_user_by_id(user_id)
