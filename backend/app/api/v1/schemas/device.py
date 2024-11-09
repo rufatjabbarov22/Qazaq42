@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 from typing import Optional
 
-from pydantic import Field, field_validator
+from pydantic import Field
 from uuid import UUID
 
 from app.api.v1.schemas.abstract.base import BaseSchema
@@ -12,18 +12,16 @@ from app.core.config import PREFIX_TYPE_MAP
 
 
 class DeviceCreate(BaseSchema):
-    serial_id: str = Field(..., max_length=8)
+    prefix: str = Field(..., max_length=8)
+    serial_id: Optional[str] = Field(None, max_length=20)
+    pin: Optional[str] = Field(None, max_length=20)
+    type: Optional[DeviceTypeEnum] = Field(None)
     name: Optional[str] = Field(None, max_length=255)
     description: Optional[str] = Field(None, max_length=255)
-    field_id: Optional[UUID] = None
-
-    @field_validator('serial_id', mode='before')
-    @classmethod
-    def validate_serial_id(cls, value: str, values: dict) -> str:
-        return validate_serial_id(value, values)
 
 
 class DeviceUpdate(BaseSchema):
+    user_id: Optional[UUID] = Field(None)
     name: Optional[str] = Field(None, max_length=255)
     description: Optional[str] = Field(None, max_length=255)
     field_id: Optional[UUID] = None
@@ -35,8 +33,9 @@ class DeviceRead(BaseSchema):
     name: Optional[str]
     description: Optional[str]
     type: DeviceTypeEnum
-    user_id: UUID
-    field_id: Optional[UUID]
+    user_id: Optional[UUID] = None
+    field_id: Optional[UUID] = None
+    is_assigned: bool
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 

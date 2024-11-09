@@ -2,6 +2,7 @@ from typing import Optional
 from uuid import UUID
 
 from sqlalchemy.future import select
+from wireup import service
 
 from app.models.user import User
 from app.api.v1.schemas.user import UserCreate, UserUpdate
@@ -9,6 +10,7 @@ from app.core.database import Database
 from app.repositories.abstract.base import BaseRepository
 
 
+@service
 class UserRepository(BaseRepository[User, UserCreate, UserUpdate]):
     def __init__(self, database: Database):
         super().__init__(database, User)  # type: ignore
