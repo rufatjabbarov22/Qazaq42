@@ -2,6 +2,7 @@ from typing import Optional, List
 from uuid import UUID
 
 from sqlalchemy.future import select
+from wireup import service
 
 from app.api.v1.schemas.field import FieldCreate, FieldUpdate
 from app.models.crop_report import CropReport
@@ -11,6 +12,7 @@ from app.models.user import User
 from app.repositories.abstract.base import BaseRepository
 
 
+@service
 class FieldRepository(BaseRepository[FieldModel, FieldCreate, FieldUpdate]):
     def __init__(self, database):
         super().__init__(database, FieldModel)  # type: ignore
