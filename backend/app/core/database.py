@@ -1,10 +1,10 @@
 import asyncio
-import logging
 
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
 from fastapi import HTTPException, status
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     create_async_engine,
@@ -38,12 +38,19 @@ class Database:
         session: AsyncSession = self._session_factory()
         try:
             yield session
+
+        except IntegrityError as e:
+            await session.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=str(e),
+            )
+
         except Exception as e:
             await session.rollback()
-            logging.error(f"Session rollback due to exception: {e}")
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail="Database error",
+                detail=str(e),
             )
         finally:
             await session.close()
