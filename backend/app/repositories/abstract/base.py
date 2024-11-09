@@ -47,7 +47,8 @@ class BaseRepository(IRepository[M, C, U]):
             if not obj:
                 return None
 
-            obj.model_update(schema)
+            for field, value in schema.model_dump(exclude_unset=True).items():
+                setattr(obj, field, value)
 
             await session.commit()
             await session.refresh(obj)
