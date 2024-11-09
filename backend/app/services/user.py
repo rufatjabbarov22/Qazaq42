@@ -64,6 +64,8 @@ class UserService(BaseService[UserRepository]):
         return [UserRead.model_validate(user) for user in users]
 
     async def update_user(self, user_data: UserUpdate, user_id: UUID) -> UserRead:
+        if user_data.password:
+            user_data.password = get_password_hash(user_data.password)
         updated_user = await self.repository.update(user_id, user_data)
         if not updated_user:
             raise HTTPException(
