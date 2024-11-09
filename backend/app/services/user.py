@@ -6,6 +6,7 @@ from fastapi import Depends, HTTPException, status
 
 from app.api.v1.schemas.user import UserCreate, UserRead, UserUpdate
 from app.core.database import Database, get_database
+from app.core.security import get_password_hash
 from app.repositories.user import UserRepository
 from app.services.abstract.base import BaseService
 
@@ -16,6 +17,7 @@ class UserService(BaseService[UserRepository]):
 
     async def create_user(self, user_data: UserCreate) -> UserRead:
         try:
+            user_data.password = get_password_hash(user_data.password)
             created_user = await self.repository.create(user_data)
             return UserRead.model_validate(created_user)
 
