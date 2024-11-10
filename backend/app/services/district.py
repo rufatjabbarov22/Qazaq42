@@ -22,11 +22,16 @@ class DistrictService(BaseService[DistrictRepository]):
             if "unique constraint" in str(e):
                 raise HTTPException(
                     status_code=status.HTTP_409_CONFLICT,
-                    detail=f"District with name {district_data.id} already exists in country {district_data.country_id}",
+                    detail=f"District with name {district_data.name} already exists in country {district_data.country_id}",
+                )
+            elif "ForeignKeyViolationError" in str(e):
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"Country with ID {district_data.country_id} not found",
                 )
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail="District creation failed due to an unexpected error.",
+                detail=f"District creation failed due to an unexpected error.{e}",
             )
 
     async def get_district_by_id(self, district_id: UUID) -> DistrictRead:
