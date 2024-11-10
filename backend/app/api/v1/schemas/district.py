@@ -1,14 +1,14 @@
 from datetime import datetime
+from typing import Dict, Optional
 from uuid import UUID
-
-from typing import Optional
 
 from app.api.v1.schemas.abstract.base import BaseSchema
 
 
 class DistrictCreate(BaseSchema):
     name: str
-    info: Optional[dict] = None
+    country_id: str
+    info: Optional[Dict] = None
 
 
 class DistrictUpdate(BaseSchema):
@@ -20,6 +20,6 @@ class DistrictRead(BaseSchema):
     id: UUID
     country_id: str
     name: str
-    info: dict
+    info: Optional[Dict]
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
