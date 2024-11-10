@@ -13,7 +13,20 @@ class CountryService(BaseService[CountryRepository]):
         super().__init__(CountryRepository(database))
 
     async def create_country(self, country_data: CountryCreate) -> CountryRead:
-        created_country = await self.repository.create(country_data)
+        try:
+            created_country = await self.repository.create(country_data)
+
+        except Exception as e:
+            if "unique constraint" in str(e):
+                raise HTTPException(
+                    status_code=status.HTTP_409_CONFLICT,
+                    detail=f"Country with id {country_data.id} already exists",
+                )
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Country creation failed due to an unexpected error.",
+            )
+
         return CountryRead.model_validate(created_country)
 
     async def get_country_by_id(self, country_id: str) -> CountryRead:
