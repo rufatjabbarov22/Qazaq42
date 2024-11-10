@@ -1,9 +1,9 @@
+from datetime import datetime
 from uuid import UUID
 
-from typing import Optional, List
+from typing import Optional
 
 from app.api.v1.schemas.abstract.base import BaseSchema
-from app.api.v1.schemas.field import FieldRead
 
 
 class DistrictCreate(BaseSchema):
@@ -21,6 +21,5 @@ class DistrictRead(BaseSchema):
     country_id: str
     name: str
     info: dict
-    fields: Optional[List[FieldRead]] = None
-    created_at: Optional[str] = None
-    updated_at: Optional[str] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None

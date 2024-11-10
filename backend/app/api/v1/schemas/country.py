@@ -1,7 +1,8 @@
-from typing import Optional, List
+from datetime import datetime
+
+from typing import Optional
 
 from app.api.v1.schemas.abstract.base import BaseSchema
-from app.api.v1.schemas.district import DistrictRead
 
 
 class CountryCreate(BaseSchema):
@@ -16,6 +17,5 @@ class CountryUpdate(BaseSchema):
 class CountryRead(BaseSchema):
     id: str
     name: str
-    districts: Optional[List[DistrictRead]] = None
-    created_at: Optional[str] = None
-    updated_at: Optional[str] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
