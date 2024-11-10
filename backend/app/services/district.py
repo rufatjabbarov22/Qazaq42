@@ -31,7 +31,7 @@ class DistrictService(BaseService[DistrictRepository]):
                 )
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail=f"District creation failed due to an unexpected error.{e}",
+                detail="District creation failed due to an unexpected error.",
             )
 
     async def get_district_by_id(self, district_id: UUID) -> DistrictRead:
