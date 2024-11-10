@@ -18,7 +18,6 @@ class FieldCreate(BaseSchema):
 class FieldUpdate(BaseSchema):
     name: Optional[str] = None
     size: Optional[float] = None
-    district_id: Optional[UUID] = None
 
 
 class FieldRead(BaseSchema):
@@ -26,9 +25,6 @@ class FieldRead(BaseSchema):
     name: str
     size: float
     district_id: UUID
-    district: Optional[DistrictRead] = None
-    devices: Optional[List[DeviceRead]] = None
-    crop_reports: Optional[List[CropReportRead]] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
