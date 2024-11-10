@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional, List
 from uuid import UUID
 
@@ -21,16 +22,8 @@ class CropReportRead(BaseSchema):
     field_id: UUID
     crop_name: str
     probability: float
-    created_at: Optional[str] = None
-    updated_at: Optional[str] = None
-
-
-class CropReportAIResponse(BaseSchema):
-    device_id: UUID
-    top_3_crops: List[dict] = Field(
-        ...,
-        description="A list of dictionaries where each entry has a crop name and a probability."
-    )
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
 
 
 class CropProbability(BaseSchema):
