@@ -14,8 +14,20 @@ class FieldModelService(BaseService[FieldRepository]):
         super().__init__(FieldRepository(database))
 
     async def create_field(self, field_data: FieldCreate) -> FieldRead:
-        created_field = await self.repository.create(field_data)
-        return FieldRead.model_validate(created_field)
+        try:
+            created_field = await self.repository.create(field_data)
+            return FieldRead.model_validate(created_field)
+
+        except Exception as e:
+            if "unique constraint" in str(e):
+                raise HTTPException(
+                    status_code=status.HTTP_409_CONFLICT,
+                    detail=f"Field with name {field_data.name} already exists in district {field_data.district_id}",
+                )
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Field creation failed due to an unexpected error.",
+            )
 
     async def get_field_by_id(self, field_id: UUID) -> FieldRead:
         field = await self.repository.get(field_id)

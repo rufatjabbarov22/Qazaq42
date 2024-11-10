@@ -15,6 +15,7 @@ class CountryService(BaseService[CountryRepository]):
     async def create_country(self, country_data: CountryCreate) -> CountryRead:
         try:
             created_country = await self.repository.create(country_data)
+            return CountryRead.model_validate(created_country)
 
         except Exception as e:
             if "unique constraint" in str(e):
@@ -26,8 +27,6 @@ class CountryService(BaseService[CountryRepository]):
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                 detail="Country creation failed due to an unexpected error.",
             )
-
-        return CountryRead.model_validate(created_country)
 
     async def get_country_by_id(self, country_id: str) -> CountryRead:
         country = await self.repository.get(country_id)

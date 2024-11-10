@@ -14,8 +14,20 @@ class DistrictService(BaseService[DistrictRepository]):
         super().__init__(DistrictRepository(database))
 
     async def create_district(self, district_data: DistrictCreate) -> DistrictRead:
-        created_district = await self.repository.create(district_data)
-        return DistrictRead.model_validate(created_district)
+        try:
+            created_district = await self.repository.create(district_data)
+            return DistrictRead.model_validate(created_district)
+
+        except Exception as e:
+            if "unique constraint" in str(e):
+                raise HTTPException(
+                    status_code=status.HTTP_409_CONFLICT,
+                    detail=f"District with name {district_data.id} already exists in country {district_data.country_id}",
+                )
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="District creation failed due to an unexpected error.",
+            )
 
     async def get_district_by_id(self, district_id: UUID) -> DistrictRead:
         district = await self.repository.get(district_id)
