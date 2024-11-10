@@ -2,6 +2,7 @@ from typing import Dict, List
 from uuid import UUID
 
 from fastapi import Depends, HTTPException, status
+from wireup import service
 
 from app.api.v1.schemas.telemetry import TelemetryCreate, TelemetryRead, TelemetryUpdate
 from app.core.database import Database, get_database
@@ -9,6 +10,7 @@ from app.repositories.telemetry import TelemetryRepository
 from app.services.abstract.base import BaseService
 
 
+@service
 class TelemetryService(BaseService[TelemetryRepository]):
     def __init__(self, database: Database = Depends(get_database)):
         super().__init__(TelemetryRepository(database))

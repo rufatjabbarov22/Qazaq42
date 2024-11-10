@@ -1,3 +1,4 @@
+from app.services.ai_integration import AIIntegrationService
 from app.services.country import CountryService
 from app.services.crop_report import CropReportService
 from app.services.device import DeviceService

@@ -2,26 +2,23 @@ from typing import List, Dict
 from uuid import UUID
 
 from fastapi import Depends, HTTPException, status
-from wireup import container
+from wireup import container, service
 
 from app.api.v1.schemas.crop_report import CropReportCreate, CropReportRead
-from app.core.database import Database, get_database
+from app.core.database import Database
 from app.repositories.crop_report import CropReportRepository
 from app.repositories.field import FieldRepository
 from app.services.abstract.base import BaseService
 
 
+@service
 class CropReportService(BaseService[CropReportRepository]):
     def __init__(self, field_repository: FieldRepository = Depends(lambda: container.get(FieldRepository)),
                  database: Database = Depends()):
         super().__init__(CropReportRepository(database))
         self.field_repository = field_repository
 
-    async def create_crop_reports(
-            self,
-            device_id: UUID,
-            top_3_crops: List[CropReportCreate],
-    ) -> Dict:
+    async def create_crop_reports(self, device_id: UUID, results: List[List]) -> Dict:
         field = await self.field_repository.get_field_by_device_id(device_id)
 
         if not field:
@@ -30,9 +27,29 @@ class CropReportService(BaseService[CropReportRepository]):
                 detail=f"No field associated with device ID {device_id}"
             )
 
+        top_3_crops = [
+            CropReportCreate(
+                field_id=field.id,
+                crop_name=crop_data[0],
+                probability=crop_data[1]
+            ) for crop_data in results
+        ]
+
         created_reports = await self.repository.create_batch(field.id, top_3_crops)
 
-        return {"message": "Crop reports created successfully", "reports": created_reports}
+        return {
+            "status": "success",
+            "message": "Crop reports created successfully",
+            "data": {
+                "device_id": str(device_id),
+                "field_id": str(field.id),
+                "reports": [CropReportRead.model_validate(report) for report in created_reports]
+            }
+        }
+
+    async def get_all_crop_reports(self) -> List[CropReportRead]:
+        crop_reports = await self.repository.get_all()
+        return [CropReportRead.model_validate(report) for report in crop_reports]
 
     async def get_crop_reports_by_field_id(self, field_id: UUID) -> List[CropReportRead]:
         crop_reports = await self.repository.get_crop_report_by_field_id(field_id)
