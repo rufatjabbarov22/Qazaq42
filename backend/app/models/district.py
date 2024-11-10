@@ -1,4 +1,5 @@
 from sqlmodel import Field, JSON, Relationship
+from sqlalchemy import UniqueConstraint
 
 from app.models.abstract.base import Base
 from app.models.field import FieldModel
@@ -13,3 +14,5 @@ class District(Base, table=True):
 
     fields: list[FieldModel] = Relationship(back_populates="district")
     country: "Country" = Relationship(back_populates="districts")  # type: ignore
+
+    __table_args__ = (UniqueConstraint("country_id", "name"),)
