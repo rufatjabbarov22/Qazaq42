@@ -20,6 +20,8 @@ class Secrets(BaseSettings):
     
     FRONTEND_URL: HttpUrl
     BACKEND_URL: HttpUrl
+    AI_URL: HttpUrl
+    AI_PREDICT_URL: HttpUrl
 
     model_config = SettingsConfigDict(
         env_file=f".env.{config.ENVIRONMENT.lower()}",
