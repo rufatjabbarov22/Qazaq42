@@ -24,6 +24,11 @@ class FieldModelService(BaseService[FieldRepository]):
                     status_code=status.HTTP_409_CONFLICT,
                     detail=f"Field with name {field_data.name} already exists in district {field_data.district_id}",
                 )
+            elif "ForeignKeyViolationError" in str(e):
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"District with ID {field_data.district_id} not found",
+                )
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                 detail="Field creation failed due to an unexpected error.",
