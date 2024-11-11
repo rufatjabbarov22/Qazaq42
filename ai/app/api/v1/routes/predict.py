@@ -1,4 +1,6 @@
-from fastapi import APIRouter, HTTPException, Request, status
+from uuid import uuid4
+
+from fastapi import APIRouter, HTTPException, status
 
 from app.api.v1.schemas.telemetry import TelemetryCreate
 from services.predict import predict_crop  # type: ignore
@@ -8,8 +10,8 @@ router = APIRouter()
 
 
 @router.post("/")
-async def make_prediction(request: Request, telemetry: TelemetryCreate):
-    client_ip = request.client.host
+async def make_prediction(telemetry: TelemetryCreate):
+    request_id = uuid4()
     try:
         input_data = [
             telemetry.n,
@@ -25,7 +27,7 @@ async def make_prediction(request: Request, telemetry: TelemetryCreate):
             telemetry.o2
         ]
 
-        prediction_result = predict_crop(client_ip, input_data)
+        prediction_result = predict_crop(request_id, input_data)
 
         return {"device_id": telemetry.device_id, "results": prediction_result}
 

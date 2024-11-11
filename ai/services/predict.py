@@ -1,4 +1,5 @@
 from typing import Optional, List
+from uuid import UUID
 
 import joblib
 import numpy as np
@@ -14,12 +15,12 @@ clf = joblib.load(model_path)
 label_encoder = joblib.load(label_encoder_path)
 
 
-def predict_crop(client_ip: str, input_data: List[float]) -> Optional[List[tuple]]:
+def predict_crop(request_id: UUID, input_data: List[float]) -> Optional[List[tuple]]:
     try:
         logger.info(
             "Received prediction request with input data: %s",
             input_data,
-            extra={"ip": client_ip}
+            extra={"id": request_id}
 
         )
         data = np.array(input_data).reshape(1, -1)
@@ -31,13 +32,13 @@ def predict_crop(client_ip: str, input_data: List[float]) -> Optional[List[tuple
         logger.info(
             "Prediction successful, top 3 crops: %s",
             top_3_crops,
-            extra={"ip": client_ip}
+            extra={"id": request_id}
         )
         return top_3_crops
     except Exception as e:
         logger.error(
             "Prediction failed with error: %s",
             e,
-            extra={"ip": client_ip}
+            extra={"id": request_id}
         )
         return None

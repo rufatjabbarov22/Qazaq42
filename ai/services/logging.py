@@ -13,7 +13,7 @@ if not os.path.exists(log_directory):
 
 class CustomFormatter(logging.Formatter):
     def format(self, record):
-        if not hasattr(record, "ip"):
+        if not hasattr(record, "id"):
             record.ip = ""
         return super().format(record)
 
@@ -31,7 +31,7 @@ def configure_logging():
     file_handler.setLevel(logging.DEBUG)
 
     formatter = CustomFormatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(ip)s - %(message)s'
+        '%(asctime)s - %(name)s - %(levelname)s - %(id)s - %(message)s'
     )
     console_handler.setFormatter(formatter)
     file_handler.setFormatter(formatter)
