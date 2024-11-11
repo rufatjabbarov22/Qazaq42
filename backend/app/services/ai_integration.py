@@ -2,19 +2,17 @@ from typing import Dict
 from uuid import UUID
 
 from httpx import AsyncClient
-from fastapi import Depends, HTTPException, status
-from wireup import container
+from fastapi import HTTPException, status
+from wireup import service
 
 from app.services.crop_report import CropReportService
 from app.services.telemetry import TelemetryService
 from config.settings import secrets
 
 
+@service
 class AIIntegrationService:
-    def __init__(self,
-                 crop_report_service: CropReportService = Depends(lambda: container.get(CropReportService)),
-                 telemetry_service: TelemetryService = Depends(lambda: container.get(TelemetryService)),
-                 ):
+    def __init__(self, crop_report_service: CropReportService, telemetry_service: TelemetryService):
         self.ai_predict_url = secrets.AI_PREDICT_URL
         self.crop_report_service = crop_report_service
         self.telemetry_service = telemetry_service
@@ -28,9 +26,11 @@ class AIIntegrationService:
                 detail=f"No telemetry data found for telemetry ID {telemetry_id}"
             )
 
-        payload = {
-            "telemetry": telemetry_data.model_dump()
-        }
+        payload = telemetry_data.model_dump()
+        payload.pop("id")
+        payload["device_id"] = str(telemetry_data.device_id)
+        payload.pop("created_at")
+        payload.pop("updated_at")
 
         async with AsyncClient() as client:
             response = await client.post(self.ai_predict_url, json=payload)

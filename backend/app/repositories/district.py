@@ -2,16 +2,19 @@ from typing import Optional
 from uuid import UUID
 
 from sqlalchemy.future import select
+from wireup import service
 
 from app.api.v1.schemas.district import DistrictCreate, DistrictUpdate
+from app.core.database import Database
 from app.models.country import Country
 from app.models.district import District
 from app.models.field import FieldModel
 from app.repositories.abstract.base import BaseRepository
 
 
+@service
 class DistrictRepository(BaseRepository[District, DistrictCreate, DistrictUpdate]):
-    def __init__(self, database):
+    def __init__(self, database: Database):
         super().__init__(database, District)  # type: ignore
 
     async def get_district_by_field_id(self, field_id: UUID) -> Optional[District]:

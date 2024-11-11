@@ -1,11 +1,10 @@
 from typing import List, Dict
 from uuid import UUID
 
-from fastapi import Depends, HTTPException, status
-from wireup import container, service
+from fastapi import HTTPException, status
+from wireup import service
 
 from app.api.v1.schemas.crop_report import CropReportCreate, CropReportRead
-from app.core.database import Database
 from app.repositories.crop_report import CropReportRepository
 from app.repositories.field import FieldRepository
 from app.services.abstract.base import BaseService
@@ -13,9 +12,8 @@ from app.services.abstract.base import BaseService
 
 @service
 class CropReportService(BaseService[CropReportRepository]):
-    def __init__(self, field_repository: FieldRepository = Depends(lambda: container.get(FieldRepository)),
-                 database: Database = Depends()):
-        super().__init__(CropReportRepository(database))
+    def __init__(self, field_repository: FieldRepository, crop_report_repository: CropReportRepository):
+        super().__init__(crop_report_repository)
         self.field_repository = field_repository
 
     async def create_crop_reports(self, device_id: UUID, results: List[List]) -> Dict:

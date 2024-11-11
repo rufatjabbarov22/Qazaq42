@@ -2,15 +2,18 @@ from typing import Optional, override
 from uuid import UUID
 
 from sqlalchemy.future import select
+from wireup import service
 
 from app.api.v1.schemas.country import CountryCreate, CountryUpdate
+from app.core.database import Database
 from app.models.country import Country
 from app.models.district import District
 from app.repositories.abstract.base import BaseRepository
 
 
+@service
 class CountryRepository(BaseRepository[Country, CountryCreate, CountryUpdate]):
-    def __init__(self, database):
+    def __init__(self, database: Database):
         super().__init__(database, Country)  # type: ignore
 
     async def get_country_by_district_id(self, district_id: UUID) -> Optional[Country]:

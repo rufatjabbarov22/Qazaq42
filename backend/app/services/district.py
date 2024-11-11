@@ -1,17 +1,18 @@
 from typing import Dict, List
 from uuid import UUID
 
-from fastapi import Depends, HTTPException, status
+from fastapi import HTTPException, status
+from wireup import service
 
 from app.api.v1.schemas.district import DistrictCreate, DistrictRead, DistrictUpdate
-from app.core.database import Database, get_database
 from app.repositories.district import DistrictRepository
 from app.services.abstract.base import BaseService
 
 
+@service
 class DistrictService(BaseService[DistrictRepository]):
-    def __init__(self, database: Database = Depends(get_database)):
-        super().__init__(DistrictRepository(database))
+    def __init__(self, district_repository: DistrictRepository):
+        super().__init__(district_repository)
 
     async def create_district(self, district_data: DistrictCreate) -> DistrictRead:
         try:

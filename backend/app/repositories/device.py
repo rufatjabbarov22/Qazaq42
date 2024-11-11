@@ -2,14 +2,17 @@ from typing import Optional
 from uuid import UUID
 
 from sqlalchemy.future import select
+from wireup import service
 
 from app.api.v1.schemas.device import DeviceCreate, DeviceUpdate
+from app.core.database import Database
 from app.models.device import Device
 from app.repositories.abstract.base import BaseRepository
 
 
+@service
 class DeviceRepository(BaseRepository[Device, DeviceCreate, DeviceUpdate]):
-    def __init__(self, database):
+    def __init__(self, database: Database):
         super().__init__(database, Device)  # type: ignore
 
     async def get_device_by_serial_id(self, serial_id: str) -> Optional[Device]:

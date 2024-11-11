@@ -2,22 +2,21 @@ from typing import Dict, List
 from uuid import UUID
 
 from sqlalchemy.exc import IntegrityError
-from fastapi import Depends, HTTPException, status
-from wireup import container
+from fastapi import HTTPException, status
+from wireup import service
 
 from app.api.v1.schemas.device import DeviceCreate, DeviceRead, DeviceUpdate
 from app.core.config import PREFIX_TYPE_MAP
-from app.core.database import Database, get_database
 from app.repositories.device import DeviceRepository
 from app.repositories.user import UserRepository
 from app.services.abstract.base import BaseService
 from app.utils.helpers.device_helper import generate_pin, generate_serial_id
 
 
+@service
 class DeviceService(BaseService[DeviceRepository]):
-    def __init__(self, user_repository: UserRepository = Depends(lambda: container.get(UserRepository)),
-                 database: Database = Depends(get_database)):
-        super().__init__(DeviceRepository(database))
+    def __init__(self, user_repository: UserRepository, device_repository: DeviceRepository):
+        super().__init__(device_repository)
         self.user_repository = user_repository
 
     async def create_device(self, device_data: DeviceCreate) -> DeviceRead:

@@ -2,16 +2,19 @@ from typing import Optional
 from uuid import UUID
 
 from sqlalchemy.future import select
+from wireup import service
 
 from app.api.v1.schemas.telemetry import TelemetryCreate, TelemetryUpdate
+from app.core.database import Database
 from app.models.device import Device
 from app.models.field import FieldModel
 from app.models.telemetry import Telemetry
 from app.repositories.abstract.base import BaseRepository
 
 
+@service
 class TelemetryRepository(BaseRepository[Telemetry, TelemetryCreate, TelemetryUpdate]):
-    def __init__(self, database):
+    def __init__(self, database: Database):
         super().__init__(database, Telemetry)  # type: ignore
 
     async def get_telemetry_by_device_id(self, device_id: UUID) -> Optional[Telemetry]:

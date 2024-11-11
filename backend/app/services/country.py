@@ -1,16 +1,17 @@
 from typing import Dict, List
 
-from fastapi import Depends, HTTPException, status
+from fastapi import HTTPException, status
+from wireup import service
 
 from app.api.v1.schemas.country import CountryCreate, CountryRead, CountryUpdate
-from app.core.database import Database, get_database
 from app.repositories.country import CountryRepository
 from app.services.abstract.base import BaseService
 
 
+@service
 class CountryService(BaseService[CountryRepository]):
-    def __init__(self, database: Database = Depends(get_database)):
-        super().__init__(CountryRepository(database))
+    def __init__(self, country_repository: CountryRepository):
+        super().__init__(country_repository)
 
     async def create_country(self, country_data: CountryCreate) -> CountryRead:
         try:

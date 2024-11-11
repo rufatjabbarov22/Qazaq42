@@ -17,6 +17,7 @@ fastapi = "^0.115.2"
 uuid = "^1.30"
 uvicorn = "^0.31.1"
 pydantic-settings = "^2.5.2"
+certifi = "^2024.8.30"
 
 
 [build-system]

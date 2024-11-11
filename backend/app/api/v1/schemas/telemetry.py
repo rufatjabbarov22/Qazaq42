@@ -3,6 +3,8 @@ from uuid import UUID
 from typing import Optional
 from datetime import datetime
 
+from pydantic import ConfigDict, field_serializer
+
 from app.api.v1.schemas.abstract.base import BaseSchema
 
 
@@ -19,6 +21,8 @@ class TelemetryCreate(BaseSchema):
     light_duration: float
     co2: float
     o2: float
+
+    model_config = ConfigDict(extra="ignore")
 
 
 class TelemetryUpdate(BaseSchema):

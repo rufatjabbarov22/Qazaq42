@@ -2,16 +2,19 @@ from typing import List
 from uuid import UUID
 
 from sqlalchemy.future import select
+from wireup import service
 
 from app.api.v1.schemas.crop_report import CropReportCreate, CropReportUpdate
+from app.core.database import Database
 from app.models.crop_report import CropReport
 from app.models.device import Device
 from app.models.field import FieldModel
 from app.repositories.abstract.base import BaseRepository
 
 
+@service
 class CropReportRepository(BaseRepository[CropReport, CropReportCreate, CropReportUpdate]):
-    def __init__(self, database):
+    def __init__(self, database: Database):
         super().__init__(database, CropReport)  # type: ignore
 
     async def create_batch(self, field_id: UUID, crops: List[CropReportCreate]) -> List[CropReport]:
@@ -20,7 +23,7 @@ class CropReportRepository(BaseRepository[CropReport, CropReportCreate, CropRepo
             for crop_data in crops:
                 crop_report = CropReport(
                     field_id=field_id,
-                    crop_name=crop_data.crop,
+                    crop_name=crop_data.crop_name,
                     probability=crop_data.probability / 100
                 )
                 session.add(crop_report)

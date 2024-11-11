@@ -1,17 +1,18 @@
 from typing import Dict, List
 from uuid import UUID
 
-from fastapi import Depends, HTTPException, status
+from fastapi import HTTPException, status
+from wireup import service
 
 from app.api.v1.schemas.field import FieldCreate, FieldRead, FieldUpdate
-from app.core.database import Database, get_database
 from app.repositories.field import FieldRepository
 from app.services.abstract.base import BaseService
 
 
+@service
 class FieldModelService(BaseService[FieldRepository]):
-    def __init__(self, database: Database = Depends(get_database)):
-        super().__init__(FieldRepository(database))
+    def __init__(self, field_repository: FieldRepository):
+        super().__init__(field_repository)
 
     async def create_field(self, field_data: FieldCreate) -> FieldRead:
         try:
