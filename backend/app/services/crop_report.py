@@ -49,6 +49,15 @@ class CropReportService(BaseService[CropReportRepository]):
         crop_reports = await self.repository.get_all()
         return [CropReportRead.model_validate(report) for report in crop_reports]
 
+    async def get_last_n_reports_by_field_id(self, field_id: UUID, n: int = 3) -> List[CropReportRead]:
+        crop_reports = await self.repository.get_last_n_reports_by_field_id(field_id, n)
+        if not crop_reports:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"No crop reports found for field ID {field_id}"
+            )
+        return [CropReportRead.model_validate(report) for report in crop_reports]
+
     async def get_crop_reports_by_field_id(self, field_id: UUID) -> List[CropReportRead]:
         crop_reports = await self.repository.get_crop_report_by_field_id(field_id)
         if not crop_reports:

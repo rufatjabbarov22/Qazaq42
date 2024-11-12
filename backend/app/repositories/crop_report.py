@@ -1,6 +1,7 @@
 from typing import List
 from uuid import UUID
 
+from sqlalchemy import desc
 from sqlalchemy.future import select
 from wireup import service
 
@@ -30,6 +31,17 @@ class CropReportRepository(BaseRepository[CropReport, CropReportCreate, CropRepo
                 created_reports.append(crop_report)
             await session.commit()
             return created_reports
+
+    async def get_last_n_reports_by_field_id(self, field_id: UUID, n: int = 3) -> List[CropReport]:
+        async with self.produce_session() as session:
+            stmt = (
+                select(CropReport)
+                .where(CropReport.field_id == field_id)  # type: ignore
+                .order_by(desc(CropReport.created_at))
+                .limit(n)
+            )
+            result = await session.execute(stmt)
+            return result.scalars().all()
 
     async def get_crop_report_by_field_id(self, field_id: UUID) -> List[CropReport]:
         async with self.produce_session() as session:

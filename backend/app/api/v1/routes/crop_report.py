@@ -17,6 +17,13 @@ async def get_crop_reports(crop_report_service: Annotated[CropReportService, Inj
     return await crop_report_service.get_all_crop_reports()
 
 
+@router.get("/field/{field_id}/last", response_model=List[CropReportRead], status_code=status.HTTP_200_OK)
+@container.autowire
+async def get_last_n_crop_reports_by_field_id(field_id: UUID,
+                                              crop_report_service: Annotated[CropReportService, Inject()], n: int = 3):
+    return await crop_report_service.get_last_n_reports_by_field_id(field_id, n)
+
+
 @router.get("/field/{field_id}", response_model=List[CropReportRead], status_code=status.HTTP_200_OK)
 @container.autowire
 async def get_crop_reports_by_field_id(field_id: UUID, crop_report_service: Annotated[CropReportService, Inject()]):
