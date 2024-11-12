@@ -13,10 +13,6 @@ class CropReportCreate(BaseSchema):
     probability: float
 
 
-class CropReportUpdate(BaseSchema):
-    pass
-
-
 class CropReportRead(BaseSchema):
     id: UUID
     field_id: UUID
@@ -26,6 +22,5 @@ class CropReportRead(BaseSchema):
     updated_at: Optional[datetime] = None
 
 
-class CropProbability(BaseSchema):
-    crop: str = Field(..., description="The name of the crop")
-    probability: float = Field(..., description="The probability percentage for the crop")
+class CropReportUpdate(BaseSchema):
+    pass

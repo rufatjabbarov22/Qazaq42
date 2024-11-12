@@ -3,7 +3,7 @@ from uuid import UUID
 from typing import Optional
 from datetime import datetime
 
-from pydantic import ConfigDict, field_serializer
+from pydantic import ConfigDict
 
 from app.api.v1.schemas.abstract.base import BaseSchema
 
@@ -25,20 +25,6 @@ class TelemetryCreate(BaseSchema):
     model_config = ConfigDict(extra="ignore")
 
 
-class TelemetryUpdate(BaseSchema):
-    n: Optional[float] = None
-    p: Optional[float] = None
-    k: Optional[float] = None
-    temperature: Optional[float] = None
-    ph: Optional[float] = None
-    soil_humidity: Optional[float] = None
-    air_humidity: Optional[float] = None
-    light_intensity: Optional[float] = None
-    light_duration: Optional[float] = None
-    co2: Optional[float] = None
-    o2: Optional[float] = None
-
-
 class TelemetryRead(BaseSchema):
     id: UUID
     device_id: UUID
@@ -55,3 +41,17 @@ class TelemetryRead(BaseSchema):
     o2: float
     created_at: datetime
     updated_at: datetime
+
+
+class TelemetryUpdate(BaseSchema):
+    n: Optional[float] = None
+    p: Optional[float] = None
+    k: Optional[float] = None
+    temperature: Optional[float] = None
+    ph: Optional[float] = None
+    soil_humidity: Optional[float] = None
+    air_humidity: Optional[float] = None
+    light_intensity: Optional[float] = None
+    light_duration: Optional[float] = None
+    co2: Optional[float] = None
+    o2: Optional[float] = None
