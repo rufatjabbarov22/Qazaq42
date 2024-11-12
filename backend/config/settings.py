@@ -17,6 +17,11 @@ class Secrets(BaseSettings):
     JWT_ALGORITHM: str
     JWT_ACCESS_TOKEN_TTL: int
     JWT_REFRESH_TOKEN_TTL: int
+
+    REDIS_HOST: str
+    REDIS_PORT: int
+    REDIS_DB: int
+    REDIS_PASSWORD: str
     
     FRONTEND_URL: HttpUrl
     BACKEND_URL: HttpUrl
