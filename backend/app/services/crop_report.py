@@ -1,10 +1,11 @@
 from typing import List, Dict
 from uuid import UUID
 
-from fastapi import HTTPException, status
 from wireup import service
 
 from app.api.v1.schemas.crop_report import CropReportCreate, CropReportRead
+from app.common.exceptions.crop_report import CropReportNotFound
+from app.common.exceptions.field import FieldNotFound
 from app.repositories.crop_report import CropReportRepository
 from app.repositories.field import FieldRepository
 from app.services.abstract.base import BaseService
@@ -20,10 +21,7 @@ class CropReportService(BaseService[CropReportRepository]):
         field = await self.field_repository.get_field_by_device_id(device_id)
 
         if not field:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No field associated with device ID {device_id}"
-            )
+            raise FieldNotFound()
 
         top_3_crops = [
             CropReportCreate(
@@ -51,36 +49,18 @@ class CropReportService(BaseService[CropReportRepository]):
 
     async def get_last_n_reports_by_field_id(self, field_id: UUID, n: int = 3) -> List[CropReportRead]:
         crop_reports = await self.repository.get_last_n_reports_by_field_id(field_id, n)
-        if not crop_reports:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No crop reports found for field ID {field_id}"
-            )
         return [CropReportRead.model_validate(report) for report in crop_reports]
 
     async def get_crop_reports_by_field_id(self, field_id: UUID) -> List[CropReportRead]:
         crop_reports = await self.repository.get_crop_report_by_field_id(field_id)
-        if not crop_reports:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No crop reports found for field ID {field_id}"
-            )
         return [CropReportRead.model_validate(report) for report in crop_reports]
 
     async def get_crop_reports_by_device_id(self, device_id: UUID) -> List[CropReportRead]:
         crop_reports = await self.repository.get_crop_reports_by_device_id(device_id)
-        if not crop_reports:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No crop reports found for device ID {device_id}"
-            )
         return [CropReportRead.model_validate(report) for report in crop_reports]
 
     async def delete_crop_report(self, report_id: UUID) -> Dict:
         deleted_report = await self.repository.delete(report_id)
         if not deleted_report:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No crop report found with ID {report_id}"
-            )
+            raise CropReportNotFound()
         return {"message": "Crop report deleted successfully", "report": deleted_report}

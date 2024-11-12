@@ -2,10 +2,17 @@ from typing import Dict, List
 from uuid import UUID
 
 from sqlalchemy.exc import IntegrityError
-from fastapi import HTTPException, status
 from wireup import service
 
 from app.api.v1.schemas.device import DeviceCreate, DeviceRead, DeviceUpdate
+from app.common.exceptions.device import (
+    DeviceAlreadyAssigned,
+    DeviceAlreadyExists,
+    DeviceCreationFailed,
+    DeviceNotFound,
+    InvalidSerialIDOrPin,
+)
+from app.common.exceptions.user import UserNotFound
 from app.core.config import PREFIX_TYPE_MAP
 from app.repositories.device import DeviceRepository
 from app.repositories.user import UserRepository
@@ -33,41 +40,20 @@ class DeviceService(BaseService[DeviceRepository]):
 
         except IntegrityError as e:
             if "unique constraint" in str(e.orig):
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail="A device with this Serial ID already exists."
-                )
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="An error occurred while creating the device."
-            )
-
-        except ValueError as e:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=str(e)
-            )
+                raise DeviceAlreadyExists(device_data.serial_id)
+            raise DeviceCreationFailed()
 
     async def assign_device_to_user(self, user_id: UUID, serial_id: str, provided_pin: str) -> DeviceRead:
         device = await self.repository.get_device_by_serial_id(serial_id)
         if not device or device.pin != provided_pin:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Invalid Serial ID or PIN."
-            )
+            raise InvalidSerialIDOrPin()
 
         if device.is_assigned:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Device is already assigned to another user."
-            )
+            raise DeviceAlreadyAssigned()
 
         user = await self.user_repository.get(user_id)
         if not user:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No user found with ID {user_id}"
-            )
+            raise UserNotFound()
 
         device.user_id = user_id
         device.is_assigned = True
@@ -83,19 +69,13 @@ class DeviceService(BaseService[DeviceRepository]):
     async def get_device_by_id(self, device_id: UUID) -> DeviceRead:
         device = await self.repository.get(device_id)
         if not device:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No device found with ID {device_id}"
-            )
+            raise DeviceNotFound()
         return DeviceRead.model_validate(device)
 
     async def get_device_by_serial_id(self, serial_id: str) -> DeviceRead:
         device = await self.repository.get_device_by_serial_id(serial_id)
         if not device:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No device found with Serial ID {serial_id}"
-            )
+            raise DeviceNotFound()
         return DeviceRead.model_validate(device)
 
     async def get_all_devices(self) -> List[DeviceRead]:
@@ -105,17 +85,11 @@ class DeviceService(BaseService[DeviceRepository]):
     async def update_device(self, device_data: DeviceUpdate, device_id: UUID) -> DeviceRead:
         updated_device = await self.repository.update(device_id, device_data)
         if not updated_device:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No device found with ID {device_id}"
-            )
+            raise DeviceNotFound()
         return DeviceRead.model_validate(updated_device)
 
     async def delete_device(self, device_id: UUID) -> Dict:
         deleted_device = await self.repository.delete(device_id)
         if not deleted_device:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No device found with ID {device_id}"
-            )
+            raise DeviceNotFound()
         return {"message": "Device deleted successfully", "device": deleted_device}

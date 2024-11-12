@@ -1,10 +1,11 @@
 from typing import Dict, List
 from uuid import UUID
 
-from fastapi import HTTPException, status
 from wireup import service
 
 from app.api.v1.schemas.field import FieldCreate, FieldRead, FieldUpdate
+from app.common.exceptions.district import DistrictNotFound
+from app.common.exceptions.field import FieldAlreadyExists, FieldCreationFailed, FieldNotFound
 from app.repositories.field import FieldRepository
 from app.services.abstract.base import BaseService
 
@@ -21,36 +22,21 @@ class FieldModelService(BaseService[FieldRepository]):
 
         except Exception as e:
             if "unique constraint" in str(e):
-                raise HTTPException(
-                    status_code=status.HTTP_409_CONFLICT,
-                    detail=f"Field with name {field_data.name} already exists in district {field_data.district_id}",
-                )
+                raise FieldAlreadyExists(field_data.district_id)
             elif "ForeignKeyViolationError" in str(e):
-                raise HTTPException(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    detail=f"District with ID {field_data.district_id} not found",
-                )
-            raise HTTPException(
-                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail="Field creation failed due to an unexpected error.",
-            )
+                raise DistrictNotFound()
+            raise FieldCreationFailed()
 
     async def get_field_by_id(self, field_id: UUID) -> FieldRead:
         field = await self.repository.get(field_id)
         if not field:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No field found with ID {field_id}"
-            )
+            raise FieldNotFound()
         return FieldRead.model_validate(field)
 
     async def get_field_by_device_id(self, device_id: UUID) -> FieldRead:
         field = await self.repository.get_field_by_device_id(device_id)
         if not field:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No field found with device ID {device_id}"
-            )
+            raise FieldNotFound()
         return FieldRead.model_validate(field)
 
     async def get_field_by_district_id(self, district_id: UUID) -> List[FieldRead]:
@@ -60,10 +46,7 @@ class FieldModelService(BaseService[FieldRepository]):
     async def get_field_by_crop_report_id(self, crop_report_id: UUID) -> FieldRead:
         field = await self.repository.get_field_by_crop_report_id(crop_report_id)
         if not field:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No field found with crop report ID {crop_report_id}"
-            )
+            raise FieldNotFound()
         return FieldRead.model_validate(field)
 
     async def get_field_by_user_id(self, user_id: UUID) -> List[FieldRead]:
@@ -77,17 +60,11 @@ class FieldModelService(BaseService[FieldRepository]):
     async def update_field(self, field_data: FieldUpdate, field_id: UUID) -> FieldRead:
         updated_field = await self.repository.update(field_id, field_data)
         if not updated_field:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No field found with ID {field_id}"
-            )
+            raise FieldNotFound()
         return FieldRead.model_validate(updated_field)
 
     async def delete_field(self, field_id: UUID) -> Dict:
         deleted_field = await self.repository.delete(field_id)
         if not deleted_field:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No field found with ID {field_id}"
-            )
+            raise FieldNotFound()
         return {"detail": "Field deleted successfully", "field": deleted_field}
