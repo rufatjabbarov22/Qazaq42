@@ -11,11 +11,6 @@ class DistrictCreate(BaseSchema):
     info: Optional[Dict] = None
 
 
-class DistrictUpdate(BaseSchema):
-    name: Optional[str] = None
-    info: Optional[dict] = None
-
-
 class DistrictRead(BaseSchema):
     id: UUID
     country_id: str
@@ -23,3 +18,8 @@ class DistrictRead(BaseSchema):
     info: Optional[Dict]
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
+
+
+class DistrictUpdate(BaseSchema):
+    name: Optional[str] = None
+    info: Optional[dict] = None

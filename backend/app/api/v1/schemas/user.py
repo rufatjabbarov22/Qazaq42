@@ -22,6 +22,16 @@ class UserCreate(BaseSchema):
         return validate_password(value)
 
 
+class UserRead(BaseSchema):
+    id: UUID
+    fname: str
+    lname: str
+    email: EmailStr
+    is_verified: Optional[bool]
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
+
+
 class UserUpdate(BaseSchema):
     fname: Optional[str] = Field(None, min_length=1, max_length=255)
     lname: Optional[str] = Field(None, min_length=1, max_length=255)
@@ -48,6 +58,11 @@ class UserRead(BaseSchema):
 
 class AdminUserUpdate(BaseSchema):
     is_admin: Optional[bool] = None
+
+
+class UserLogin(BaseSchema):
+    email: EmailStr
+    password: str
 
 
 def validate_password(value: str) -> str:

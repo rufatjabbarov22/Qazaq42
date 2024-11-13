@@ -12,6 +12,5 @@ wire()
 app = FastAPI()
 
 setup_middlewares(app)
-app.mount("/uploads", StaticFiles(directory=config.MEDIA_DIRECTORY_PATH), name="uploads")
 
 app.include_router(router)

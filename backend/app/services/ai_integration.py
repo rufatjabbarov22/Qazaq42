@@ -8,13 +8,13 @@ from app.common.exceptions.ai_integration import AIServiceFailed
 from app.common.exceptions.telemetry import TelemetryNotFound
 from app.services.crop_report import CropReportService
 from app.services.telemetry import TelemetryService
-from config.settings import secrets
+from config.settings import Settings
 
 
 @service
 class AIIntegrationService:
-    def __init__(self, crop_report_service: CropReportService, telemetry_service: TelemetryService):
-        self.ai_predict_url = secrets.AI_PREDICT_URL
+    def __init__(self, crop_report_service: CropReportService, telemetry_service: TelemetryService, settings: Settings):
+        self.ai_predict_url = settings.secrets.AI_PREDICT_URL
         self.crop_report_service = crop_report_service
         self.telemetry_service = telemetry_service
 

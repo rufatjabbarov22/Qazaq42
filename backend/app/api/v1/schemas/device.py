@@ -20,13 +20,6 @@ class DeviceCreate(BaseSchema):
     description: Optional[str] = Field(None, max_length=255)
 
 
-class DeviceUpdate(BaseSchema):
-    user_id: Optional[UUID] = Field(None)
-    name: Optional[str] = Field(None, max_length=255)
-    description: Optional[str] = Field(None, max_length=255)
-    field_id: Optional[UUID] = None
-
-
 class DeviceRead(BaseSchema):
     id: UUID
     serial_id: str
@@ -38,6 +31,13 @@ class DeviceRead(BaseSchema):
     is_assigned: bool
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
+
+
+class DeviceUpdate(BaseSchema):
+    user_id: Optional[UUID] = Field(None)
+    name: Optional[str] = Field(None, max_length=255)
+    description: Optional[str] = Field(None, max_length=255)
+    field_id: Optional[UUID] = None
 
 
 def validate_serial_id(v: str, values: dict) -> str:

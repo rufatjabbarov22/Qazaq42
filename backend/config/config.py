@@ -1,6 +1,4 @@
-from typing import List
-
-from pydantic import DirectoryPath
+from pydantic import FilePath, DirectoryPath
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -9,8 +7,8 @@ class Config(BaseSettings):
     APP_VERSION: str
     APP_DESCRIPTION: str
 
-    MEDIA_DIRECTORY_PATH: str
-    MEDIA_ALLOWED_EXTENSIONS: List[str]
+    EMAIL_VERIFICATION_TEMPLATE_PATH: FilePath
+    EMAIL_VERIFICATION_EXPIRATION: int
 
     LOG_DIRECTORY_PATH: DirectoryPath
     LOG_LEVEL: str

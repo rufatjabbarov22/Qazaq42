@@ -18,6 +18,10 @@ class Secrets(BaseSettings):
     JWT_ACCESS_TOKEN_TTL: int
     JWT_REFRESH_TOKEN_TTL: int
 
+    SMTP_HOST: str
+    SMTP_MAIL: str
+    SMTP_PASSWORD: str
+
     REDIS_HOST: str
     REDIS_PORT: int
     REDIS_DB: int

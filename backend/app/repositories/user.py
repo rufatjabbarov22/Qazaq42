@@ -26,3 +26,16 @@ class UserRepository(BaseRepository[User, UserCreate, UserUpdate]):
             stmt = select(User).where(User.devices.any(id=device_id))
             result = await session.execute(stmt)
             return result.scalar_one_or_none()
+
+    async def mark_user_as_verified(self, user_id: UUID) -> bool:
+        async with self.produce_session() as session:
+            stmt = select(User).where(User.id == user_id)  # type: ignore
+            result = await session.execute(stmt)
+            user = result.scalar_one_or_none()
+
+            if not user:
+                return False
+
+            user.is_verified = True
+            await session.commit()
+            return True
