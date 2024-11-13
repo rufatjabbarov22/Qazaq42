@@ -2,11 +2,17 @@ import smtplib
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
 from wireup import service, ServiceLifetime
 
 from app.api.v1.schemas.user import UserRead
 from app.api.v1.schemas.user import UserCreate, UserLogin
-from app.common.exceptions.user import UserNotAuthenticated, UserNotFound, UserNotVerified
+from app.common.exceptions.user import (
+    UserNotAuthenticated,
+    UserNotFound,
+    UserNotVerified,
+    UserVerificationFailed
+)
 from app.core.caching import Caching
 from app.core.security import verify_password
 from app.models.user import User
@@ -34,7 +40,29 @@ class AuthService(BaseService[UserRepository]):
     async def register(self, schema: UserCreate) -> UserRead:
         user = await self.user_service.create_user(schema)
 
-        self._send_verification_email(user.email)
+        verification_code = generate_otp()
+        await self.caching.set(
+            f'verification_code_{user.email}',
+            verification_code,
+            ex=self.settings.config.EMAIL_VERIFICATION_EXPIRATION
+        )
+
+        self._send_verification_email(user.email, verification_code)
+
+        return user
+
+    async def verify(self, email: str, verification_code: int) -> User:
+        cached_code = await self.caching.get(f'verification_code_{email}')
+
+        if not cached_code or cached_code != str(verification_code):
+            raise UserVerificationFailed()
+
+        user = await self.repository.get_user_by_email(email)
+        if not user:
+            raise UserNotFound()
+
+        await self.repository.mark_user_as_verified(user.id)
+        await self.caching.delete(f'verification_code_{email}')
 
         return user
 
@@ -51,13 +79,12 @@ class AuthService(BaseService[UserRepository]):
 
         return user
 
-    def _send_verification_email(self, email: str):
+    def _send_verification_email(self, email: str, verification_code: int):
         template = self._load_template()
-        verification_code = generate_otp()
 
         self.caching.set(
             f'verification_code_{email}',
-            verification_code,
+            verification_code,  # type: ignore
             ex=self.settings.config.EMAIL_VERIFICATION_EXPIRATION
         )
 

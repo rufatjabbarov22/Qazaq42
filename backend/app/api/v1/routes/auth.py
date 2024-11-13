@@ -26,6 +26,16 @@ async def register(
     return await auth_service.register(user_data)
 
 
+@router.post("/verify", response_model=UserRead, status_code=status.HTTP_200_OK)
+@container.autowire
+async def verify(
+        user_mail: str,
+        otp_code: int,
+        auth_service: Annotated[AuthService, Inject()]
+):
+    return await auth_service.verify(user_mail, otp_code)
+
+
 @router.post("/login", response_model=Token, status_code=status.HTTP_200_OK)
 @container.autowire
 async def login(

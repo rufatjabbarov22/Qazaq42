@@ -39,3 +39,11 @@ class UserNotVerified(HTTPException):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="User not verified"
         )
+
+
+class UserVerificationFailed(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="User verification failed. Try again later."
+        )
