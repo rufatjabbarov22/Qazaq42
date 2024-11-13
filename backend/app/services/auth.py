@@ -82,12 +82,6 @@ class AuthService(BaseService[UserRepository]):
     def _send_verification_email(self, email: str, verification_code: int):
         template = self._load_template()
 
-        self.caching.set(
-            f'verification_code_{email}',
-            verification_code,  # type: ignore
-            ex=self.settings.config.EMAIL_VERIFICATION_EXPIRATION
-        )
-
         content = template.replace('{{ verification_code }}', str(verification_code))
 
         msg = MIMEMultipart('alternative')
