@@ -1,12 +1,7 @@
 from fastapi import Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, APIKeyCookie
-from passlib.context import CryptContext
 
 from app.common.exceptions.user import UserNotAuthenticated
-
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 
 class JWTHeaderBearer(HTTPBearer):
     def __init__(self, auto_error: bool = True):
@@ -42,11 +37,4 @@ class JWTCookieBearer(APIKeyCookie):
 
     async def __call__(self, request: Request) -> HTTPAuthorizationCredentials | None:
         return HTTPAuthorizationCredentials(scheme="bearer", credentials=await super().__call__(request))
-
-
-def verify_password(plain_password: str, hashed_password: str):
-    return pwd_context.verify(plain_password, hashed_password)
-
-
-def get_password_hash(password: str):
-    return pwd_context.hash(password)
+    
