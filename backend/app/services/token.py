@@ -5,6 +5,8 @@ from typing import Dict
 from uuid import UUID
 
 from jwt import encode, decode, ExpiredSignatureError, InvalidTokenError
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.backends import default_backend
 from wireup import container, service
 
 from app.common.exceptions.jwt import ExpiredTokenException, InvalidTokenException
@@ -16,7 +18,11 @@ from config.settings import Settings
 @service
 class TokenService:
     def __init__(self, settings: Settings):
-        self.private_key = settings.secrets.JWT_PRIVATE_KEY
+        self.private_key = serialization.load_pem_private_key(
+            settings.secrets.JWT_PRIVATE_KEY.encode(),
+            password=settings.secrets.JWT_PASS_PHRASE.encode(),
+            backend=default_backend(),
+        )
         self.public_key = settings.secrets.JWT_PUBLIC_KEY
         self.algorithm = settings.secrets.JWT_ALGORITHM
         self.access_token_ttl = settings.secrets.JWT_ACCESS_TOKEN_TTL
