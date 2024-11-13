@@ -10,7 +10,8 @@ from app.services.user import UserService
 router = APIRouter()
 
 
-@router.post("/register", response_model=UserRead, status_code=status.HTTP_201_CREATED)
+@router.post("/sign-up", response_model=UserRead, status_code=status.HTTP_201_CREATED)
 @container.autowire
-async def create_user(user_data: UserCreate, user_service: Annotated[UserService, Inject()]):
-    return await user_service.create_user(user_data)
+async def create_user(user: UserCreate,
+                      user_service: Annotated[UserService, Inject()]):
+    return await user_service.create(user)
