@@ -6,7 +6,7 @@ from wireup import service
 
 from app.api.v1.schemas.user import UserCreate, UserRead, UserUpdate
 from app.common.exceptions.user import UserAlreadyExists, UserCreationFailed, UserNotFound
-from app.core.security import get_password_hash
+from app.utils.hash import hash_password
 from app.repositories.user import UserRepository
 from app.services.abstract.base import BaseService
 
@@ -16,15 +16,15 @@ class UserService(BaseService[UserRepository]):
     def __init__(self, user_repository: UserRepository):
         super().__init__(user_repository)
 
-    async def create_user(self, user_data: UserCreate) -> UserRead:
+    async def create(self, user: UserCreate) -> UserRead:
         try:
-            user_data.password = get_password_hash(user_data.password)
-            created_user = await self.repository.create(user_data)
-            return UserRead.model_validate(created_user)
+            user.password = hash_password(user.password)
+            user_in_db = await self.repository.create(user)
+            return UserRead.model_validate(user_in_db)
 
         except Exception as e:
             if "unique constraint" in str(e):
-                raise UserAlreadyExists(email=user_data.email)
+                raise UserAlreadyExists(email=user.email)
             raise UserCreationFailed()
 
     async def get_user_by_id(self, user_id: UUID) -> UserRead:
@@ -49,10 +49,10 @@ class UserService(BaseService[UserRepository]):
         users = await self.repository.get_all()
         return [UserRead.model_validate(user) for user in users]
 
-    async def update_user(self, user_data: UserUpdate, user_id: UUID) -> UserRead:
-        if user_data.password:
-            user_data.password = get_password_hash(user_data.password)
-        updated_user = await self.repository.update(user_id, user_data)
+    async def update_user(self, user: UserUpdate, user_id: UUID) -> UserRead:
+        if user.password:
+            user.password = hash_password(user.password)
+        updated_user = await self.repository.update(user_id, user)
         if not updated_user:
             raise UserNotFound()
         return UserRead.model_validate(updated_user)
