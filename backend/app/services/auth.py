@@ -14,7 +14,7 @@ from app.common.exceptions.user import (
     UserVerificationFailed
 )
 from app.core.caching import Caching
-from app.core.security import verify_password
+from app.utils.hash import check_password
 from app.models.user import User
 from app.repositories.user import UserRepository
 from app.services.abstract.base import BaseService
@@ -71,7 +71,7 @@ class AuthService(BaseService[UserRepository]):
         if not user:
             raise UserNotFound()
 
-        if not verify_password(schema.password, user.password):
+        if not check_password(schema.password, user.password):
             raise UserNotAuthenticated()
 
         if not user.is_verified:
