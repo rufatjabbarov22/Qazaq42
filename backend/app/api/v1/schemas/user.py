@@ -15,7 +15,6 @@ class UserCreate(BaseSchema):
     lname: str = Field(min_length=1, max_length=255)
     email: EmailStr
     password: str = Field(min_length=8, max_length=128)
-    profile_img_path: Optional[str] = None
 
     @field_validator("password", mode="before")
     @classmethod
@@ -28,7 +27,6 @@ class UserUpdate(BaseSchema):
     lname: Optional[str] = Field(None, min_length=1, max_length=255)
     email: Optional[EmailStr] = None
     password: Optional[str] = Field(None, min_length=8, max_length=128)
-    profile_img_path: Optional[str] = None
 
     @field_validator("password", mode="before")
     @classmethod
@@ -43,7 +41,6 @@ class UserRead(BaseSchema):
     fname: str
     lname: str
     email: EmailStr
-    profile_img_path: Optional[str]
     is_verified: Optional[bool]
     created_at: Optional[datetime]
     updated_at: Optional[datetime]

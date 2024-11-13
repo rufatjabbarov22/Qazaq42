@@ -13,7 +13,6 @@ class User(Base, table=True):
     lname: str = Field(max_length=255, nullable=False)
     email: EmailStr = Field(nullable=False, unique=True, index=True)
     password: str = Field(nullable=False)
-    profile_img_path: Optional[str] = Field(default=None)
     is_verified: bool = Field(default=False)
     is_admin: bool = Field(default=False)
 
