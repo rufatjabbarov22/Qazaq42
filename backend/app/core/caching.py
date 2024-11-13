@@ -13,7 +13,7 @@ class Caching:
         self.redis = Redis(
             host=settings.secrets.REDIS_HOST,
             port=settings.secrets.REDIS_PORT,
-            password=settings.secrets.REDIS_PASS
+            password=settings.secrets.REDIS_PASSWORD
         )
 
     @excache
