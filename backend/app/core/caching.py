@@ -13,7 +13,7 @@ class Caching:
         self.redis = Redis(
             host=settings.secrets.REDIS_HOST,
             port=settings.secrets.REDIS_PORT,
-            password=settings.secrets.REDIS_PASS
+            password=settings.secrets.REDIS_PASSWORD
         )
 
     @excache
@@ -21,7 +21,7 @@ class Caching:
         await self.redis.set(key, value, ex=ex)
 
     @excache
-    async def get(self, key: str) -> str:
+    async def get(self, key: str) -> str | None:
         data: bytes | None = await self.redis.get(key)
         if data is None:
             return None
