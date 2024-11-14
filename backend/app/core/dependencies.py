@@ -23,4 +23,4 @@ async def get_current_user_from_cookie(
         token: Annotated[HTTPAuthorizationCredentials, Depends(JWTCookieBearer())],
         token_service: Annotated[TokenService, Inject()]
 ) -> UserRead:
-    return TokenData.model_validate(token_service.verify_refresh_token(token.credentials))  # type: ignore
+    return TokenData.model_validate(await token_service.verify_refresh_token(token.credentials))  # type: ignore

@@ -37,8 +37,8 @@ class AuthService(BaseService[UserRepository]):
         self.user_service = user_service
         self.settings = settings
 
-    async def register(self, schema: UserCreate) -> UserRead:
-        user = await self.user_service.create_user(schema)
+    async def sign_up(self, schema: UserCreate) -> UserRead:
+        user = await self.user_service.create(schema)
 
         verification_code = generate_otp()
         await self.caching.set(
@@ -66,7 +66,7 @@ class AuthService(BaseService[UserRepository]):
 
         return user
 
-    async def login(self, schema: UserLogin) -> User:
+    async def sign_in(self, schema: UserLogin) -> User:
         user = await self.repository.get_user_by_email(schema.email)
         if not user:
             raise UserNotFound()
@@ -79,10 +79,10 @@ class AuthService(BaseService[UserRepository]):
 
         return user
 
-    def _send_verification_email(self, email: str, verification_code: int):
+    def _send_verification_email(self, email: str, verification_code: str):
         template = self._load_template()
 
-        content = template.replace('{{ verification_code }}', str(verification_code))
+        content = template.replace('{{ verification_code }}', verification_code)
 
         msg = MIMEMultipart('alternative')
         msg['From'] = self.settings.secrets.SMTP_MAIL

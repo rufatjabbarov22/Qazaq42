@@ -3,6 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, APIKeyCoo
 
 from app.common.exceptions.user import UserNotAuthenticated
 
+
 class JWTHeaderBearer(HTTPBearer):
     def __init__(self, auto_error: bool = True):
         super(JWTHeaderBearer, self).__init__(auto_error=auto_error)

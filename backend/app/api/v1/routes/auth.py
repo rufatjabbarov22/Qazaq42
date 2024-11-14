@@ -23,7 +23,7 @@ async def register(
         user_data: UserCreate,
         auth_service: Annotated[AuthService, Inject()]
 ):
-    return await auth_service.register(user_data)
+    return await auth_service.sign_up(user_data)
 
 
 @router.post("/verify", response_model=UserRead, status_code=status.HTTP_200_OK)
@@ -36,7 +36,7 @@ async def verify(
     return await auth_service.verify(user_mail, otp_code)
 
 
-@router.post("/login", response_model=Token, status_code=status.HTTP_200_OK)
+@router.post("/sign-in", response_model=Token, status_code=status.HTTP_200_OK)
 @container.autowire
 async def login(
         user_credentials: UserLogin,
@@ -44,7 +44,7 @@ async def login(
         token_service: Annotated[TokenService, Inject()],
         settings: Annotated[Settings, Inject()]
         ):
-    user = await auth_service.login(user_credentials)
+    user = await auth_service.sign_in(user_credentials)
     access_token = token_service.generate_access_token(user)
     refresh_token = await token_service.generate_refresh_token(user)
     response = JSONResponse(
@@ -107,7 +107,7 @@ async def refresh_refresh_token(
     return response
 
 
-@router.post("/logout", status_code=status.HTTP_200_OK)
+@router.post("/sign-out", status_code=status.HTTP_200_OK)
 @container.autowire
 async def logout(
         request: Request,
