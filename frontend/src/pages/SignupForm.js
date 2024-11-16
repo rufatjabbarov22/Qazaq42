@@ -12,29 +12,61 @@ import {
 } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import './SignupForm.css'; // Добавляем CSS для анимаций и стилей
+import './SignupForm.css';
 
 const theme = createTheme();
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   border: '1px solid #ccc',
   borderRadius: '12px',
-  backgroundColor: 'rgba(240, 240, 240, 0.9)', // Полупрозрачный серый фон
+  backgroundColor: 'rgba(240, 240, 240, 0.9)',
   padding: '30px',
   boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
-  animation: 'slideUp 0.8s ease', // Анимация появления
+  animation: 'slideUp 0.8s ease',
 }));
 
 function SignupForm() {
-  const [fullName, setFullName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [updates, setUpdates] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Form submitted:', fullName, email, password, updates);
+
+    const payload = {
+      fname: firstName,
+      lname: lastName,
+      email: email,
+      password: password,
+    };
+
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/auth/sign-up', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Signup successful:', data);
+        // Navigate to login or show success message
+        navigate('/otp');
+      } else {
+        const errorData = await response.json();
+        console.error('Signup failed:', errorData);
+        alert('Signup failed: ' + (errorData.message || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
+      alert('Error connecting to server. Please try again later.');
+    }
   };
 
   return (
@@ -68,19 +100,21 @@ function SignupForm() {
                 <Grid item xs={12}>
                   <TextField
                     required
-                    id="full-name"
-                    label="Full name"
+                    id="first-name"
+                    label="First name"
                     fullWidth
-                    value={fullName}
-                    onChange={(event) => setFullName(event.target.value)}
-                    sx={{
-                      fontSize: { xs: '14px', sm: '16px' },
-                      '& .MuiOutlinedInput-root': {
-                        '& fieldset': { borderColor: '#888' },
-                        '&:hover fieldset': { borderColor: '#555' },
-                        '&.Mui-focused fieldset': { borderColor: '#333' },
-                      },
-                    }}
+                    value={firstName}
+                    onChange={(event) => setFirstName(event.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    id="last-name"
+                    label="Last name"
+                    fullWidth
+                    value={lastName}
+                    onChange={(event) => setLastName(event.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -92,14 +126,6 @@ function SignupForm() {
                     type="email"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
-                    sx={{
-                      fontSize: { xs: '14px', sm: '16px' },
-                      '& .MuiOutlinedInput-root': {
-                        '& fieldset': { borderColor: '#888' },
-                        '&:hover fieldset': { borderColor: '#555' },
-                        '&.Mui-focused fieldset': { borderColor: '#333' },
-                      },
-                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -111,14 +137,6 @@ function SignupForm() {
                     type="password"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
-                    sx={{
-                      fontSize: { xs: '14px', sm: '16px' },
-                      '& .MuiOutlinedInput-root': {
-                        '& fieldset': { borderColor: '#888' },
-                        '&:hover fieldset': { borderColor: '#555' },
-                        '&.Mui-focused fieldset': { borderColor: '#333' },
-                      },
-                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -128,27 +146,13 @@ function SignupForm() {
                         id="updates"
                         checked={updates}
                         onChange={(event) => setUpdates(event.target.checked)}
-                        sx={{
-                          color: '#333',
-                          '&.Mui-checked': { color: '#000' },
-                        }}
                       />
                     }
                     label="I want to receive updates via email."
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      padding: { xs: '10px', sm: '12px' },
-                      backgroundColor: '#333',
-                      '&:hover': { backgroundColor: '#000' },
-                      transition: 'background-color 0.3s ease',
-                    }}
-                  >
+                  <Button type="submit" variant="contained" fullWidth>
                     Sign up
                   </Button>
                 </Grid>
