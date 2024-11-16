@@ -11,6 +11,7 @@ import AccountPage from './pages/AccountPage/AccountPage';
 import './app.css';
 import OrderPage from './pages/DeviceSection/OrderPage';
 import OTPForm from './pages/Otp';
+import AdminPanel from './pages/Admin/AdminPanel';
 
 function AppContent() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function AppContent() {
           <Route path="/otp" element={<OTPForm />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/order" element={<OrderPage />} />
+          <Route path="/admin" element={<AdminPanel/>} />
         </Routes>
       </div>
       {/* Conditionally render the footer only if it's not the AccountPage */}
