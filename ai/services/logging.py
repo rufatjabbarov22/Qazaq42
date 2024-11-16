@@ -14,7 +14,7 @@ if not os.path.exists(log_directory):
 class CustomFormatter(logging.Formatter):
     def format(self, record):
         if not hasattr(record, "id"):
-            record.ip = ""
+            record.id = ""
         return super().format(record)
 
 
