@@ -8,28 +8,54 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { Avatar } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { Avatar, Typography, Container } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // Подключаем CSS для анимаций
+import axios from 'axios';
+import './Login.css';
 
 const theme = createTheme();
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  // Handle Login Form Submission
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
+    setError(''); // Clear previous errors
 
-    navigate('/account');
+    try {
+      // Send a POST request to your backend
+      const response = await axios.post(
+        'http://localhost:8000/api/v1/auth/sign-in',
+        { email, password },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'accept': 'application/json',
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Login successful:', response.data);
+        
+        const { token } = response.data;
+        if (token) {
+          localStorage.setItem('authToken', token);
+        }
+
+        navigate('/account');
+      }
+    } catch (error) {
+      console.error('Login failed:', error.response ? error.response.data : error.message);
+      setError('Invalid email or password. Please try again.');
+    }
   };
 
   const handleForgotPasswordOpen = () => {
@@ -61,7 +87,7 @@ export default function Login() {
           sx={{
             border: '1px solid #ccc',
             borderRadius: '12px',
-            backgroundColor: 'rgba(240, 240, 240, 0.9)', // Полупрозрачный серый фон
+            backgroundColor: 'rgba(240, 240, 240, 0.9)',
             padding: '30px',
             boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
             animation: 'slideUp 0.8s ease',
@@ -88,26 +114,10 @@ export default function Login() {
                 fullWidth
                 id="email"
                 label="Email Address"
-                name="email"
                 autoComplete="email"
                 autoFocus
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                sx={{
-                  fontSize: { xs: '16px', sm: '18px' },
-                  '& .MuiInputBase-input': { color: 'black' }, // Темные цвета текста
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#888', // Серый цвет рамки
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#555',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#333',
-                    },
-                  },
-                }}
               />
               <TextField
                 margin="normal"
@@ -120,26 +130,16 @@ export default function Login() {
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                sx={{
-                  fontSize: { xs: '16px', sm: '18px' },
-                  '& .MuiInputBase-input': { color: 'black' }, 
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#888',
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#555',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#333',
-                    },
-                  },
-                }}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
+              {error && (
+                <Typography color="error" align="center" sx={{ mt: 2 }}>
+                  {error}
+                </Typography>
+              )}
               <Button
                 type="submit"
                 fullWidth
@@ -147,13 +147,8 @@ export default function Login() {
                 sx={{
                   mt: 3,
                   mb: 2,
-                  fontSize: { xs: '16px', sm: '18px' },
-                  padding: { xs: '8px', sm: '10px' },
                   backgroundColor: '#333',
-                  '&:hover': {
-                    backgroundColor: '#000',
-                  },
-                  transition: 'background-color 0.3s ease',
+                  '&:hover': { backgroundColor: '#000' },
                 }}
               >
                 Sign In

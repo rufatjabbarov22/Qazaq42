@@ -10,6 +10,7 @@ import RegisterPage from './pages/SignupForm';
 import AccountPage from './pages/AccountPage/AccountPage';
 import './app.css';
 import OrderPage from './pages/DeviceSection/OrderPage';
+import OTPForm from './pages/Otp';
 
 function AppContent() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function AppContent() {
           <Route path="/contact" element={<ContactUsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/otp" element={<OTPForm />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/order" element={<OrderPage />} />
         </Routes>
