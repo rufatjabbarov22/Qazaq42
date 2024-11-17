@@ -48,7 +48,7 @@ const LoginButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const Header = () => {
+const HeaderAcc = () => {
   const [headerBackground, setHeaderBackground] = useState('rgba(51, 75, 28, 1)');
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -178,4 +178,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderAcc;
