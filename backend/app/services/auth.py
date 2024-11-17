@@ -51,7 +51,7 @@ class AuthService(BaseService[UserRepository]):
 
         return user
 
-    async def verify(self, email: str, verification_code: int) -> User:
+    async def verify(self, email: str, verification_code: int) -> UserRead:
         cached_code = await self.caching.get(f'verification_code_{email}')
 
         if not cached_code or cached_code != str(verification_code):
@@ -61,10 +61,10 @@ class AuthService(BaseService[UserRepository]):
         if not user:
             raise UserNotFound()
 
-        await self.repository.mark_user_as_verified(user.id)
+        user = await self.repository.mark_user_as_verified(user.id)
         await self.caching.delete(f'verification_code_{email}')
 
-        return user
+        return UserRead.model_validate(user)
 
     async def sign_in(self, schema: UserLogin) -> User:
         user = await self.repository.get_user_by_email(schema.email)
