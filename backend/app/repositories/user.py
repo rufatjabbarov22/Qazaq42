@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 from uuid import UUID
 
 from sqlalchemy.future import select
@@ -27,7 +27,7 @@ class UserRepository(BaseRepository[User, UserCreate, UserUpdate]):
             result = await session.execute(stmt)
             return result.scalar_one_or_none()
 
-    async def mark_user_as_verified(self, user_id: UUID) -> bool:
+    async def mark_user_as_verified(self, user_id: UUID) -> Optional[Union[User, bool]]:
         async with self.produce_session() as session:
             stmt = select(User).where(User.id == user_id)  # type: ignore
             result = await session.execute(stmt)
@@ -38,4 +38,4 @@ class UserRepository(BaseRepository[User, UserCreate, UserUpdate]):
 
             user.is_verified = True
             await session.commit()
-            return True
+            return user
