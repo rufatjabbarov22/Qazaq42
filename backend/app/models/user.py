@@ -17,3 +17,4 @@ class User(Base, table=True):
     is_admin: bool = Field(default=False)
 
     devices: Optional["Device"] = Relationship(back_populates="user")  # type: ignore
+    reports: Optional["Report"] = Relationship(back_populates="user")  # type: ignore
