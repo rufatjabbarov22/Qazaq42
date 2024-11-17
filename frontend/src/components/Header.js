@@ -44,7 +44,6 @@ const LoginButton = styled(Button)(({ theme }) => ({
   border: '2px solid transparent',
   '&:hover': {
     backgroundColor: 'rgba(173, 255, 47, 0.2)',
-    border: '2px solid rgba(173, 255, 47, 1)',
     color: '#f1f2f0',
   },
 }));

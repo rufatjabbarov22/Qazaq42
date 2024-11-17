@@ -86,10 +86,10 @@ const SliderSection = () => {
 
       {/* Right Section with text */}
       <Box className="right-text-section">
-        <Typography variant="h4" component="h2" sx={{ color: 'white', mb: 3, fontFamily: 'Poppins', fontWeight: 'bold' }}>
+        <Typography variant="h4" component="h2" sx={{paddingBottom: '50px', marginTop: '-100px'}} >
           The Potential of Azerbaijan's Fertile Lands
         </Typography>
-        <Typography variant="body1" sx={{ color: 'white', lineHeight: 1.8, fontFamily: 'Poppins', fontSize: '1.2rem' }}>
+        <Typography variant="body1">
           Azerbaijan's agricultural sector has long been a cornerstone of its economy, with vast areas of fertile lands
           providing tremendous potential for growth. The liberation of territories in 2020 has opened up new opportunities
           for cultivation and development. The government's policies are focused on empowering farmers by providing them

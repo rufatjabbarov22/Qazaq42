@@ -5,7 +5,7 @@ import { Box, Container, Grid, Link, Typography } from '@mui/material';
 const TeamSection = () => {
   return (
     <Container className="team-section1" maxWidth={false}>
-      <Typography variant="h3" component="h2" className="team-title">
+      <Typography variant="h3" component="h2" className="team-title" paddingBottom={'50px'}>
         Our Team
       </Typography>
       <Grid container spacing={3} justifyContent="center">
@@ -50,7 +50,7 @@ const TeamSection = () => {
               />
               <Typography className="team-name">Kamran Mahmudov</Typography>
             </Link>
-            <Typography className="team-role">Project Manager</Typography>
+            <Typography className="team-role">CMO</Typography>
             <Typography className="team-quote">"Delivering projects with excellence."</Typography>
           </Box>
         </Grid>
@@ -65,7 +65,7 @@ const TeamSection = () => {
               />
               <Typography className="team-name">Rufat Jabbarov</Typography>
             </Link>
-            <Typography className="team-role">father of chatgpt</Typography>
+            <Typography className="team-role">CIO</Typography>
             <Typography className="team-quote">"Looking deep to build a better future."</Typography>
           </Box>
         </Grid>

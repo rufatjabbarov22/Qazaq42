@@ -1,6 +1,6 @@
 /* FAQSection.css */
 .faq-section {
-    background-color: #000; /* Black background */
+    background-color: #f0f0f0; /* Black background */
     color: white;
     padding: 50px 20px;
     text-align: center;
@@ -10,7 +10,7 @@
   
   .faq-section .section-title {
     margin-bottom: 40px;
-    color: #f1f2f0;
+    color: #0c1504 !important;
     font-size: 2.5rem;
     max-width: 100%;
     word-wrap: break-word; /* Ensures long words are wrapped */

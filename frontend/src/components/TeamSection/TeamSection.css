@@ -1,16 +1,19 @@
 /* Main container for the team section */
 .team-section1 {
-  background-color: #000000 !important; /* Completely black background */
+  background-color: #ffffff !important; /* Completely black background */
   color: white;
   text-align: center;
-  padding: 60px 20px;
+  padding: 30px;
+  margin-bottom: 20px;
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
+.team-title{
+  color: #0c1504 !important;
+}
 /* Team member container with equal height enforcement */
 .team-member {
   background-color: #1a1a1a; /* Light black background for cards */
@@ -27,7 +30,7 @@
 
 .team-member:hover {
   transform: translateY(-10px);
-  background-color: #333333; /* Even lighter black on hover */
+  background-color: #131313 !important; /* Even lighter black on hover */
 }
 
 /* Equal height and width for images */

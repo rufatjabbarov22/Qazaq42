@@ -2,17 +2,17 @@
 .device-section {
   display: flex;
   width: 100%;
-  height: 100vh; /* Full-screen height */
-  background-color: #000; /* Black background */
+  height: 90vh; /* Full-screen height */
+  background-color: #f0f0f0; /* Black background */
   padding: 20px;
   box-sizing: border-box;
   gap: 20px; /* Space between left and right sections */
 }
 
 /* Left section with text */
-.left-section {
+.left-section-device {
   flex: 1;
-  background-color: #1a1a1a; /* Slightly lighter black */
+  background-color: #ffffff; /* Slightly lighter black */
   border-radius: 10px;
   padding: 20px;
   display: flex;
@@ -22,13 +22,13 @@
 
 .section2-content {
   max-width: 90%; /* Limits the width of the text within the section */
-  color: #f5f5f5;
+  color: #000 !important;
 }
 
 /* Right section with photo and animation */
 .right-section {
   flex: 1;
-  background-color: #1a1a1a; /* Slightly lighter black */
+  background-color: #ffffff; /* Slightly lighter black */
   border-radius: 10px;
   padding: 0;
   display: flex;

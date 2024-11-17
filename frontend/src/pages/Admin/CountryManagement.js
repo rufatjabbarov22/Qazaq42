@@ -38,7 +38,7 @@ const CountryManagement = () => {
     } else {
       setCodeSuggestions([]);
     }
-  }, [formData.name, formData.code]);
+  }, [formData.name, formData.code, countryList, codeList]); 
 
   // Filter countries based on search term
   useEffect(() => {

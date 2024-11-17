@@ -2,7 +2,7 @@ import React from 'react';
 import Section1 from '../components/Section1/Section1';
 import Section2 from '../components/Section2/Section2';  // Импортируем Section2
 import DeviceSection from './DeviceSection/DeviceSection';
-import TeamSection from '../components/TeamSection/TeamSection';
+// import TeamSection from '../components/TeamSection/TeamSection';
 import SliderSection from '../components/SliderSection/SliderSection';
 import VideoSection from '../components/TeamSection/VideSection/VideoSection';
 import StatisticsSection from './StatisticsSection';
@@ -16,9 +16,9 @@ const HomePage = () => {
       <StatisticsSection />
       <DeviceSection />
       <VideoSection />
-      <FAQSection />
       <SliderSection />
-      <TeamSection />
+      <FAQSection />
+      {/* <TeamSection /> */}
     </div>
   );
 };

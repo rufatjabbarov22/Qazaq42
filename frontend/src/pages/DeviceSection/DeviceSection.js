@@ -14,7 +14,7 @@ const DeviceSection = () => {
   return (
     <Box className="device-section">
       {/* Left part with the text */}
-      <Box className="left-section">
+      <Box className="left-section-device">
         <Box className="section2-content">
           <Typography variant="h4" component="h3" gutterBottom>
             KSSR-01: Revolutionizing Soil Scanning Technology

@@ -4,43 +4,40 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh; /* Full screen height */
-    background-color: #000; /* Black background */
+    height: 95vh; /* Full screen height */
+    background-color: #f0f0f0; /* Black background */
   }
   
-  /* Centered video container */
   .video-container {
-    width: 90%; /* Increased width for large screens */
-    height: 70%; /* Increased height for large screens */
-    background-color: #1a1a1a; /* Same color as previous sections */
-    border-radius: 12px; /* Larger rounded corners */
-    padding: 15px; /* Increased inner padding for a cleaner look */
+    width: 90%; 
+    height: 70%;
+    background-color: #1a1a1a; 
+    border-radius: 12px; 
+    padding: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); /* Adds subtle shadow for better focus */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   }
   
-  /* The iframe will fill the container */
   iframe {
     width: 100%;
     height: 100%;
-    border-radius: 10px; /* Ensures the video fits within the rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds shadow around the video */
+    border-radius: 10px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
   
-  /* Responsive styles */
   @media (min-width: 1200px) {
     .video-container {
-      width: 80%; /* Takes more space on large screens */
-      height: 80%; /* Adjusted height for larger viewports */
+      width: 80%;
+      height: 80%;
     }
   }
   
   @media (max-width: 768px) {
     .video-container {
-      width: 95%; /* Takes up more space on smaller screens */
-      height: 50%; /* Adjust height for smaller screens */
+      width: 95%;
+      height: 50%;
     }
   }
   
