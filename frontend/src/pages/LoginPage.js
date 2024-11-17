@@ -47,7 +47,7 @@ export default function Login() {
         
         const { token } = response.data;
         if (token) {
-          localStorage.setItem('authToken', token);
+          localStorage.setItem('access_token', token);
         }
 
         navigate('/account');

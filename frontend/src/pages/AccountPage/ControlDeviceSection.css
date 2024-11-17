@@ -1,7 +1,7 @@
 .control-device-section {
-  background-color: #1a1a1a;
+  background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   height: 100%;
   display: flex;
   justify-content: center;
@@ -21,7 +21,7 @@
 }
 
 .device-icon {
-  font-size: 80px;
+  font-size: 100px;
   color: #0e4882;
 }
 

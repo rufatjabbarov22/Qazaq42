@@ -11,7 +11,7 @@ import AISection from './AISection';
 import './AccountPage.css';
 
 const AccountPage = () => {
-  const [selectedSection, setSelectedSection] = useState('map'); // Default to Map section
+  const [selectedSection, setSelectedSection] = useState('map');
 
   const renderSection = () => {
     switch (selectedSection) {

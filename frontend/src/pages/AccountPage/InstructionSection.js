@@ -10,7 +10,7 @@ const InstructionSection = () => {
   return (
     <Box className="instruction-section">
       <Typography variant="h3" component="h1" className="section-title">
-        Instructions for Using the Soil Scanning Device
+        Instructions for Soil Scanning Device
       </Typography>
 
       <Box className="instruction-step">
