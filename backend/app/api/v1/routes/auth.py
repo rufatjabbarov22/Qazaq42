@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Dict
 
 from fastapi import APIRouter, Request, status
 from fastapi.params import Depends
@@ -34,6 +34,15 @@ async def verify(
         auth_service: Annotated[AuthService, Inject()]
 ):
     return await auth_service.verify(user_mail, otp_code)
+
+
+@router.post("/resend-verification", response_model=Dict, status_code=status.HTTP_200_OK)
+@container.autowire
+async def resend_verification(
+        user_mail: str,
+        auth_service: Annotated[AuthService, Inject()]
+):
+    return await auth_service.resend_verification(user_mail)
 
 
 @router.post("/sign-in", response_model=Token, status_code=status.HTTP_200_OK)

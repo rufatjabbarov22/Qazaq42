@@ -9,6 +9,14 @@ class UserAlreadyExists(HTTPException):
         )
 
 
+class UserAlreadyVerified(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="User already verified"
+        )
+
+
 class UserCreationFailed(HTTPException):
     def __init__(self):
         super().__init__(

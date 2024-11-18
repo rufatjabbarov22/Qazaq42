@@ -2,12 +2,14 @@ import smtplib
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from typing import Dict
 
 from wireup import service, ServiceLifetime
 
 from app.api.v1.schemas.user import UserRead
 from app.api.v1.schemas.user import UserCreate, UserLogin
 from app.common.exceptions.user import (
+    UserAlreadyVerified,
     UserNotAuthenticated,
     UserNotFound,
     UserNotVerified,
@@ -50,6 +52,25 @@ class AuthService(BaseService[UserRepository]):
         self._send_verification_email(user.email, verification_code)
 
         return user
+
+    async def resend_verification(self, email: str) -> Dict:
+        user = await self.repository.get_user_by_email(email)
+        if not user:
+            raise UserNotFound()
+
+        if user.is_verified:
+            raise UserAlreadyVerified()
+
+        verification_code = generate_otp()
+        await self.caching.set(
+            f'verification_code_{email}',
+            verification_code,
+            ex=self.settings.config.EMAIL_VERIFICATION_EXPIRATION
+        )
+
+        self._send_verification_email(email, verification_code)
+
+        return {"message": "Verification code sent successfully"}
 
     async def verify(self, email: str, verification_code: int) -> UserRead:
         cached_code = await self.caching.get(f'verification_code_{email}')
