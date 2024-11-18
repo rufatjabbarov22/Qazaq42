@@ -21,4 +21,6 @@ class Telemetry(Base, table=True):
     co2: float = Field(nullable=False)
     o2: float = Field(nullable=False)
 
-    device: "Device" = Relationship(back_populates="telemetries")  # type: ignore
+    device: "Device" = Relationship(  # type: ignore
+        back_populates="telemetries",
+    )

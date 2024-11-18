@@ -72,7 +72,7 @@ class TokenService:
             "email": user.email,
             "is_verified": user.is_verified,
             "jti": jti,
-            "exp": datetime.now() + timedelta(seconds=self.refresh_token_ttl),
+            "exp": datetime.now() + timedelta(days=self.refresh_token_ttl),
         }
         token = encode(payload, self.private_key, algorithm=self.algorithm)
 
@@ -89,10 +89,11 @@ class TokenService:
             raise InvalidTokenException()
 
         user_id = await caching.get(data["jti"])
+        is_admin = True if data["role"] == "admin" else False
         if user_id and user_id == data["sub"]:
             return {
                 "sub": UUID(data["sub"]),
-                "is_admin": data["role"],
+                "is_admin": is_admin,
                 "is_verified": data["is_verified"],
                 "email": data["email"]
             }

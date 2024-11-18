@@ -12,4 +12,6 @@ class CropReport(Base, table=True):
     crop_name: str = Field(max_length=255, nullable=False)
     probability: float = Field(nullable=False)
 
-    field: "FieldModel" = Relationship(back_populates="crop_reports")  # type: ignore
+    field: "FieldModel" = Relationship(  # type: ignore
+        back_populates="crop_reports",
+    )

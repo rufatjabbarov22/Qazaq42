@@ -26,6 +26,7 @@ class DeviceCreate(BaseSchema):
 class DeviceRead(BaseSchema):
     id: UUID
     serial_id: str
+    pin: str
     name: Optional[str]
     description: Optional[str]
     type: DeviceTypeEnum
