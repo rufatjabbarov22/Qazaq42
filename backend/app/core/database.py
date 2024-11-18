@@ -19,7 +19,7 @@ from config.settings import Settings
 @service
 class Database:
     def __init__(self, settings: Settings) -> None:
-        self._engine = create_async_engine(settings.secrets.POSTGRES_URI, echo=True)
+        self._engine = create_async_engine(settings.secrets.POSTGRES_URI)
         self._session_factory = async_scoped_session(
             async_sessionmaker(
                 autocommit=False,

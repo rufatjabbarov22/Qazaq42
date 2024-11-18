@@ -4,7 +4,8 @@ from os import urandom
 from typing import Dict
 from uuid import UUID
 
-from jwt import encode, decode, ExpiredSignatureError, InvalidTokenError
+from jwt import encode, decode  # type: ignore
+from jwt.exceptions import ExpiredSignatureError, InvalidTokenError  # type: ignore
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
 from wireup import container, service

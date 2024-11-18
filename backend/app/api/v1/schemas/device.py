@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 from typing import Optional
 
-from pydantic import Field
+from pydantic import EmailStr, Field
 from uuid import UUID
 
 from app.api.v1.schemas.abstract.base import BaseSchema
@@ -18,6 +18,9 @@ class DeviceCreate(BaseSchema):
     type: Optional[DeviceTypeEnum] = Field(None)
     name: Optional[str] = Field(None, max_length=255)
     description: Optional[str] = Field(None, max_length=255)
+    user_email: Optional[EmailStr] = Field(None)
+    user_id: Optional[UUID] = Field(None)
+    is_assigned: Optional[bool] = Field(False)
 
 
 class DeviceRead(BaseSchema):

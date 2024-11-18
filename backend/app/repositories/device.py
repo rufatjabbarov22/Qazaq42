@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 from uuid import UUID
 
 from sqlalchemy.future import select
@@ -21,7 +21,7 @@ class DeviceRepository(BaseRepository[Device, DeviceCreate, DeviceUpdate]):
             result = await session.execute(stmt)
             return result.scalar_one_or_none()
 
-    async def get_device_by_user_id(self, user_id: UUID) -> Optional[Device]:
+    async def get_devices_by_user_id(self, user_id: UUID) -> List[Device]:
         async with self.produce_session() as session:
             stmt = select(Device).where(Device.user_id == user_id)  # type: ignore
             result = await session.execute(stmt)

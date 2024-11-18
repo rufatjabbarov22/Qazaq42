@@ -34,6 +34,12 @@ class DeviceService(BaseService[DeviceRepository]):
 
             device_data.serial_id = generate_serial_id(device_data.prefix)
             device_data.pin = generate_pin()
+            if device_data.user_email:
+                user = await self.user_repository.get_user_by_email(device_data.user_email)
+                if not user:
+                    raise UserNotFound()
+                device_data.user_id = user.id
+                device_data.is_assigned = True
 
             created_device = await self.repository.create(device_data)
             return DeviceRead.model_validate(created_device)
@@ -77,6 +83,10 @@ class DeviceService(BaseService[DeviceRepository]):
         if not device:
             raise DeviceNotFound()
         return DeviceRead.model_validate(device)
+
+    async def get_devices_by_user_id(self, user_id: UUID) -> List[DeviceRead]:
+        devices = await self.repository.get_devices_by_user_id(user_id)
+        return [DeviceRead.model_validate(device) for device in devices]
 
     async def get_all_devices(self) -> List[DeviceRead]:
         devices = await self.repository.get_all()

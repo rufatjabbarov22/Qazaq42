@@ -23,6 +23,22 @@ services:
     networks:
       - qazaq_network
 
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - frontend:/app/node_modules
+    networks:
+      - qazaq_network
+
+volumes:
+  backend:
+  frontend:
+
 networks:
   qazaq_network:
     driver: bridge
