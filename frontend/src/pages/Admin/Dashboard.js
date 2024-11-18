@@ -1,30 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Grid, Paper, CircularProgress, Box, Button } from '@mui/material';
-import { Line } from 'react-chartjs-2';
-import { Chart, LineElement, PointElement, LinearScale, CategoryScale, Legend, Tooltip } from 'chart.js';
+import {
+  Typography,
+  Grid,
+  Paper,
+  Box,
+  CircularProgress,
+  Button,
+} from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import DeviceHubIcon from '@mui/icons-material/DeviceHub';
+import ReportIcon from '@mui/icons-material/Report';
 import TimelineIcon from '@mui/icons-material/Timeline';
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart,
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Legend,
+  Tooltip,
+} from 'chart.js';
 
 Chart.register(LineElement, PointElement, LinearScale, CategoryScale, Legend, Tooltip);
 
-const Dashboard = () => {
+const Dashboard = ({ onNavigate }) => {
+  const [activeUsers, setActiveUsers] = useState(0);
+  const [activeDevices, setActiveDevices] = useState(0);
+  const [recentSignups, setRecentSignups] = useState([]);
+  const [deviceStatus, setDeviceStatus] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Simulated placeholders for the data
-  const activeUsers = '...'; // Placeholder
-  const activeDevices = '...'; // Placeholder
-  const recentSignups = Array(5).fill('...'); // Placeholder
-  const deviceStatus = Array(3).fill({ name: '...', status: '...' }); // Placeholder
+  useEffect(() => {
+    // Simulate fetching data
+    setTimeout(() => {
+      setActiveUsers(524);
+      setActiveDevices(158);
+      setRecentSignups(['User1', 'User2', 'User3', 'User4', 'User5']);
+      setDeviceStatus([
+        { name: 'Device A', status: 'Online' },
+        { name: 'Device B', status: 'Offline' },
+        { name: 'Device C', status: 'Online' },
+      ]);
+      setLoading(false);
+    }, 1500);
+  }, []);
 
-  // Chart placeholder data
+  // Data for activity line chart
   const chartData = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: [
       {
         label: 'User Signups',
-        data: [0, 0, 0, 0, 0, 0, 0], // Placeholder
+        data: [12, 19, 3, 5, 2, 3, 12],
         borderColor: '#4CAF50',
         borderWidth: 2,
         pointBackgroundColor: '#4CAF50',
@@ -32,7 +60,7 @@ const Dashboard = () => {
       },
       {
         label: 'Device Activity',
-        data: [0, 0, 0, 0, 0, 0, 0], // Placeholder
+        data: [8, 11, 6, 10, 12, 7, 15],
         borderColor: '#FF9800',
         borderWidth: 2,
         pointBackgroundColor: '#FF9800',
@@ -41,52 +69,86 @@ const Dashboard = () => {
     ],
   };
 
-  useEffect(() => {
-    // Simulate a loading delay
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-  }, []);
-
   if (loading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '100vh',
+          backgroundColor: '#1a1a1a',
+          color: '#fff',
+        }}
+      >
         <CircularProgress color="inherit" />
       </Box>
     );
   }
 
   return (
-    <Box sx={{ backgroundColor: '#1a1a1a', color: '#fff', minHeight: '100vh', padding: '20px' }}>
+    <Box
+      sx={{
+        backgroundColor: '#1a1a1a',
+        color: '#fff',
+        minHeight: '100vh',
+        padding: '20px',
+      }}
+    >
       <Typography variant="h3" align="center" gutterBottom>
         Admin Dashboard
       </Typography>
 
-      {/* Key Metrics */}
+      {/* Key Metrics Section */}
       <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
-          <Paper sx={{ padding: '20px', backgroundColor: '#333', display: 'flex', alignItems: 'center' }}>
-            <PeopleIcon sx={{ fontSize: 60, color: '#4CAF50', marginRight: '15px' }} />
+          <Paper
+            sx={{
+              padding: '20px',
+              backgroundColor: '#333',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <PeopleIcon
+              sx={{ fontSize: 60, color: '#4CAF50', marginRight: '15px' }}
+            />
             <Box>
               <Typography variant="h6">Active Users</Typography>
               <Typography variant="h4">{activeUsers}</Typography>
             </Box>
           </Paper>
         </Grid>
-
         <Grid item xs={12} md={4}>
-          <Paper sx={{ padding: '20px', backgroundColor: '#333', display: 'flex', alignItems: 'center' }}>
-            <DeviceHubIcon sx={{ fontSize: 60, color: '#FF9800', marginRight: '15px' }} />
+          <Paper
+            sx={{
+              padding: '20px',
+              backgroundColor: '#333',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <DeviceHubIcon
+              sx={{ fontSize: 60, color: '#FF9800', marginRight: '15px' }}
+            />
             <Box>
               <Typography variant="h6">Active Devices</Typography>
               <Typography variant="h4">{activeDevices}</Typography>
             </Box>
           </Paper>
         </Grid>
-
         <Grid item xs={12} md={4}>
-          <Paper sx={{ padding: '20px', backgroundColor: '#333', display: 'flex', alignItems: 'center' }}>
-            <TimelineIcon sx={{ fontSize: 60, color: '#2196F3', marginRight: '15px' }} />
+          <Paper
+            sx={{
+              padding: '20px',
+              backgroundColor: '#333',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <TimelineIcon
+              sx={{ fontSize: 60, color: '#2196F3', marginRight: '15px' }}
+            />
             <Box>
               <Typography variant="h6">System Health</Typography>
               <Typography variant="h4">Good</Typography>
@@ -95,7 +157,7 @@ const Dashboard = () => {
         </Grid>
       </Grid>
 
-      {/* Line Chart for User and Device Activity */}
+      {/* Weekly Activity Overview */}
       <Box mt={5}>
         <Paper sx={{ padding: '20px', backgroundColor: '#333' }}>
           <Typography variant="h5" gutterBottom>
@@ -116,14 +178,18 @@ const Dashboard = () => {
               <Typography
                 key={index}
                 variant="body1"
-                sx={{ padding: '5px', backgroundColor: '#444', marginBottom: '5px', borderRadius: '5px' }}
+                sx={{
+                  padding: '5px',
+                  backgroundColor: '#444',
+                  marginBottom: '5px',
+                  borderRadius: '5px',
+                }}
               >
                 {user}
               </Typography>
             ))}
           </Paper>
         </Grid>
-
         <Grid item xs={12} md={6}>
           <Paper sx={{ padding: '20px', backgroundColor: '#333' }}>
             <Typography variant="h5" gutterBottom>
@@ -148,19 +214,41 @@ const Dashboard = () => {
         </Grid>
       </Grid>
 
-      {/* Quick Links */}
+      {/* Quick Access Section */}
       <Box mt={5}>
         <Typography variant="h5" align="center" gutterBottom>
           Quick Access
         </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
-          <Button variant="contained" color="primary" startIcon={<PeopleIcon />} href="/admin/users">
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '20px',
+            marginTop: '20px',
+          }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<PeopleIcon />}
+            onClick={() => onNavigate('users')}
+          >
             Manage Users
           </Button>
-          <Button variant="contained" color="secondary" startIcon={<DeviceHubIcon />} href="/admin/devices">
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<DeviceHubIcon />}
+            onClick={() => onNavigate('devices')}
+          >
             Manage Devices
           </Button>
-          <Button variant="contained" color="success" startIcon={<SystemUpdateAltIcon />} href="/admin/reports">
+          <Button
+            variant="contained"
+            color="success"
+            startIcon={<ReportIcon />}
+            onClick={() => onNavigate('reports')}
+          >
             View Reports
           </Button>
         </Box>

@@ -3,6 +3,7 @@ import UserManagement from './UserManagement';
 import DeviceManagement from './DeviceManagement';
 import CountryManagement from './CountryManagement';
 import Dashboard from './Dashboard'; // Import the Dashboard component
+import ReportManagement from './ReportManagement'; // Import the Report Management component
 import { Typography, Box, Button } from '@mui/material';
 
 const AdminPanel = () => {
@@ -11,13 +12,15 @@ const AdminPanel = () => {
   const renderContent = () => {
     switch (activeSection) {
       case 'dashboard':
-        return <Dashboard />;
+        return <Dashboard onNavigate={setActiveSection} />; // Pass setActiveSection as a prop to Dashboard
       case 'users':
         return <UserManagement />;
       case 'devices':
         return <DeviceManagement />;
       case 'countries':
         return <CountryManagement />;
+      case 'reports': // Add the Report Management section
+        return <ReportManagement />;
       default:
         return <Typography variant="h6" sx={{ color: '#fff' }}>Select a section from the sidebar</Typography>;
     }
@@ -31,6 +34,7 @@ const AdminPanel = () => {
         <Button onClick={() => setActiveSection('users')} sx={buttonStyle}>Users</Button>
         <Button onClick={() => setActiveSection('devices')} sx={buttonStyle}>Devices</Button>
         <Button onClick={() => setActiveSection('countries')} sx={buttonStyle}>Countries</Button>
+        <Button onClick={() => setActiveSection('reports')} sx={buttonStyle}>Reports</Button> {/* Add button for Report Management */}
       </Box>
       <Box component="main" sx={mainContentStyle}>
         {renderContent()}

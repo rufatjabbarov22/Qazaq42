@@ -1,5 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, List, ListItemButton, ListItemText, Box } from '@mui/material';
+import React, { useState, useEffect, useMemo } from 'react';
+import {
+  TextField,
+  Button,
+  Paper,
+  Typography,
+  List,
+  ListItemButton,
+  ListItemText,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import PublicIcon from '@mui/icons-material/Public';
 
 const CountryManagement = () => {
@@ -11,46 +25,51 @@ const CountryManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Fetch countries from the backend
+  const countryList = useMemo(() => ["Azerbaijan", "Russia", "United States", "Germany"], []);
+  const codeList = useMemo(() => ["AZE", "RUS", "USA", "DEU"], []);
+
   useEffect(() => {
     fetch('/api/v1/countries')
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         setCountries(data);
         setFilteredCountries(data);
       })
-      .catch(error => console.error('Error fetching countries:', error));
+      .catch((error) => console.error('Error fetching countries:', error));
   }, []);
 
-  // Simulated country name and code list
-  const countryList = ["Azerbaijan", "Russia", "United States", "Germany"]; // Replace with actual data if available
-  const codeList = ["AZE", "RUS", "USA", "DEU"]; // Replace with actual data if available
-
-  // Update suggestions for country names and codes
   useEffect(() => {
     if (formData.name) {
-      setSuggestions(countryList.filter(name => name.toLowerCase().includes(formData.name.toLowerCase())));
+      setSuggestions(
+        countryList.filter((name) =>
+          name.toLowerCase().includes(formData.name.toLowerCase())
+        )
+      );
     } else {
       setSuggestions([]);
     }
+
     if (formData.code) {
-      setCodeSuggestions(codeList.filter(code => code.toLowerCase().includes(formData.code.toLowerCase())));
+      setCodeSuggestions(
+        codeList.filter((code) =>
+          code.toLowerCase().includes(formData.code.toLowerCase())
+        )
+      );
     } else {
       setCodeSuggestions([]);
     }
-  }, [formData.name, formData.code, countryList, codeList]); 
+  }, [formData.name, formData.code, countryList, codeList]);
 
-  // Filter countries based on search term
   useEffect(() => {
     setFilteredCountries(
-      countries.filter(country =>
-        country.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        country.code.toLowerCase().includes(searchTerm.toLowerCase())
+      countries.filter(
+        (country) =>
+          country.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          country.code.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
   }, [searchTerm, countries]);
 
-  // Handle adding a new country
   const handleAddCountry = (e) => {
     e.preventDefault();
     fetch('/api/v1/countries', {
@@ -58,32 +77,31 @@ const CountryManagement = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         alert('Country added successfully');
         setCountries([...countries, data]);
         setFilteredCountries([...countries, data]);
         setFormData({ name: '', code: '' });
       })
-      .catch(error => console.error('Error adding country:', error));
+      .catch((error) => console.error('Error adding country:', error));
   };
 
-  // Select a suggestion for the country name
   const handleCountrySelect = (name, code) => {
     setFormData({ name, code });
     setShowSuggestions(false);
   };
 
   return (
-    <Box sx={containerStyle}>
-      <Typography variant="h4" sx={headerStyle}>Country Management</Typography>
+    <Paper elevation={3} sx={containerStyle}>
+      <Typography variant="h4" sx={headerStyle}>
+        Country Management
+      </Typography>
 
-      {/* Rotating Globe Icon */}
-      <Box sx={iconContainerStyle}>
+      <div style={iconContainerStyle}>
         <PublicIcon sx={globeIconStyle} />
-      </Box>
+      </div>
 
-      {/* Country Form */}
       <form onSubmit={handleAddCountry} style={formStyle}>
         <TextField
           label="Country Name"
@@ -101,13 +119,21 @@ const CountryManagement = () => {
         {showSuggestions && suggestions.length > 0 && (
           <List component="nav" sx={suggestionsContainerStyle}>
             {suggestions.map((name, index) => (
-              <ListItemButton key={index} onClick={() => handleCountrySelect(name, codeList[countryList.indexOf(name)])}>
+              <ListItemButton
+                key={index}
+                onClick={() =>
+                  handleCountrySelect(
+                    name,
+                    codeList[countryList.indexOf(name)]
+                  )
+                }
+              >
                 <ListItemText primary={name} />
               </ListItemButton>
             ))}
           </List>
         )}
-        
+
         <TextField
           label="Country Code"
           variant="outlined"
@@ -124,31 +150,41 @@ const CountryManagement = () => {
         {showSuggestions && codeSuggestions.length > 0 && (
           <List component="nav" sx={suggestionsContainerStyle}>
             {codeSuggestions.map((code, index) => (
-              <ListItemButton key={index} onClick={() => handleCountrySelect(countryList[codeList.indexOf(code)], code)}>
+              <ListItemButton
+                key={index}
+                onClick={() =>
+                  handleCountrySelect(countryList[codeList.indexOf(code)], code)
+                }
+              >
                 <ListItemText primary={code} />
               </ListItemButton>
             ))}
           </List>
         )}
 
-        <Button variant="contained" color="primary" type="submit" sx={{ ...addButtonStyle, marginTop: '20px' }}>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          sx={{ ...addButtonStyle, marginTop: '20px' }}
+        >
           Add Country
         </Button>
       </form>
 
-      {/* Search Bar */}
       <TextField
         placeholder="Search by country name or code..."
         variant="outlined"
         fullWidth
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        sx={{ ...inputStyle, marginBottom: '30px', marginTop: '30px' }} // Additional margin for separation
+        sx={{ ...inputStyle, marginBottom: '30px', marginTop: '30px' }}
       />
 
-      {/* Country List */}
       <TableContainer component={Paper} sx={countryListContainerStyle}>
-        <Typography variant="h5" sx={headerStyle}>Existing Countries</Typography>
+        <Typography variant="h5" sx={headerStyle}>
+          Existing Countries
+        </Typography>
         <Table>
           <TableHead>
             <TableRow>
@@ -157,26 +193,24 @@ const CountryManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredCountries.map(country => (
+            {filteredCountries.map((country) => (
               <TableRow key={country.code}>
-                <TableCell sx={{ color: '#fff' }}>{country.name}</TableCell>
-                <TableCell sx={{ color: '#fff' }}>{country.code}</TableCell>
+                <TableCell>{country.name}</TableCell>
+                <TableCell>{country.code}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+    </Paper>
   );
 };
 
-// Styling
 const containerStyle = {
   maxWidth: '800px',
   margin: '0 auto',
   padding: '20px',
-  backgroundColor: '#1a1a1a',
-  color: '#fff',
+  backgroundColor: '#2c2c2c',
   borderRadius: '8px',
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
 };
@@ -199,15 +233,6 @@ const globeIconStyle = {
   animation: 'spin 10s linear infinite',
 };
 
-// Adding the CSS for spinning
-const styles = `
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-`;
-document.head.insertAdjacentHTML("beforeend", `<style>${styles}</style>`);
-
 const formStyle = {
   display: 'flex',
   flexDirection: 'column',
@@ -217,18 +242,27 @@ const formStyle = {
 };
 
 const inputStyle = {
-  '& .MuiInputBase-root': {
-    backgroundColor: '#333',
+  '& .MuiOutlinedInput-root': {
+    backgroundColor: '#3a3a3a',
     color: '#fff',
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: '#555',
-  },
-  '&:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: '#4CAF50',
+    borderRadius: '5px',
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#555',
+    },
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#4CAF50',
+    },
+    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#4CAF50',
+    },
   },
   '& .MuiInputLabel-root': {
     color: '#4CAF50',
+    transform: 'translate(14px, 14px) scale(1)',
+  },
+  '& .MuiInputLabel-shrink': {
+    color: '#4CAF50',
+    transform: 'translate(14px, -6px) scale(0.75)',
   },
 };
 
@@ -237,8 +271,7 @@ const suggestionsContainerStyle = {
   top: '100%',
   left: 0,
   right: 0,
-  backgroundColor: '#333',
-  color: '#fff',
+  backgroundColor: '#2c2c2c',
   border: '1px solid #4CAF50',
   zIndex: 1,
 };
@@ -255,7 +288,8 @@ const addButtonStyle = {
 
 const countryListContainerStyle = {
   marginTop: '20px',
-  backgroundColor: '#333',
+  backgroundColor: '#3a3a3a',
+  borderRadius: '8px',
 };
 
 export default CountryManagement;
