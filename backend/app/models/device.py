@@ -14,7 +14,7 @@ class Device(Base, table=True):
     field_id: Optional[UUID] = Field(default=None, foreign_key="fields.id", nullable=True)
     serial_id: str = Field(max_length=20, nullable=False, unique=True)
     pin: str = Field(max_length=20, nullable=False)
-    name: str = Field(max_length=255, nullable=True)
+    name: Optional[str] = Field(max_length=255, nullable=True)
     description: Optional[str] = Field(max_length=255, nullable=True)
     type: DeviceTypeEnum = Field(nullable=False)
     is_assigned: bool = Field(default=False)

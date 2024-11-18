@@ -41,6 +41,12 @@ async def get_device_by_serial_id(serial_id: str, device_service: Annotated[Devi
     return await device_service.get_device_by_serial_id(serial_id)
 
 
+@router.get("/user/{user_id}", response_model=List[DeviceRead], status_code=status.HTTP_200_OK)
+@container.autowire
+async def get_devices_by_user_id(user_id: UUID, device_service: Annotated[DeviceService, Inject()]):
+    return await device_service.get_devices_by_user_id(user_id)
+
+
 @router.put("/{device_id}", response_model=DeviceRead, status_code=status.HTTP_200_OK)
 @container.autowire
 async def update_device(device_id: UUID, device_data: DeviceUpdate, device_service: Annotated[DeviceService, Inject()]):
