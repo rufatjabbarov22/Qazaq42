@@ -99,7 +99,7 @@ class DeviceService(BaseService[DeviceRepository]):
         return DeviceRead.model_validate(updated_device)
 
     async def delete_device(self, device_id: UUID) -> Dict:
-        deleted_device = await self.repository.delete(device_id)
-        if not deleted_device:
+        device = await self.repository.delete(device_id)
+        if not device:
             raise DeviceNotFound()
-        return {"message": "Device deleted successfully", "device": deleted_device}
+        return {"message": "Device deleted successfully"}

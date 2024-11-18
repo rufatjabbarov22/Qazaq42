@@ -1,4 +1,4 @@
-from typing import Annotated, List
+from typing import Annotated, Dict, List
 from uuid import UUID
 
 from fastapi import APIRouter, status
@@ -35,7 +35,7 @@ async def update_field(field_id: UUID, field_data: FieldUpdate, field_service: A
     return await field_service.update_field(field_data, field_id)
 
 
-@router.delete("/{field_id}", response_model=dict, status_code=status.HTTP_200_OK)
+@router.delete("/{field_id}", response_model=Dict, status_code=status.HTTP_200_OK)
 @container.autowire
 async def delete_field(field_id: UUID, field_service: Annotated[FieldModelService, Inject()]):
     return await field_service.delete_field(field_id)

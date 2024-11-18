@@ -54,7 +54,7 @@ class DistrictService(BaseService[DistrictRepository]):
         return DistrictRead.model_validate(updated_district)
 
     async def delete_district(self, district_id: UUID) -> Dict:
-        deleted_district = await self.repository.delete(district_id)
-        if not deleted_district:
+        district = await self.repository.delete(district_id)
+        if not district:
             raise DistrictNotFound()
-        return {"detail": "District deleted successfully", "district": deleted_district}
+        return {"detail": "District deleted successfully"}

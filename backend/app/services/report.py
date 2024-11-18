@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Dict, List, Optional
 from uuid import UUID
 
 from wireup import service
@@ -45,11 +45,11 @@ class ReportService(BaseService[ReportRepository]):
             raise ReportNotFound()
         return ReadReport.model_validate(updated_report)
 
-    async def delete(self, report_id: UUID) -> Optional[ReadReport]:
+    async def delete(self, report_id: UUID) -> Dict:
         report = await self.repository.delete(report_id)
         if not report:
             raise ReportNotFound()
-        return ReadReport.model_validate(report)
+        return {"message": "Report deleted successfully"}
 
     async def review_report(self, report_id: UUID) -> Optional[ReadReport]:
         report = await self.repository.get(report_id)

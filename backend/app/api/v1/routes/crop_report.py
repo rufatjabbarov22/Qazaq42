@@ -1,4 +1,4 @@
-from typing import Annotated, List
+from typing import Annotated, Dict, List
 from uuid import UUID
 
 from fastapi import APIRouter, status
@@ -36,7 +36,7 @@ async def get_crop_reports_by_device_id(device_id: UUID, crop_report_service: An
     return await crop_report_service.get_crop_reports_by_device_id(device_id)
 
 
-@router.delete("/{report_id}", response_model=dict, status_code=status.HTTP_200_OK)
+@router.delete("/{report_id}", response_model=Dict, status_code=status.HTTP_200_OK)
 @container.autowire
 async def delete_crop_report(report_id: UUID, crop_report_service: Annotated[CropReportService, Inject()]):
     return await crop_report_service.delete_crop_report(report_id)

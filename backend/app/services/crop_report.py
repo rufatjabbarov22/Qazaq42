@@ -60,7 +60,7 @@ class CropReportService(BaseService[CropReportRepository]):
         return [CropReportRead.model_validate(report) for report in crop_reports]
 
     async def delete_crop_report(self, report_id: UUID) -> Dict:
-        deleted_report = await self.repository.delete(report_id)
-        if not deleted_report:
+        report = await self.repository.delete(report_id)
+        if not report:
             raise CropReportNotFound()
-        return {"message": "Crop report deleted successfully", "report": deleted_report}
+        return {"message": "Crop report deleted successfully"}

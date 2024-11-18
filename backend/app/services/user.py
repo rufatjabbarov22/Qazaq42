@@ -58,7 +58,7 @@ class UserService(BaseService[UserRepository]):
         return UserRead.model_validate(updated_user)
 
     async def delete_user(self, user_id: UUID) -> Dict:
-        deleted_user = await self.repository.delete(user_id)
-        if not deleted_user:
+        user = await self.repository.delete(user_id)
+        if not user:
             raise UserNotFound()
-        return {"message": "User deleted successfully", "user": deleted_user}
+        return {"message": "User deleted successfully"}

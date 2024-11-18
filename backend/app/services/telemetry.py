@@ -47,7 +47,7 @@ class TelemetryService(BaseService[TelemetryRepository]):
         return TelemetryRead.model_validate(updated_telemetry)
 
     async def delete_telemetry(self, telemetry_id: UUID) -> Dict:
-        deleted_telemetry = await self.repository.delete(telemetry_id)
-        if not deleted_telemetry:
+        telemetry = await self.repository.delete(telemetry_id)
+        if not telemetry:
             raise TelemetryNotFound()
-        return {"message": "Telemetry deleted successfully", "telemetry": deleted_telemetry}
+        return {"message": "Telemetry deleted successfully"}

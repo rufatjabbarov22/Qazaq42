@@ -64,7 +64,7 @@ class FieldModelService(BaseService[FieldRepository]):
         return FieldRead.model_validate(updated_field)
 
     async def delete_field(self, field_id: UUID) -> Dict:
-        deleted_field = await self.repository.delete(field_id)
-        if not deleted_field:
+        field = await self.repository.delete(field_id)
+        if not field:
             raise FieldNotFound()
-        return {"detail": "Field deleted successfully", "field": deleted_field}
+        return {"detail": "Field deleted successfully"}

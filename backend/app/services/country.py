@@ -40,7 +40,7 @@ class CountryService(BaseService[CountryRepository]):
         return CountryRead.model_validate(updated_country)
 
     async def delete_country(self, country_id: str) -> Dict:
-        deleted_country = await self.repository.delete(country_id)
-        if not deleted_country:
+        country = await self.repository.delete(country_id)
+        if not country:
             raise CountryNotFound()
-        return {"detail": "Country deleted successfully", "country": deleted_country}
+        return {"detail": "Country deleted successfully"}

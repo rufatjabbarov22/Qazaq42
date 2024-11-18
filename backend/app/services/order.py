@@ -35,7 +35,7 @@ class OrderService(BaseService[OrderRepository]):
         orders = await self.repository.get_not_approved_orders()
         return [ReadOrder.model_validate(order) for order in orders]
 
-    async def delete(self, order_id: UUID) -> Optional[Dict]:
+    async def delete(self, order_id: UUID) -> Dict:
         order = await self.repository.delete(order_id)
         if not order:
             raise OrderNotFound()
