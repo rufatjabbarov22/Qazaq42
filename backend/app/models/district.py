@@ -14,7 +14,13 @@ class District(Base, table=True):
     name: str = Field(max_length=255, nullable=False)
     info: Optional[Dict] = Field(sa_type=JSON, default={}, nullable=True)
 
-    fields: list[FieldModel] = Relationship(back_populates="district")
-    country: "Country" = Relationship(back_populates="districts")  # type: ignore
+    fields: list[FieldModel] = Relationship(  # type: ignore
+        back_populates="district",
+        sa_relationship_kwargs={"lazy": "joined", "cascade": "all, delete-orphan"}
+    )
+    country: "Country" = Relationship(  # type: ignore
+        back_populates="districts",
+        sa_relationship_kwargs={"lazy": "joined"}
+    )
 
     __table_args__ = (UniqueConstraint("country_id", "name"),)

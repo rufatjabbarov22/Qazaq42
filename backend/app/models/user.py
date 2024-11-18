@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List
 
 from pydantic import EmailStr
 from sqlmodel import Field, Relationship
@@ -16,5 +16,11 @@ class User(Base, table=True):
     is_verified: bool = Field(default=False)
     is_admin: bool = Field(default=False)
 
-    devices: Optional["Device"] = Relationship(back_populates="user")  # type: ignore
-    reports: Optional["Report"] = Relationship(back_populates="user")  # type: ignore
+    devices: List["Device"] = Relationship(  # type: ignore
+        back_populates="user",
+        sa_relationship_kwargs={"lazy": "joined"}
+    )
+    reports: List["Report"] = Relationship(  # type: ignore
+        back_populates="user",
+        sa_relationship_kwargs={"lazy": "joined", "cascade": "all, delete-orphan"}
+    )

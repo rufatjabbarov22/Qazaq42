@@ -13,4 +13,7 @@ class Report(Base, table=True):
     message: str = Field(nullable=False)
     is_reviewed: bool = Field(default=False)
 
-    user: Optional["User"] = Relationship(back_populates="reports")  # type: ignore
+    user: Optional["User"] = Relationship(  # type: ignore
+        back_populates="reports",
+        sa_relationship_kwargs={"lazy": "joined"}
+    )

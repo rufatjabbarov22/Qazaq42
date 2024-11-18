@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Dict, Optional, List
 
 from sqlmodel import Field, Relationship, JSON
 
@@ -10,6 +10,9 @@ class Country(Base, table=True):
 
     id: str = Field(max_length=2, primary_key=True)
     name: str = Field(max_length=255, nullable=False, unique=True)
-    info: dict = Field(sa_type=JSON, default={})
+    info: Dict = Field(sa_type=JSON, default={})
 
-    districts: Optional[List["District"]] = Relationship(back_populates="country")  # type: ignore
+    districts: Optional[List["District"]] = Relationship(  # type: ignore
+        back_populates="country",
+        sa_relationship_kwargs={"lazy": "joined", "cascade": "all, delete-orphan"}
+    )
