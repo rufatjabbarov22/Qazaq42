@@ -12,20 +12,17 @@ import './app.css';
 import OrderPage from './pages/DeviceSection/OrderPage';
 import OTPForm from './pages/Otp';
 import AdminPanel from './pages/Admin/AdminPanel';
-import HeaderAcc from './components/HeaderAcc';
+// import HeaderAcc from './components/HeaderAcc';
 import SignOut from './pages/SignOut';
+import ProtectedRoute from './components/ProtectedRoute'
 
 function AppContent() {
   const location = useLocation();
 
-  // Check if the current path is '/account' to hide the footer on this page
   const isAccountPage = location.pathname === '/account';
-  const isAdminPanel = location.pathname === '/admin';
   return (
     <div className="app-wrapper">
-      {!isAccountPage && !isAdminPanel && <Header />}
-      {isAccountPage && <HeaderAcc />}
-
+      <Header/>
       <div className="content-wrapper">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -35,7 +32,18 @@ function AppContent() {
           <Route path="/signout" element={<SignOut />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/otp" element={<OTPForm />} />
-          <Route path="/account" element={<AccountPage />} />
+          
+          <Route path="/account" 
+          
+          element={
+            <ProtectedRoute>
+              <AccountPage />
+            </ProtectedRoute>
+   
+          } 
+          />
+          
+
           <Route path="/order" element={<OrderPage />} />
           <Route path="/admin" element={<AdminPanel/>} />
         </Routes>
