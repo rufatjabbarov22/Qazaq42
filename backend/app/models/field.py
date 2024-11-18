@@ -15,13 +15,11 @@ class FieldModel(Base, table=True):
 
     district: "District" = Relationship(  # type: ignore
         back_populates="fields",
-        sa_relationship_kwargs={"lazy": "joined"}
     )
     devices: Optional[List["Device"]] = Relationship(  # type: ignore
         back_populates="field",
-        sa_relationship_kwargs={"lazy": "joined"}
     )
     crop_reports: Optional[List["CropReport"]] = Relationship(  # type: ignore
         back_populates="field",
-        sa_relationship_kwargs={"lazy": "joined", "cascade": "all, delete-orphan"}
+        sa_relationship_kwargs={"cascade": "all, delete-orphan"}
     )

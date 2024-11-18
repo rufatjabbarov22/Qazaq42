@@ -18,9 +18,8 @@ class User(Base, table=True):
 
     devices: List["Device"] = Relationship(  # type: ignore
         back_populates="user",
-        sa_relationship_kwargs={"lazy": "joined"}
     )
     reports: List["Report"] = Relationship(  # type: ignore
         back_populates="user",
-        sa_relationship_kwargs={"lazy": "joined", "cascade": "all, delete-orphan"}
+        sa_relationship_kwargs={"cascade": "all, delete-orphan"}
     )

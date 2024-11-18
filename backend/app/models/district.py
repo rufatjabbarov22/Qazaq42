@@ -16,11 +16,10 @@ class District(Base, table=True):
 
     fields: list[FieldModel] = Relationship(  # type: ignore
         back_populates="district",
-        sa_relationship_kwargs={"lazy": "joined", "cascade": "all, delete-orphan"}
+        sa_relationship_kwargs={"cascade": "all, delete-orphan"}
     )
     country: "Country" = Relationship(  # type: ignore
         back_populates="districts",
-        sa_relationship_kwargs={"lazy": "joined"}
     )
 
     __table_args__ = (UniqueConstraint("country_id", "name"),)

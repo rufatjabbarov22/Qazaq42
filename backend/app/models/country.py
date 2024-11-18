@@ -14,5 +14,5 @@ class Country(Base, table=True):
 
     districts: Optional[List["District"]] = Relationship(  # type: ignore
         back_populates="country",
-        sa_relationship_kwargs={"lazy": "joined", "cascade": "all, delete-orphan"}
+        sa_relationship_kwargs={"cascade": "all, delete-orphan"}
     )

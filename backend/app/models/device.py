@@ -29,13 +29,11 @@ class Device(Base, table=True):
 
     user: Optional["User"] = Relationship(  # type: ignore
         back_populates="devices",
-        sa_relationship_kwargs={"lazy": "joined"}
     )
     field: Optional["FieldModel"] = Relationship(  # type: ignore
         back_populates="devices",
-        sa_relationship_kwargs={"lazy": "joined"}
     )
     telemetries: List["Telemetry"] = Relationship(  # type: ignore
         back_populates="device",
-        sa_relationship_kwargs={"lazy": "joined", "cascade": "all, delete-orphan"}
+        sa_relationship_kwargs={"cascade": "all, delete-orphan"}
     )

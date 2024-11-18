@@ -23,5 +23,4 @@ class Telemetry(Base, table=True):
 
     device: "Device" = Relationship(  # type: ignore
         back_populates="telemetries",
-        sa_relationship_kwargs={"lazy": "joined"}
     )

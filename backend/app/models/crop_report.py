@@ -14,5 +14,4 @@ class CropReport(Base, table=True):
 
     field: "FieldModel" = Relationship(  # type: ignore
         back_populates="crop_reports",
-        sa_relationship_kwargs={"lazy": "joined"}
     )
