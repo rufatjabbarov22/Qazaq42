@@ -36,6 +36,6 @@ class JWTCookieBearer(APIKeyCookie):
     def __init__(self, auto_error: bool = True):
         super().__init__(name="refresh_token", auto_error=auto_error)
 
-    async def __call__(self, request: Request) -> HTTPAuthorizationCredentials | None:
+    async def __call__(self, request: Request) -> HTTPAuthorizationCredentials:
         return HTTPAuthorizationCredentials(scheme="bearer", credentials=await super().__call__(request))
     
