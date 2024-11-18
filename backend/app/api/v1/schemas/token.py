@@ -9,7 +9,7 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    sub: UUID
+    id: UUID
     is_admin: bool
     email: str
     is_verified: bool

@@ -30,12 +30,12 @@ class TokenService:
         self.refresh_token_ttl = settings.secrets.JWT_REFRESH_TOKEN_TTL
 
     def generate_access_token(self, user: User) -> str:
-        sub = str(user.id)
+        id = str(user.id)
         role = "admin" if user.is_admin else "user"
         is_verified = user.is_verified
 
         payload = {
-            "sub": sub,
+            "id": id,
             "role": role,
             "is_verified": is_verified,
             "email": user.email,
@@ -54,7 +54,7 @@ class TokenService:
             raise InvalidTokenException()
 
         return {
-            "sub": UUID(data["sub"]),
+            "id": UUID(data["id"]),
             "is_admin": data["role"],
             "is_verified": data["is_verified"],
             "email": data["email"]
@@ -63,11 +63,11 @@ class TokenService:
     @container.autowire
     async def generate_refresh_token(self, user: User, caching: Caching) -> str:
         jti = hexlify(urandom(32)).decode()
-        sub = str(user.id)
+        id = str(user.id)
         role = "admin" if user.is_admin else "user"
 
         payload = {
-            "sub": sub,
+            "id": id,
             "role": role,
             "email": user.email,
             "is_verified": user.is_verified,
@@ -76,7 +76,7 @@ class TokenService:
         }
         token = encode(payload, self.private_key, algorithm=self.algorithm)
 
-        await caching.set(jti, sub, ex=self.refresh_token_ttl * 24 * 60 * 60 + 15)
+        await caching.set(jti, id, ex=self.refresh_token_ttl * 24 * 60 * 60 + 15)
         return token
 
     @container.autowire
@@ -90,9 +90,9 @@ class TokenService:
 
         user_id = await caching.get(data["jti"])
         is_admin = True if data["role"] == "admin" else False
-        if user_id and user_id == data["sub"]:
+        if user_id and user_id == data["id"]:
             return {
-                "sub": UUID(data["sub"]),
+                "id": UUID(data["id"]),
                 "is_admin": is_admin,
                 "is_verified": data["is_verified"],
                 "email": data["email"]
