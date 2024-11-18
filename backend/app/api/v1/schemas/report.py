@@ -6,12 +6,12 @@ from uuid import UUID
 from app.api.v1.schemas.abstract.base import BaseSchema
 
 
-class ReportCreate(BaseSchema):
+class CreateReport(BaseSchema):
     user_id: UUID
     message: str
 
 
-class ReportRead(ReportCreate):
+class ReadReport(BaseSchema):
     id: Optional[UUID]
     user_id: UUID
     message: str
@@ -20,6 +20,6 @@ class ReportRead(ReportCreate):
     updated_at: Optional[datetime]
 
 
-class ReportUpdate(ReportCreate):
+class UpdateReport(BaseSchema):
     id: UUID
     message: str

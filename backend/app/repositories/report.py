@@ -4,14 +4,14 @@ from uuid import UUID
 from sqlalchemy.future import select
 from wireup import service
 
-from app.api.v1.schemas.report import ReportCreate, ReportRead, ReportUpdate
+from app.api.v1.schemas.report import CreateReport, ReadReport, UpdateReport
 from app.core.database import Database
 from app.models.report import Report
 from app.repositories.abstract.base import BaseRepository
 
 
 @service
-class ReportRepository(BaseRepository[ReportCreate, ReportRead, ReportUpdate]):
+class ReportRepository(BaseRepository[CreateReport, ReadReport, UpdateReport]):
     def __init__(self, database: Database):
         super().__init__(database, Report)  # type: ignore
 
