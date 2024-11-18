@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, BottomNavigation, BottomNavigationAction } from '@mui/material';
-import MapIcon from '@mui/icons-material/Map';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SensorsIcon from '@mui/icons-material/Sensors';
 import ComputerIcon from '@mui/icons-material/Computer';
-import MapSection from './MapSection';
 import InstructionSection from './InstructionSection';
 import ControlDeviceSection from './ControlDeviceSection';
 import AISection from './AISection';
 import './AccountPage.css';
 
 const AccountPage = () => {
-  const [selectedSection, setSelectedSection] = useState('map');
+  const [selectedSection, setSelectedSection] = useState('instuction');
+  const navigate = useNavigate();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const renderSection = () => {
     switch (selectedSection) {
-      case 'map':
-        return <MapSection />;
       case 'instruction':
         return <InstructionSection />;
       case 'control':
@@ -24,51 +30,26 @@ const AccountPage = () => {
       case 'ai':
         return <AISection />;
       default:
-        return <MapSection />;
+        return <InstructionSection />;
     }
   };
 
   return (
     <Box className="account-page-container">
-      {/* Sidebar for larger screens */}
       <Box className="sidebar">
-        <Button className="menu-button" onClick={() => setSelectedSection('map')}>Map</Button>
         <Button className="menu-button" onClick={() => setSelectedSection('instruction')}>Instruction</Button>
         <Button className="menu-button" onClick={() => setSelectedSection('control')}>Control Device</Button>
         <Button className="menu-button" onClick={() => setSelectedSection('ai')}>AI</Button>
       </Box>
-
-      {/* Main content */}
-      <Box className="content">
-        {renderSection()}
-      </Box>
-
-      {/* Bottom navigation for small screens */}
+      <Box className="content">{renderSection()}</Box>
       <BottomNavigation
         className="bottom-nav"
         value={selectedSection}
         onChange={(event, newValue) => setSelectedSection(newValue)}
       >
-        <BottomNavigationAction
-          label="Map"
-          value="map"
-          icon={<MapIcon />}
-        />
-        <BottomNavigationAction
-          label="Instruction"
-          value="instruction"
-          icon={<MenuBookIcon />}
-        />
-        <BottomNavigationAction
-          label="Control"
-          value="control"
-          icon={<SensorsIcon />}
-        />
-        <BottomNavigationAction
-          label="AI"
-          value="ai"
-          icon={<ComputerIcon />}
-        />
+        <BottomNavigationAction label="Instruction" value="instruction" icon={<MenuBookIcon />} />
+        <BottomNavigationAction label="Control" value="control" icon={<SensorsIcon />} />
+        <BottomNavigationAction label="AI" value="ai" icon={<ComputerIcon />} />
       </BottomNavigation>
     </Box>
   );

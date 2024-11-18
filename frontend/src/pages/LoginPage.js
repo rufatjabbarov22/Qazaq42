@@ -8,11 +8,12 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { Avatar, Typography, Container } from '@mui/material';
+import { Avatar, Typography, Container, CircularProgress, IconButton, InputAdornment } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import './Login.css';
 
 const theme = createTheme();
@@ -22,12 +23,15 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // loading state
+  const [showPassword, setShowPassword] = useState(false); // password visibility state
   const navigate = useNavigate();
 
   // Handle Login Form Submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(''); // Clear previous errors
+    setIsLoading(true); // Start loading
 
     try {
       // Send a POST request to your backend
@@ -44,17 +48,22 @@ export default function Login() {
 
       if (response.status === 200) {
         console.log('Login successful:', response.data);
-        
-        const { token } = response.data;
-        if (token) {
-          localStorage.setItem('access_token', token);
+
+        const { access_token } = response.data;
+        if (access_token) {
+          localStorage.setItem('access_token', access_token);
         }
 
-        navigate('/account');
+        // Add a 1-2 second delay before navigating
+        setTimeout(() => {
+          setIsLoading(false); // Stop loading
+          navigate('/account');
+        }, 1000); // 1 second delay
       }
     } catch (error) {
       console.error('Login failed:', error.response ? error.response.data : error.message);
       setError('Invalid email or password. Please try again.');
+      setIsLoading(false); // Stop loading on error
     }
   };
 
@@ -64,6 +73,14 @@ export default function Login() {
 
   const handleForgotPasswordClose = () => {
     setForgotPasswordOpen(false);
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -125,11 +142,25 @@ export default function Login() {
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 id="password"
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -151,7 +182,7 @@ export default function Login() {
                   '&:hover': { backgroundColor: '#000' },
                 }}
               >
-                Sign In
+                {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'}
               </Button>
               <Grid container>
                 <Grid item xs>

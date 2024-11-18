@@ -8,8 +8,11 @@ import {
   Checkbox, 
   FormControlLabel, 
   Grid, 
+  IconButton, 
+  InputAdornment, 
   Link 
 } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import './SignupForm.css';
@@ -30,11 +33,23 @@ function SignupForm() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [updates, setUpdates] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      setPasswordError('Passwords do not match');
+      return;
+    }
+
+    setPasswordError('');
 
     const payload = {
       fname: firstName,
@@ -56,7 +71,6 @@ function SignupForm() {
       if (response.ok) {
         const data = await response.json();
         console.log('Signup successful:', data);
-        // Navigate to login or show success message
         navigate('/otp');
       } else {
         const errorData = await response.json();
@@ -68,6 +82,9 @@ function SignupForm() {
       alert('Error connecting to server. Please try again later.');
     }
   };
+
+  const handleTogglePasswordVisibility = () => setShowPassword((prev) => !prev);
+  const handleToggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev);
 
   return (
     <ThemeProvider theme={theme}>
@@ -134,9 +151,40 @@ function SignupForm() {
                     id="password"
                     label="Password"
                     fullWidth
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={handleTogglePasswordVisibility} edge="end">
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    id="confirm-password"
+                    label="Confirm Password"
+                    fullWidth
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    error={!!passwordError}
+                    helperText={passwordError}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={handleToggleConfirmPasswordVisibility} edge="end">
+                            {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
