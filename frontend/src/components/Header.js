@@ -55,8 +55,8 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
-    setIsLoggedIn(false);
-    navigate('/');
+    setIsLoggedIn(true);
+    navigate('/signout');
   };
 
   const toggleDrawer = (open) => () => setDrawerOpen(open);
@@ -82,7 +82,7 @@ const Header = () => {
                 ) : (
                   <>
                     <ListItem button component={Link} to={`/account`}>Account</ListItem>
-                    <ListItem button onClick={handleLogout}>Sign Out</ListItem>
+                    <LogoutButton onClick={handleLogout}>Sign Out</LogoutButton>
                   </>
                 )}
               </List>
@@ -97,7 +97,7 @@ const Header = () => {
               <LoginButton component={Link} to="/login">Sign In</LoginButton>
             ) : (
               <>
-                <NavButton component={Link} to={`/account`}>Account</NavButton>
+                <NavButton component={Link} to={`/account`}>Account</NavButton> 
                 <LogoutButton onClick={handleLogout}>Sign Out</LogoutButton>
               </>
             )}
