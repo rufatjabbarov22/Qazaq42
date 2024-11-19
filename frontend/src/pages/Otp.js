@@ -6,12 +6,12 @@ import {
   TextField, 
   Button, 
   Grid, 
-  Link 
+  Link, 
+  Fade 
 } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// import './OTPForm.css';
 
 const theme = createTheme();
 
@@ -28,6 +28,7 @@ function OTPForm() {
   const [email, setEmail] = useState('');
   const [otpCode, setOtpCode] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState(false);  // State for success message
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -47,8 +48,11 @@ function OTPForm() {
 
       if (response.status === 200) {
         console.log('OTP verification successful:', response.data);
-        alert('Verification successful!');
-        navigate('/login');
+        setSuccessMessage(true);  // Show success message
+        setTimeout(() => {
+          setSuccessMessage(false);  // Hide success message after 2 seconds
+          navigate('/login');  // Navigate to login page
+        }, 2000);
       }
     } catch (error) {
       console.error('OTP verification failed:', error.response ? error.response.data : error.message);
@@ -158,6 +162,18 @@ function OTPForm() {
                 </Typography>
               </Grid>
             </Grid>
+
+            {/* Success Message with Fade Transition */}
+            <Fade in={successMessage} timeout={1000}>
+              <Typography
+                variant="h6"
+                color="success.main"
+                align="center"
+                sx={{ marginTop: 2, fontWeight: 'bold' }}
+              >
+                Verification successful!
+              </Typography>
+            </Fade>
           </Box>
         </StyledContainer>
       </Box>

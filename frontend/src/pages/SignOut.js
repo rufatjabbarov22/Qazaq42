@@ -17,6 +17,7 @@ const StyledContainer = styled(Container)(({ theme }) => ({
 
 function SignOut() {
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -36,8 +37,11 @@ function SignOut() {
 
       if (response.status === 200) {
         console.log('Sign out successful:', response.data);
-        alert('You have been signed out successfully!');
-        navigate('/'); // Redirect to the main page after logout
+        setSuccessMessage('You have been signed out successfully!');
+
+        setTimeout(() => {
+          navigate('/'); // Redirect to the main page after a short delay
+        }, 1500); // Keep the message visible for 1.5 seconds before navigating
       }
     } catch (error) {
       console.error('Error during sign out:', error.response ? error.response.data : error.message);
@@ -79,6 +83,20 @@ function SignOut() {
               </Typography>
             )}
 
+            {/* Success Message */}
+            {successMessage && (
+              <Typography
+                sx={{
+                  color: 'green',
+                  fontWeight: 'bold',
+                  marginBottom: '16px',
+                  animation: 'fadeIn 1s ease',
+                }}
+              >
+                {successMessage}
+              </Typography>
+            )}
+
             {/* Logout Button */}
             <Button
               variant="contained"
@@ -88,7 +106,7 @@ function SignOut() {
                 color: '#fff',
                 padding: { xs: '10px', sm: '12px' },
                 '&:hover': { backgroundColor: '#b23800' },
-                transition: 'background-color 0.3s ease',
+                transition: 'background-color 0.4s ease',
               }}
             >
               Log Out
