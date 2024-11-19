@@ -43,6 +43,7 @@ export default function Login() {
             'Content-Type': 'application/json',
             'accept': 'application/json',
           },
+          withCredentials: true,
         }
       );
 

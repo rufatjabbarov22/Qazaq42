@@ -28,7 +28,7 @@ function SignOut() {
         {
           headers: {
             'Content-Type': 'application/json',
-            'accept': 'application/json',
+            accept: 'application/json',
           },
           withCredentials: true, // Include cookies in the request
         }
@@ -41,7 +41,7 @@ function SignOut() {
       }
     } catch (error) {
       console.error('Error during sign out:', error.response ? error.response.data : error.message);
-      setError('Failed to log out. Please try again.');
+      setError(error.response?.data?.detail || 'Failed to log out. Please try again.');
     }
   };
 
