@@ -34,13 +34,13 @@ const Dashboard = ({ onNavigate }) => {
   useEffect(() => {
     // Simulate fetching data
     setTimeout(() => {
-      setActiveUsers(524);
-      setActiveDevices(158);
+      setActiveUsers(1);
+      setActiveDevices(7);
       setRecentSignups(['User1', 'User2', 'User3', 'User4', 'User5']);
       setDeviceStatus([
         { name: 'Device A', status: 'Online' },
         { name: 'Device B', status: 'Offline' },
-        { name: 'Device C', status: 'Online' },
+        { name: 'Device C', status: 'Offline' },
       ]);
       setLoading(false);
     }, 1500);

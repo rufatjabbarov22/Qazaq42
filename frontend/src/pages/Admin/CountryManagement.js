@@ -92,6 +92,18 @@ const CountryManagement = () => {
     setShowSuggestions(false);
   };
 
+  const handleNameChange = (e) => {
+    const newName = e.target.value;
+    setFormData((prevData) => ({
+      ...prevData,
+      name: newName,
+      code: countryList.includes(newName)
+        ? codeList[countryList.indexOf(newName)]
+        : prevData.code,
+    }));
+    setShowSuggestions(true);
+  };
+
   return (
     <Paper elevation={3} sx={containerStyle}>
       <Typography variant="h4" sx={headerStyle}>
@@ -108,10 +120,7 @@ const CountryManagement = () => {
           variant="outlined"
           name="name"
           value={formData.name}
-          onChange={(e) => {
-            setFormData({ ...formData, name: e.target.value });
-            setShowSuggestions(true);
-          }}
+          onChange={handleNameChange}
           fullWidth
           sx={inputStyle}
           placeholder="Enter country name"
@@ -139,10 +148,7 @@ const CountryManagement = () => {
           variant="outlined"
           name="code"
           value={formData.code}
-          onChange={(e) => {
-            setFormData({ ...formData, code: e.target.value });
-            setShowSuggestions(true);
-          }}
+          onChange={(e) => setFormData({ ...formData, code: e.target.value })}
           fullWidth
           sx={inputStyle}
           placeholder="Enter country code"
@@ -195,8 +201,8 @@ const CountryManagement = () => {
           <TableBody>
             {filteredCountries.map((country) => (
               <TableRow key={country.code}>
-                <TableCell>{country.name}</TableCell>
-                <TableCell>{country.code}</TableCell>
+                <TableCell sx={{ color: '#fff' }}>{country.name}</TableCell>
+                <TableCell sx={{ color: '#fff' }}>{country.code}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -258,11 +264,9 @@ const inputStyle = {
   },
   '& .MuiInputLabel-root': {
     color: '#4CAF50',
-    transform: 'translate(14px, 14px) scale(1)',
   },
   '& .MuiInputLabel-shrink': {
     color: '#4CAF50',
-    transform: 'translate(14px, -6px) scale(0.75)',
   },
 };
 

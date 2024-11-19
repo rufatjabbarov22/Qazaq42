@@ -6,18 +6,17 @@ import {
   ListItem,
   ListItemText,
   Divider,
-  Checkbox,
   Button,
   Paper,
+  Link,
 } from '@mui/material';
 
 const ReportManagement = () => {
   const [reports, setReports] = useState([]);
   const [selectedReport, setSelectedReport] = useState(null);
-  const [reviewed, setReviewed] = useState(false);
 
+  // Fetch all reports
   useEffect(() => {
-    // Fetch all reports
     fetch('/api/v1/reports')
       .then((response) => response.json())
       .then((data) => setReports(data))
@@ -26,26 +25,22 @@ const ReportManagement = () => {
 
   const handleSelectReport = (report) => {
     setSelectedReport(report);
-    setReviewed(report.isReviewed);
   };
 
-  const handleMarkAsReviewed = () => {
-    if (selectedReport) {
-      fetch(`/api/v1/reports/${selectedReport.id}/review`, {
-        method: 'POST',
+  const handleMarkAsReviewed = (reportId) => {
+    fetch(`/api/v1/reports/${reportId}/review`, {
+      method: 'POST',
+    })
+      .then((response) => response.json())
+      .then((updatedReport) => {
+        setReports((prevReports) =>
+          prevReports.map((report) =>
+            report.id === updatedReport.id ? updatedReport : report
+          )
+        );
+        setSelectedReport(updatedReport);
       })
-        .then((response) => response.json())
-        .then((updatedReport) => {
-          setReports((prevReports) =>
-            prevReports.map((report) =>
-              report.id === updatedReport.id ? updatedReport : report
-            )
-          );
-          setSelectedReport(updatedReport);
-          setReviewed(true);
-        })
-        .catch((error) => console.error('Error marking report as reviewed:', error));
-    }
+      .catch((error) => console.error('Error marking report as reviewed:', error));
   };
 
   return (
@@ -62,13 +57,18 @@ const ReportManagement = () => {
                 button
                 onClick={() => handleSelectReport(report)}
                 sx={{
-                  backgroundColor: selectedReport?.id === report.id ? '#4CAF50' : '#333',
+                  backgroundColor: report.isReviewed ? '#333' : '#4CAF50',
                   borderRadius: '5px',
                   marginBottom: '5px',
                   color: '#fff',
                 }}
               >
-                <ListItemText primary={report.title} secondary={report.createdAt} />
+                <ListItemText
+                  primary={report.title}
+                  secondary={report.createdAt}
+                  sx={{ textDecoration: report.isReviewed ? 'line-through' : 'none' }}
+                />
+                {!report.isReviewed && <Typography variant="body2" sx={{ color: '#FF9800' }}>New</Typography>}
               </ListItem>
               <Divider sx={{ backgroundColor: '#444' }} />
             </React.Fragment>
@@ -109,26 +109,30 @@ const ReportManagement = () => {
         )}
       </Box>
 
-      {/* Mark as Reviewed */}
+      {/* Actions Section */}
       <Box sx={{ width: '20%', textAlign: 'center' }}>
-        <Typography variant="h6" sx={{ marginBottom: '10px' }}>
-          Mark as Reviewed
-        </Typography>
-        <Checkbox
-          checked={reviewed}
-          disabled={reviewed}
-          onChange={handleMarkAsReviewed}
-          sx={{ color: '#4CAF50' }}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={reviewed}
-          onClick={handleMarkAsReviewed}
-          sx={{ marginTop: '10px' }}
-        >
-          Mark Reviewed
-        </Button>
+        {selectedReport && (
+          <>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleMarkAsReviewed(selectedReport.id)}
+              sx={{ marginBottom: '10px', backgroundColor: selectedReport.isReviewed ? '#555' : '#4CAF50' }}
+              disabled={selectedReport.isReviewed}
+            >
+              {selectedReport.isReviewed ? 'Reviewed' : 'Mark as Reviewed'}
+            </Button>
+            <Divider sx={{ margin: '20px 0', backgroundColor: '#444' }} />
+            <Typography variant="h6">Contact User</Typography>
+            <Link
+              href={`mailto:${selectedReport.userEmail}`}
+              underline="hover"
+              sx={{ color: '#4CAF50', display: 'block', marginTop: '10px' }}
+            >
+              Send Email
+            </Link>
+          </>
+        )}
       </Box>
     </Box>
   );

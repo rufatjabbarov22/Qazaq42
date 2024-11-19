@@ -1,38 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Select, MenuItem, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, InputLabel, FormControl, Box } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  Typography,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  InputLabel,
+  FormControl,
+  Box,
+} from '@mui/material';
 import DevicesIcon from '@mui/icons-material/Devices';
 
 const DeviceManagement = () => {
   const [devices, setDevices] = useState([]);
   const [filteredDevices, setFilteredDevices] = useState([]);
-  const [formData, setFormData] = useState({ serial_id: '', name: '', type: 'BAS', pin: '', description: '' });
+  const [formData, setFormData] = useState({
+    user_email: '',
+    name: '',
+    type: 'BAS',
+    pin: '',
+    description: '',
+  });
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(''); // Category filter
+  const [selectedCategory, setSelectedCategory] = useState('');
 
-  // Fetch existing devices from the API on load
   useEffect(() => {
     fetch('/api/v1/devices')
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         setDevices(data);
-        setFilteredDevices(data); // Initialize filtered devices
+        setFilteredDevices(data);
       })
-      .catch(error => console.error('Error fetching devices:', error));
+      .catch((error) => console.error('Error fetching devices:', error));
   }, []);
 
-  // Filter devices when the search term or category changes
   useEffect(() => {
     setFilteredDevices(
-      devices.filter(device =>
-        (device.serial_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-         device.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-         device.type.toLowerCase().includes(searchTerm.toLowerCase())) &&
-        (selectedCategory === '' || device.type === selectedCategory)
+      devices.filter(
+        (device) =>
+          (device.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            device.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            device.user_email?.toLowerCase().includes(searchTerm.toLowerCase())) &&
+          (selectedCategory === '' || device.type === selectedCategory)
       )
     );
   }, [searchTerm, selectedCategory, devices]);
 
-  // Create a new device using form data
   const handleCreateDevice = (e) => {
     e.preventDefault();
     fetch('/api/v1/devices', {
@@ -40,35 +60,52 @@ const DeviceManagement = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         alert('Device created successfully');
         const updatedDevices = [...devices, data];
-        setDevices(updatedDevices); // Add new device to the full list
-        setFilteredDevices(updatedDevices); // Update the filtered list
-        setFormData({ serial_id: '', name: '', type: 'BAS', pin: '', description: '' }); // Reset form
+        setDevices(updatedDevices);
+        setFilteredDevices(updatedDevices);
+        setFormData({
+          user_email: '',
+          name: '',
+          type: 'BAS',
+          pin: '',
+          description: '',
+        });
       })
-      .catch(error => console.error('Error creating device:', error));
+      .catch((error) => console.error('Error creating device:', error));
   };
 
   return (
     <Box sx={containerStyle}>
-      <Typography variant="h4" sx={headerStyle}>Device Management</Typography>
+      <Typography variant="h4" sx={headerStyle}>
+        Device Management
+      </Typography>
 
-      {/* Device Icon */}
       <Box sx={iconContainerStyle}>
         <DevicesIcon sx={deviceIconStyle} />
       </Box>
 
-      {/* Device Creation Form */}
       <form onSubmit={handleCreateDevice} style={formStyle}>
+        <FormControl variant="outlined" fullWidth sx={inputStyle}>
+          <InputLabel>Type</InputLabel>
+          <Select
+            name="type"
+            value={formData.type}
+            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+            label="Type"
+          >
+            <MenuItem value="BAS">BAS</MenuItem>
+            <MenuItem value="FLD">FLD</MenuItem>
+          </Select>
+        </FormControl>
         <TextField
-          label="Serial ID"
+          label="User Email"
           variant="outlined"
-          name="serial_id"
-          value={formData.serial_id}
-          onChange={e => setFormData({ ...formData, serial_id: e.target.value })}
-          required
+          name="user_email"
+          value={formData.user_email}
+          onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
           fullWidth
           sx={inputStyle}
         />
@@ -77,28 +114,16 @@ const DeviceManagement = () => {
           variant="outlined"
           name="name"
           value={formData.name}
-          onChange={e => setFormData({ ...formData, name: e.target.value })}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           fullWidth
           sx={inputStyle}
         />
-        <FormControl variant="outlined" fullWidth sx={inputStyle}>
-          <InputLabel>Type</InputLabel>
-          <Select
-            name="type"
-            value={formData.type}
-            onChange={e => setFormData({ ...formData, type: e.target.value })}
-            label="Type"
-          >
-            <MenuItem value="BAS">BAS</MenuItem>
-            <MenuItem value="FLD">FLD</MenuItem>
-          </Select>
-        </FormControl>
         <TextField
           label="Pin"
           variant="outlined"
           name="pin"
           value={formData.pin}
-          onChange={e => setFormData({ ...formData, pin: e.target.value })}
+          onChange={(e) => setFormData({ ...formData, pin: e.target.value })}
           fullWidth
           sx={inputStyle}
         />
@@ -107,7 +132,7 @@ const DeviceManagement = () => {
           variant="outlined"
           name="description"
           value={formData.description}
-          onChange={e => setFormData({ ...formData, description: e.target.value })}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           fullWidth
           sx={inputStyle}
         />
@@ -116,7 +141,6 @@ const DeviceManagement = () => {
         </Button>
       </form>
 
-      {/* Search Bar and Category Filter */}
       <Box sx={searchContainerStyle}>
         <TextField
           placeholder="Search devices..."
@@ -139,13 +163,14 @@ const DeviceManagement = () => {
         </FormControl>
       </Box>
 
-      {/* Existing Device List */}
       <TableContainer component={Paper} sx={deviceListContainerStyle}>
-        <Typography variant="h5" sx={headerStyle}>Existing Devices</Typography>
+        <Typography variant="h5" sx={headerStyle}>
+          Existing Devices
+        </Typography>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: '#fff' }}>Serial ID</TableCell>
+              <TableCell sx={{ color: '#fff' }}>User Email</TableCell>
               <TableCell sx={{ color: '#fff' }}>Name</TableCell>
               <TableCell sx={{ color: '#fff' }}>Type</TableCell>
               <TableCell sx={{ color: '#fff' }}>Assigned</TableCell>
@@ -154,7 +179,7 @@ const DeviceManagement = () => {
           <TableBody>
             {filteredDevices.map((device) => (
               <TableRow key={device.id}>
-                <TableCell sx={{ color: '#fff' }}>{device.serial_id}</TableCell>
+                <TableCell sx={{ color: '#fff' }}>{device.user_email}</TableCell>
                 <TableCell sx={{ color: '#fff' }}>{device.name}</TableCell>
                 <TableCell sx={{ color: '#fff' }}>{device.type}</TableCell>
                 <TableCell sx={{ color: '#fff' }}>{device.is_assigned ? 'Yes' : 'No'}</TableCell>
@@ -167,7 +192,7 @@ const DeviceManagement = () => {
   );
 };
 
-// Styling
+// Styles
 const containerStyle = {
   maxWidth: '800px',
   margin: '0 auto',
@@ -278,4 +303,4 @@ const deviceListContainerStyle = {
   backgroundColor: '#333',
 };
 
-export default DeviceManagement;
+export default DeviceManagement
