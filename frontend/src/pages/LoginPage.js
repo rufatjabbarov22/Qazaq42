@@ -50,9 +50,10 @@ export default function Login() {
       if (response.status === 200) {
         console.log('Login successful:', response.data);
 
-        const { access_token } = response.data;
-        if (access_token) {
+        const { access_token, user_id } = response.data;
+        if (access_token && user_id ) {
           localStorage.setItem('access_token', access_token);
+          localStorage.setItem('user_id', response.data.user_id);
         }
 
         // Add a 1-2 second delay before navigating

@@ -20,6 +20,7 @@ function AppContent() {
   const location = useLocation();
 
   const isAccountPage = location.pathname === '/account';
+  const isAdminPage = location.pathname === '/admin';
   return (
     <div className="app-wrapper">
       <Header/>
@@ -48,7 +49,7 @@ function AppContent() {
           <Route path="/admin" element={<AdminPanel/>} />
         </Routes>
       </div>
-      {!isAccountPage && <Footer />}
+      {!isAccountPage  && !isAdminPage && <Footer />}
     </div>
   );
 }
