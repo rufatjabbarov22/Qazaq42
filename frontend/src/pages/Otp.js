@@ -1,14 +1,5 @@
-import React, { useState } from 'react';
-import { 
-  Box, 
-  Container, 
-  Typography, 
-  TextField, 
-  Button, 
-  Grid, 
-  Link, 
-  Fade 
-} from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Container, Typography, TextField, Button, Grid, Fade } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -30,6 +21,14 @@ function OTPForm() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);  // State for success message
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Get email from localStorage if available
+    const savedEmail = localStorage.getItem('email');
+    if (savedEmail) {
+      setEmail(savedEmail);
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -84,11 +83,11 @@ function OTPForm() {
             }}
           >
             <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
-              Verify OTP
+              OTP Verification
             </Typography>
             <form onSubmit={handleSubmit}>
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <TextField
                     required
                     id="email"
@@ -96,84 +95,42 @@ function OTPForm() {
                     fullWidth
                     type="email"
                     value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    sx={{
-                      fontSize: { xs: '14px', sm: '16px' },
-                      '& .MuiOutlinedInput-root': {
-                        '& fieldset': { borderColor: '#888' },
-                        '&:hover fieldset': { borderColor: '#555' },
-                        '&.Mui-focused fieldset': { borderColor: '#333' },
-                      },
-                    }}
+                    disabled
                   />
-                </Grid>
-                
+                </Grid> */}
                 <Grid item xs={12}>
                   <TextField
                     required
-                    id="otp-code"
-                    label="OTP Code"
+                    id="otp"
+                    label="OTP"
                     fullWidth
                     value={otpCode}
-                    onChange={(event) => setOtpCode(event.target.value)}
-                    sx={{
-                      fontSize: { xs: '14px', sm: '16px' },
-                      '& .MuiOutlinedInput-root': {
-                        '& fieldset': { borderColor: '#888' },
-                        '&:hover fieldset': { borderColor: '#555' },
-                        '&.Mui-focused fieldset': { borderColor: '#333' },
-                      },
-                    }}
+                    onChange={(e) => setOtpCode(e.target.value)}
                   />
                 </Grid>
-                
                 {error && (
                   <Grid item xs={12}>
-                    <Typography color="error" align="center">
+                    <Typography color="error" variant="body2">
                       {error}
                     </Typography>
                   </Grid>
                 )}
-                
+                {successMessage && (
+                  <Grid item xs={12}>
+                    <Fade in={successMessage} timeout={1000}>
+                      <Typography variant="body2" color="success">
+                        OTP Verified Successfully! Redirecting...
+                      </Typography>
+                    </Fade>
+                  </Grid>
+                )}
                 <Grid item xs={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      padding: { xs: '10px', sm: '12px' },
-                      backgroundColor: '#333',
-                      '&:hover': { backgroundColor: '#000' },
-                      transition: 'background-color 0.3s ease',
-                    }}
-                  >
+                  <Button type="submit" variant="contained" fullWidth>
                     Verify OTP
                   </Button>
                 </Grid>
               </Grid>
             </form>
-            <Grid container spacing={2} sx={{ mt: 2 }}>
-              <Grid item xs={12}>
-                <Typography variant="body2" align="center">
-                  Return to{' '}
-                  <Link href="#" underline="hover" onClick={() => navigate('/login')}>
-                    Login
-                  </Link>
-                </Typography>
-              </Grid>
-            </Grid>
-
-            {/* Success Message with Fade Transition */}
-            <Fade in={successMessage} timeout={1000}>
-              <Typography
-                variant="h6"
-                color="success.main"
-                align="center"
-                sx={{ marginTop: 2, fontWeight: 'bold' }}
-              >
-                Verification successful!
-              </Typography>
-            </Fade>
           </Box>
         </StyledContainer>
       </Box>

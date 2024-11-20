@@ -71,7 +71,14 @@ function SignupForm() {
       if (response.ok) {
         const data = await response.json();
         console.log('Signup successful:', data);
-        navigate('/otp');
+
+        // Store email in localStorage after successful signup
+        const { email } = data;  // Adjust depending on the API response structure
+        if (email) {
+          localStorage.setItem('email', email);  // Store email
+        }
+
+        navigate('/otp');  // Redirect to OTP verification page
       } else {
         const errorData = await response.json();
         console.error('Signup failed:', errorData);

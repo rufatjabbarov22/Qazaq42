@@ -39,9 +39,10 @@ function SignOut() {
         console.log('Sign out successful:', response.data);
         setSuccessMessage('You have been signed out successfully!');
 
+
         setTimeout(() => {
-          navigate('/'); // Redirect to the main page after a short delay
-        }, 1500); // Keep the message visible for 1.5 seconds before navigating
+          navigate('/');
+        }, 1500);
       }
     } catch (error) {
       console.error('Error during sign out:', error.response ? error.response.data : error.message);
