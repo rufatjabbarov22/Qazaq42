@@ -117,7 +117,9 @@ class AuthService(BaseService[UserRepository]):
 
         self._send_password_reset_email(email, reset_token)
 
-        return {"message": "Password reset email sent successfully"}
+        return {"message": "Password reset email sent successfully",
+                "email": email
+                }
 
     async def reset_password(self, schema: ResetPasswordSchema) -> Dict:
         email = schema.email
