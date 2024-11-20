@@ -59,7 +59,8 @@ async def login(
     response = JSONResponse(
         Token(
             access_token=access_token,
-            token_type="bearer"
+            token_type="bearer",
+            user_id=str(user.id)
         ).model_dump()
     )
     response.set_cookie(
@@ -84,7 +85,8 @@ async def refresh_access_token(
     access_token = token_service.generate_access_token(user)  # type: ignore
     return Token(
         access_token=access_token,
-        token_type="bearer"
+        token_type="bearer",
+        user_id=str(user.id)
     )
 
 
@@ -102,7 +104,8 @@ async def refresh_refresh_token(
     response = JSONResponse(
         Token(
             access_token=access_token,
-            token_type="bearer"
+            token_type="bearer",
+            user_id=str(user.id)
         ).model_dump()
     )
     response.set_cookie(
