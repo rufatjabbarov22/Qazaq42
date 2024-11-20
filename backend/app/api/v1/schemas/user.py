@@ -46,16 +46,6 @@ class UserUpdate(BaseSchema):
         return value
 
 
-class UserRead(BaseSchema):
-    id: UUID
-    fname: str
-    lname: str
-    email: EmailStr
-    is_verified: Optional[bool]
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
-
-
 class AdminUserUpdate(BaseSchema):
     is_admin: Optional[bool] = None
 

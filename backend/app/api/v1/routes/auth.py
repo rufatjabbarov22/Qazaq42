@@ -5,6 +5,7 @@ from fastapi.params import Depends
 from fastapi.responses import JSONResponse
 from wireup import container, Inject
 
+from app.api.v1.schemas.auth import ForgotPasswordSchema, ResetPasswordSchema
 from app.api.v1.schemas.token import Token, TokenData
 from app.api.v1.schemas.user import UserCreate, UserLogin, UserRead
 from app.common.exceptions.user import UserNotAuthenticated
@@ -72,6 +73,24 @@ async def login(
         path="/api/v1/auth"
     )
     return response
+
+
+@router.post("/forgot-password", response_model=Dict, status_code=status.HTTP_200_OK)
+@container.autowire
+async def forgot_password(
+    schema: ForgotPasswordSchema,
+    auth_service: Annotated[AuthService, Inject()]
+):
+    return await auth_service.forgot_password(schema)
+
+
+@router.post("/reset-password", status_code=status.HTTP_200_OK)
+@container.autowire
+async def reset_password(
+    schema: ResetPasswordSchema,
+    auth_service: Annotated[AuthService, Inject()]
+):
+    return await auth_service.reset_password(schema)
 
 
 @router.post("/token", response_model=Token)
