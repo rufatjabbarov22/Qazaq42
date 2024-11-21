@@ -3,7 +3,7 @@ services:
     container_name: ai
     build:
       context: ./ai
-    image: ${DOCKER_USERNAME}/ai:latest
+    image: ${DOCKER_USERNAME}/qazaq_ai:latest
     ports:
       - "8080:8080"
     env_file:
@@ -15,7 +15,7 @@ services:
     container_name: backend
     build:
       context: ./backend
-    image: ${DOCKER_USERNAME}/backend:latest
+    image: ${DOCKER_USERNAME}/qazaq_backend:latest
     env_file:
       - ./backend/.env
     ports:
@@ -29,7 +29,7 @@ services:
     container_name: frontend
     build:
       context: ./frontend
-    image: ${DOCKER_USERNAME}/frontend:latest
+    image: ${DOCKER_USERNAME}/qazaq_frontend:latest
     ports:
       - "3000:3000"
     volumes:
