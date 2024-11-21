@@ -1,6 +1,6 @@
 services:
   ai:
-    container_name: ai
+    container_name: qazaq-ai
     build:
       context: ./ai
     image: ${DOCKER_USERNAME}/qazaq-ai:latest
@@ -12,7 +12,7 @@ services:
       - qazaq_network
 
   backend:
-    container_name: backend
+    container_name: qazaq-backend
     build:
       context: ./backend
     image: ${DOCKER_USERNAME}/qazaq-backend:latest
@@ -26,7 +26,7 @@ services:
       - qazaq_network
 
   frontend:
-    container_name: frontend
+    container_name: qazaq-frontend
     build:
       context: ./frontend
     image: ${DOCKER_USERNAME}/qazaq-frontend:latest
