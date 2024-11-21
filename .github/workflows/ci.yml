@@ -45,7 +45,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker-compose -f docker-compose.yml build ai backend frontend
+          docker-compose -f docker-compose.yml build qazaq-ai qazaq-backend qazaq-frontend
           
           docker tag ai ${{ secrets.DOCKER_USERNAME }}/qazaq-ai:latest
           docker tag backend ${{ secrets.DOCKER_USERNAME }}/qazaq-backend:latest
