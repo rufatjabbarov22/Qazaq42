@@ -6,7 +6,7 @@ import SensorsIcon from '@mui/icons-material/Sensors';
 import ComputerIcon from '@mui/icons-material/Computer';
 import InstructionSection from './InstructionSection';
 import ControlDeviceSection from './ControlDeviceSection';
-import AISection from './AISection';
+// import AISection from './AISection';
 import './AccountPage.css';
 
 const AccountPage = () => {
@@ -27,8 +27,8 @@ const AccountPage = () => {
         return <InstructionSection />;
       case 'control':
         return <ControlDeviceSection setSelectedSection={setSelectedSection} />;
-      case 'ai':
-        return <AISection />;
+      // case 'ai':
+      //   return <AISection />;
       default:
         return <InstructionSection />;
     }
@@ -39,7 +39,7 @@ const AccountPage = () => {
       <Box className="sidebar">
         <Button className="menu-button" onClick={() => setSelectedSection('instruction')}>Instruction</Button>
         <Button className="menu-button" onClick={() => setSelectedSection('control')}>Control Device</Button>
-        <Button className="menu-button" onClick={() => setSelectedSection('ai')}>AI</Button>
+        {/* <Button className="menu-button" onClick={() => setSelectedSection('ai')}>AI</Button> */}
       </Box>
       <Box className="content">{renderSection()}</Box>
       <BottomNavigation

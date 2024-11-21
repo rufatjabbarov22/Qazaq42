@@ -16,6 +16,7 @@ import {
   Backdrop,
 } from '@mui/material';
 import './ControlDeviceSection.css';
+import TelemetryPopup from './Telemetry.js';
 
 const ControlDeviceSection = () => {
   const [devices, setDevices] = useState([]);
@@ -32,6 +33,10 @@ const ControlDeviceSection = () => {
     description: '',
     field_id: '',
   });
+
+  const [telemetryOpen, setTelemetryOpen] = useState(false);
+  const [selectedDeviceId, setSelectedDeviceId] = useState(null);
+
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('user_id');
@@ -172,6 +177,13 @@ const ControlDeviceSection = () => {
     setOpenUpdateModal(false);
   };
 
+  // !telemetry
+  const handleTelemetryOpen = (deviceId) => {
+    setSelectedDeviceId(deviceId); // Set the selected device ID for telemetry
+    setTelemetryOpen(true); // Open the telemetry popup
+  };
+  
+
   return (
     <Box
       className="control-device-section"
@@ -268,7 +280,7 @@ const ControlDeviceSection = () => {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" variant="contained" color="primary">
+                    <Button size="small" variant="contained" color="primary" onClick={() => handleTelemetryOpen(device.id)}>
                       Open
                     </Button>
                     <Button
@@ -340,6 +352,13 @@ const ControlDeviceSection = () => {
           </Box>
         </Fade>
       </Modal>
+
+      {/* Telemetry Popup */}
+      <TelemetryPopup
+        open={telemetryOpen}
+        setOpen={setTelemetryOpen}
+        deviceId={selectedDeviceId}
+      />
     </Box>
   );
 };

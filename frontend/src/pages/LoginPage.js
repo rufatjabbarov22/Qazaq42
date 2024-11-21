@@ -51,13 +51,13 @@ export default function Login() {
         console.log('Login successful:', response.data);
 
         const { access_token } = response.data;
-        // const { user_id } = response.data;
+        const { user_id } = response.data;
         if (access_token) {
           localStorage.setItem('access_token', access_token);
         }
-        // if (user_id) {
-        //   localStorage.setItem('user_id', user_id);
-        // }
+        if (user_id) {
+          localStorage.setItem('user_id', user_id);
+        }
 
         setTimeout(() => {
           setIsLoading(false);
