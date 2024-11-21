@@ -42,6 +42,7 @@ class DeviceUpdate(BaseSchema):
     name: Optional[str] = Field(None, max_length=255)
     description: Optional[str] = Field(None, max_length=255)
     field_id: Optional[UUID] = None
+    is_assigned: Optional[bool] = Field(None)
 
 
 def validate_serial_id(v: str, values: dict) -> str:

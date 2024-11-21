@@ -61,8 +61,6 @@ class DeviceService(BaseService[DeviceRepository]):
         if not user:
             raise UserNotFound()
 
-        device.user_id = user_id
-        device.is_assigned = True
         device_update = DeviceUpdate(
             user_id=user_id,
             is_assigned=True
