@@ -15,6 +15,8 @@ import AdminPanel from './pages/Admin/AdminPanel';
 // import HeaderAcc from './components/HeaderAcc';
 import SignOut from './pages/SignOut';
 import ProtectedRoute from './components/ProtectedRoute'
+import TelemetryPopup from './pages/AccountPage/Telemetry';
+import AiReportPage from './pages/AccountPage/AIReport';
 
 function AppContent() {
   const location = useLocation();
@@ -33,6 +35,8 @@ function AppContent() {
           <Route path="/signout" element={<SignOut />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/otp" element={<OTPForm />} />
+          <Route path='/telemetry' element={<TelemetryPopup/>} />
+          <Route path='/ai-report' element={<AiReportPage/>} />
           
           <Route path="/account" 
           
