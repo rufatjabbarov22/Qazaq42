@@ -23,7 +23,6 @@ function OTPForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Get email from localStorage if available
     const savedEmail = localStorage.getItem('email');
     if (savedEmail) {
       setEmail(savedEmail);

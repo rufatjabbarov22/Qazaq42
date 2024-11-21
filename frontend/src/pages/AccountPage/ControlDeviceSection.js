@@ -60,19 +60,19 @@ const ControlDeviceSection = () => {
 
   const handleAddDevice = async () => {
     const { serial_id, provided_pin } = newDevice;
-
+  
     if (!serial_id || !provided_pin || !userId) {
       setError('Please fill in all fields before adding a device.');
       return;
     }
-
+  
     // Check if the device already exists
     const deviceExists = devices.some(device => device.serial_id === serial_id || device.provided_pin === provided_pin);
     if (deviceExists) {
       setDeviceExistsError('Device with this Serial ID or PIN already exists.');
       return;
     }
-
+  
     try {
       const response = await axios.post(
         'http://localhost:8000/api/v1/devices/assign',
@@ -81,13 +81,20 @@ const ControlDeviceSection = () => {
           params: { user_id: userId, serial_id, provided_pin },
         }
       );
-
+  
       if (response.status === 200) {
         setDevices([...devices, response.data]);
         setNewDevice({ serial_id: '', provided_pin: '' });
         setError('');
         setDeviceExistsError('');
         setNotificationMessage('Device Assigned Successfully!');
+  
+        const { device_id, user_id } = response.data;
+        if (device_id && user_id) {
+          localStorage.setItem('device_id', device_id);
+          localStorage.setItem('user_id', user_id);
+        }
+  
         setShowNotification(true);
       }
     } catch (err) {
@@ -95,16 +102,20 @@ const ControlDeviceSection = () => {
       console.error(err);
     }
   };
-
+  
   const handleUpdateDevice = async () => {
     const { name, description, field_id } = deviceToUpdate;
-    const deviceId = deviceToUpdate.device_id;
-
+    const deviceId = localStorage.getItem('device_id');
+  
+    // Log the deviceToUpdate object for debugging
+    console.log("Device to Update:", deviceToUpdate);
+    
     if (!name || !description || !field_id || !deviceId) {
+      console.log("Validation failed:", { name, description, field_id, deviceId });
       setError('Please fill in all required fields.');
       return;
     }
-
+  
     try {
       const response = await axios.put(
         `http://localhost:8000/api/v1/devices/${deviceId}`,
@@ -115,10 +126,10 @@ const ControlDeviceSection = () => {
           field_id,
         }
       );
-
+  
       if (response.status === 200) {
         const updatedDevices = devices.map(device =>
-          device.device_id === deviceId ? { ...device, ...deviceToUpdate } : device
+          device.id === deviceId ? { ...device, ...deviceToUpdate } : device
         );
         setDevices(updatedDevices);
         setNotificationMessage('Device Updated Successfully!');
@@ -130,20 +141,25 @@ const ControlDeviceSection = () => {
       console.error(err);
     }
   };
+  
+  
 
   const handleCloseNotification = () => {
     setShowNotification(false);
   };
 
   const handleOpenUpdateModal = (device) => {
+    console.log("Device to open modal:", device);
+  
     setDeviceToUpdate({
-      device_id: device.device_id,
+      device_id: device.id,
       name: device.name,
       description: device.description,
       field_id: device.field_id,
     });
     setOpenUpdateModal(true);
   };
+  
 
   const handleCloseUpdateModal = () => {
     setOpenUpdateModal(false);
