@@ -1,9 +1,9 @@
 services:
   qazaq-ai:
-    container_name: qazaq-ai
+    container_name: ai
     build:
       context: ./ai
-    image: ${DOCKER_USERNAME}/qazaq-ai:latest
+    image: samiribrh/qazaq-ai:latest
     ports:
       - "8080:8080"
     env_file:
@@ -12,10 +12,10 @@ services:
       - qazaq_network
 
   qazaq-backend:
-    container_name: qazaq-backend
+    container_name: backend
     build:
       context: ./backend
-    image: ${DOCKER_USERNAME}/qazaq-backend:latest
+    image: samiribrh/qazaq-backend:latest
     env_file:
       - ./backend/.env
     ports:
@@ -26,10 +26,10 @@ services:
       - qazaq_network
 
   qazaq-frontend:
-    container_name: qazaq-frontend
+    container_name: frontend
     build:
       context: ./frontend
-    image: ${DOCKER_USERNAME}/qazaq-frontend:latest
+    image: samiribrh/qazaq-frontend:latest
     ports:
       - "3000:3000"
     volumes:

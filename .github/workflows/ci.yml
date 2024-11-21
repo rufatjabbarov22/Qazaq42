@@ -47,9 +47,9 @@ jobs:
         run: |
           docker-compose -f docker-compose.yml build qazaq-ai qazaq-backend qazaq-frontend
           
-          docker tag qazaq-ai ${{ secrets.DOCKER_USERNAME }}/qazaq-ai:latest
-          docker tag qazaq-backend ${{ secrets.DOCKER_USERNAME }}/qazaq-backend:latest
-          docker tag qazaq-frontend ${{ secrets.DOCKER_USERNAME }}/qazaq-frontend:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/qazaq-ai ${{ secrets.DOCKER_USERNAME }}/qazaq-ai:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/qazaq-backend ${{ secrets.DOCKER_USERNAME }}/qazaq-backend:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/qazaq-frontend ${{ secrets.DOCKER_USERNAME }}/qazaq-frontend:latest
 
           docker push ${{ secrets.DOCKER_USERNAME }}/qazaq-ai:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/qazaq-backend:latest
