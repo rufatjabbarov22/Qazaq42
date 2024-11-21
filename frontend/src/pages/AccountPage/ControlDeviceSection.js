@@ -26,7 +26,6 @@ const ControlDeviceSection = () => {
   const [error, setError] = useState('');
   const [deviceExistsError, setDeviceExistsError] = useState('');
   
-  // Modal states for device update
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [deviceToUpdate, setDeviceToUpdate] = useState({
     name: '',
@@ -37,7 +36,7 @@ const ControlDeviceSection = () => {
   useEffect(() => {
     const storedUserId = localStorage.getItem('user_id');
     if (storedUserId) {
-      setUserId(storedUserId); // Set userId from localStorage
+      setUserId(storedUserId);
     } else {
       setError('User ID is required. Please log in first.');
     }
@@ -46,7 +45,6 @@ const ControlDeviceSection = () => {
       try {
         if (userId) {
           const response = await axios.get(`http://localhost:8000/api/v1/devices?user_id=${userId}`);
-          // Filter devices to show only those assigned to the current user
           const filteredDevices = response.data.filter(device => device.user_id === userId);
           setDevices(filteredDevices);
         }
@@ -66,7 +64,6 @@ const ControlDeviceSection = () => {
       return;
     }
   
-    // Check if the device already exists
     const deviceExists = devices.some(device => device.serial_id === serial_id || device.provided_pin === provided_pin);
     if (deviceExists) {
       setDeviceExistsError('Device with this Serial ID or PIN already exists.');
@@ -89,11 +86,12 @@ const ControlDeviceSection = () => {
         setDeviceExistsError('');
         setNotificationMessage('Device Assigned Successfully!');
   
-        const { device_id, user_id } = response.data;
-        if (device_id && user_id) {
-          localStorage.setItem('device_id', device_id);
-          localStorage.setItem('user_id', user_id);
+        const { id } = response.data;
+
+        if (id) {
+          localStorage.setItem('id', id);
         }
+        console.log('id: ' + id);
   
         setShowNotification(true);
       }
@@ -102,19 +100,32 @@ const ControlDeviceSection = () => {
       console.error(err);
     }
   };
-  
+
   const handleUpdateDevice = async () => {
     const { name, description, field_id } = deviceToUpdate;
-    const deviceId = localStorage.getItem('device_id');
-  
-    // Log the deviceToUpdate object for debugging
-    console.log("Device to Update:", deviceToUpdate);
-    
-    if (!name || !description || !field_id || !deviceId) {
-      console.log("Validation failed:", { name, description, field_id, deviceId });
-      setError('Please fill in all required fields.');
+    const deviceId = localStorage.getItem('id');
+    if (!userId) {
+      setError('User ID is missing. Please try again.');
       return;
     }
+  
+    if (!deviceId) {
+      setError('Device ID is missing. Please reopen the modal and try again.');
+      return;
+    }
+  
+    if (!name.trim() || !description.trim() || !field_id.trim()) {
+      setError('All fields are required.');
+      return;
+    }
+  
+    console.log('Updating Device:', {
+      deviceId,
+      userId,
+      name,
+      description,
+      field_id,
+    });
   
     try {
       const response = await axios.put(
@@ -128,10 +139,11 @@ const ControlDeviceSection = () => {
       );
   
       if (response.status === 200) {
-        const updatedDevices = devices.map(device =>
-          device.id === deviceId ? { ...device, ...deviceToUpdate } : device
+        const updatedDevices = devices.map((device) =>
+          device.id === deviceId ? { ...device, ...response.data } : device
         );
         setDevices(updatedDevices);
+  
         setNotificationMessage('Device Updated Successfully!');
         setShowNotification(true);
         setOpenUpdateModal(false);
@@ -141,25 +153,20 @@ const ControlDeviceSection = () => {
       console.error(err);
     }
   };
-  
-  
 
   const handleCloseNotification = () => {
     setShowNotification(false);
   };
 
   const handleOpenUpdateModal = (device) => {
-    console.log("Device to open modal:", device);
-  
     setDeviceToUpdate({
-      device_id: device.id,
-      name: device.name,
-      description: device.description,
-      field_id: device.field_id,
+      name: device.name || '',
+      description: device.description || '',
+      field_id: device.field_id || '',
     });
+    localStorage.setItem('id', device.id);
     setOpenUpdateModal(true);
   };
-  
 
   const handleCloseUpdateModal = () => {
     setOpenUpdateModal(false);
@@ -242,6 +249,12 @@ const ControlDeviceSection = () => {
                   <CardContent>
                     <Typography variant="h6">Device Name: {device.name}</Typography>
                     <Typography variant="body2" color="textSecondary">
+                      USER ID: {device.user_id}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      Device ID: {device.id}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
                       Serial ID: {device.serial_id}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
@@ -256,7 +269,7 @@ const ControlDeviceSection = () => {
                   </CardContent>
                   <CardActions>
                     <Button size="small" variant="contained" color="primary">
-                      Run
+                      Open
                     </Button>
                     <Button
                       size="small"
@@ -274,7 +287,6 @@ const ControlDeviceSection = () => {
         </Box>
       )}
 
-      {/* Modal for Updating Device */}
       <Modal
         open={openUpdateModal}
         onClose={handleCloseUpdateModal}
