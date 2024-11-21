@@ -1,5 +1,5 @@
 services:
-  ai:
+  qazaq-ai:
     container_name: qazaq-ai
     build:
       context: ./ai
@@ -11,7 +11,7 @@ services:
     networks:
       - qazaq_network
 
-  backend:
+  qazaq-backend:
     container_name: qazaq-backend
     build:
       context: ./backend
@@ -25,7 +25,7 @@ services:
     networks:
       - qazaq_network
 
-  frontend:
+  qazaq-frontend:
     container_name: qazaq-frontend
     build:
       context: ./frontend
