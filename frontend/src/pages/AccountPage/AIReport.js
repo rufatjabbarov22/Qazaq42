@@ -8,13 +8,13 @@ import {
   CircularProgress,
 } from '@mui/material';
 import axios from 'axios';
+import './AIreport.css';
 
 const AiReportPage = ({ open, setOpen, telemetryId }) => {
   const [aiPrediction, setAiPrediction] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Fetch AI prediction data when telemetryId is set
   useEffect(() => {
     if (telemetryId && open) {
       const fetchAiPrediction = async () => {
@@ -62,7 +62,8 @@ const AiReportPage = ({ open, setOpen, telemetryId }) => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 700,
+            width: 850,
+            height: 500,
             bgcolor: 'background.paper',
             borderRadius: 2,
             boxShadow: 24,
@@ -79,21 +80,28 @@ const AiReportPage = ({ open, setOpen, telemetryId }) => {
           ) : error ? (
             <Typography color="error">{error}</Typography>
           ) : aiPrediction ? (
-            <Box>
-              <Typography variant="h6">Device Information:</Typography>
+            <Box marginTop={'50px'}>
+              {/* <Typography variant="h6">Device Information:</Typography>
               <Typography>Device ID: {aiPrediction.data?.device_id}</Typography>
-              <Typography>Field ID: {aiPrediction.data?.field_id}</Typography>
+              <Typography>Field ID: {aiPrediction.data?.field_id}</Typography> */}
 
-              <Typography variant="h6" sx={{ mt: 3 }}>
+              {/* <Typography variant="h6" sx={{ mt: 3 }}>
                 Reports:
-              </Typography>
+              </Typography> */}
               {aiPrediction.data?.reports?.length > 0 ? (
                 aiPrediction.data.reports.map((report, index) => (
-                  <Box key={index} sx={{ mb: 2 }}>
-                    <Typography>Crop Name: {report.crop_name}</Typography>
-                    <Typography>Probability: {report.probability}</Typography>
-                    <Typography>Created At: {new Date(report.created_at).toLocaleString()}</Typography>
-                    <Typography>Updated At: {new Date(report.updated_at).toLocaleString()}</Typography>
+                  <Box key={index} sx={{ mb: 2, }} className="ai-list">
+                    <Typography className='header'>
+                      <Typography className='ai-item' id='left'>Crop Name:</Typography>
+                      <Typography className='ai-item'>{report.crop_name}</Typography>
+                    </Typography>
+
+                    <Typography className='header'>
+                      <Typography className='ai-item' id='left'>Probability:</Typography>
+                      <Typography className='ai-item'>{report.probability}</Typography>
+                    </Typography>
+                    {/* <Typography>Created At: {new Date(report.created_at).toLocaleString()}</Typography>
+                    <Typography>Updated At: {new Date(report.updated_at).toLocaleString()}</Typography> */}
                   </Box>
                 ))
               ) : (
