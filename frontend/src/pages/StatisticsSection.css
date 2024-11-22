@@ -18,7 +18,7 @@
   }
   
   .stat-card {
-    background-color: #334b1c !important; /* Darker black for card background */
+    background-color: rgb(24, 53, 1) !important; /* Darker black for card background */
     border-radius: 10px;
     padding: 40px;
     color: #ffffff;

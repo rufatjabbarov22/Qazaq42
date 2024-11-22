@@ -77,6 +77,8 @@ function SignupForm() {
         if (email) {
           localStorage.setItem('email', email);  // Store email
         }
+        const { is_verified } = data;  // Adjust depending on the API response structure
+        localStorage.setItem('is_verified', is_verified);  // Store email
 
         navigate('/otp');  // Redirect to OTP verification page
       } else {

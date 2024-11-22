@@ -1,80 +1,175 @@
+/* General container styling */
 .control-device-section {
-  background-color: #fff;
+  background-color: #f9f9f9;
   padding: 20px;
-  /* border-radius: 10px; */
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.3s ease-in-out;
-  overflow-x: hidden;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  width: 100%;
 }
 
-.device-control-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* Typography enhancements */
+.control-device-section h4,
+.control-device-section h5 {
+  font-family: 'Roboto', sans-serif;
+  color: #000000;
   text-align: center;
-  width: 100%;
-  max-width: 600px;
+  font-size: 25px;
 }
 
-.device-icon {
-  font-size: 100px;
-  color: #0e4882;
+/* Add Device section */
+.control-device-section .MuiBox-root {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
-.loading-section {
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
+/* Buttons */
+.control-device-section .MuiButton-containedPrimary {
+  background: #1976d2;
+  color: #fff;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
-.loading-bar {
-  width: 100%;
-  height: 10px;
-  background-color: #ccc;
-  margin-top: 20px;
-  border-radius: 5px;
+.control-device-section .MuiButton-containedPrimary:hover {
+  background: #125a9a;
+}
+
+.control-device-section .MuiButton-outlinedSecondary {
+  border-color: #f44336;
+  color: #f44336;
+}
+
+.control-device-section .MuiButton-outlinedSecondary:hover {
+  border-color: #d32f2f;
+  color: #d32f2f;
+}
+
+/* Snackbar */
+.control-device-section .MuiSnackbar-root {
+  z-index: 1400;
+}
+
+/* Cards styling */
+.control-device-section .MuiCard-root {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.control-device-section .MuiCard-root:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.control-device-section .MuiCardContent-root {
+  background: #f5f5f5;
+  border-top: 4px solid #1976d2;
+}
+
+.control-device-section .MuiTypography-body2 {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Update Modal */
+.control-device-section .MuiModal-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-device-section .MuiBox-root {
+  border-radius: 12px;
+}
+
+.control-device-section .MuiBox-root input {
+  border-radius: 4px;
+}
+
+/* Grid */
+.control-device-section .MuiGrid-item {
+  padding: 12px;
+}
+
+/* Form inputs */
+.control-device-section .MuiTextField-root {
+  margin-bottom: 10px;
+}
+
+
+/*! -------Card container styling--------------!*/
+.control-device-section .MuiCard-root {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(145deg, #ffffff, #f1f1f1);
   overflow: hidden;
 }
 
-.loading-track {
-  width: 100%;
-  height: 100%;
-  background-color: #0e4882;
-  animation: loadingBarAnimation 3s linear forwards;
+.control-device-section .MuiCard-root:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-@keyframes loadingBarAnimation {
-  from { width: 0; }
-  to { width: 100%; }
+/* Card content */
+.control-device-section .MuiCardContent-root {
+  padding: 16px;
+  background: #f9f9f9;
 }
 
-.scan-result-box {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-  padding: 20px;
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.result-item {
-  margin-top: 15px;
+.control-device-section .MuiTypography-h6 {
+  font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
+  font-weight: 600;
+  color: #1976d2;
+  margin-bottom: 8px;
+}
+
+.control-device-section .MuiTypography-body2 {
+  font-family: 'Arial', sans-serif;
+  font-size: 0.95rem;
+  color: #555;
+  margin: 4px 0;
+}
+
+.control-device-section .MuiTypography-body2 span {
+  font-weight: 600;
   color: #333;
 }
 
-.ai-button {
-  width: 100%;
-  margin-top: 20px;
-  background-color: #0e4882;
-  color: #fff;
+/* Card actions */
+.control-device-section .MuiCardActions-root {
+  background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
 }
 
-@media (max-width: 768px) {
-  .device-icon { font-size: 60px; }
+.control-device-section .MuiButton-containedPrimary {
+  background: #1976d2;
+  color: #fff;
+  font-weight: bold;
+  transition: background 0.3s ease;
+  border-radius: 20px;
 }
+
+.control-device-section .MuiButton-containedPrimary:hover {
+  background: #125a9a;
+}
+
+.control-device-section .MuiButton-outlinedSecondary {
+  border-color: #f44336;
+  color: #f44336;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.control-device-section .MuiButton-outlinedSecondary:hover {
+  border-color: #d32f2f;
+  color: #d32f2f;
+}
+

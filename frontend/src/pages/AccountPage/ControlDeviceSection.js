@@ -26,7 +26,7 @@ const ControlDeviceSection = () => {
   const [notificationMessage, setNotificationMessage] = useState('');
   const [error, setError] = useState('');
   const [deviceExistsError, setDeviceExistsError] = useState('');
-  
+
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [deviceToUpdate, setDeviceToUpdate] = useState({
     name: '',
@@ -63,18 +63,18 @@ const ControlDeviceSection = () => {
 
   const handleAddDevice = async () => {
     const { serial_id, provided_pin } = newDevice;
-  
+
     if (!serial_id || !provided_pin || !userId) {
       setError('Please fill in all fields before adding a device.');
       return;
     }
-  
+
     const deviceExists = devices.some(device => device.serial_id === serial_id || device.provided_pin === provided_pin);
     if (deviceExists) {
       setDeviceExistsError('Device with this Serial ID or PIN already exists.');
       return;
     }
-  
+
     try {
       const response = await axios.post(
         'http://localhost:8000/api/v1/devices/assign',
@@ -83,21 +83,21 @@ const ControlDeviceSection = () => {
           params: { user_id: userId, serial_id, provided_pin },
         }
       );
-  
+
       if (response.status === 200) {
         setDevices([...devices, response.data]);
         setNewDevice({ serial_id: '', provided_pin: '' });
         setError('');
         setDeviceExistsError('');
         setNotificationMessage('Device Assigned Successfully!');
-  
+
         const { id } = response.data;
 
         if (id) {
           localStorage.setItem('id', id);
         }
         console.log('id: ' + id);
-  
+
         setShowNotification(true);
       }
     } catch (err) {
@@ -113,17 +113,17 @@ const ControlDeviceSection = () => {
       setError('User ID is missing. Please try again.');
       return;
     }
-  
+
     if (!deviceId) {
       setError('Device ID is missing. Please reopen the modal and try again.');
       return;
     }
-  
+
     if (!name.trim() || !description.trim() || !field_id.trim()) {
       setError('All fields are required.');
       return;
     }
-  
+
     console.log('Updating Device:', {
       deviceId,
       userId,
@@ -131,7 +131,7 @@ const ControlDeviceSection = () => {
       description,
       field_id,
     });
-  
+
     try {
       const response = await axios.put(
         `http://localhost:8000/api/v1/devices/${deviceId}`,
@@ -142,13 +142,13 @@ const ControlDeviceSection = () => {
           field_id,
         }
       );
-  
+
       if (response.status === 200) {
         const updatedDevices = devices.map((device) =>
           device.id === deviceId ? { ...device, ...response.data } : device
         );
         setDevices(updatedDevices);
-  
+
         setNotificationMessage('Device Updated Successfully!');
         setShowNotification(true);
         setOpenUpdateModal(false);
@@ -182,7 +182,7 @@ const ControlDeviceSection = () => {
     setSelectedDeviceId(deviceId); // Set the selected device ID for telemetry
     setTelemetryOpen(true); // Open the telemetry popup
   };
-  
+
 
   return (
     <Box
@@ -216,9 +216,10 @@ const ControlDeviceSection = () => {
           width: '100%',
           maxWidth: '600px',
           marginBottom: '16px',
+          textAlign: 'center'
         }}
       >
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom style={{ textAlign: 'center', fontSize: '25px' }}>
           Add New Device
         </Typography>
         {error && <Typography color="error">{error}</Typography>}
@@ -228,7 +229,7 @@ const ControlDeviceSection = () => {
           variant="outlined"
           value={newDevice.serial_id}
           onChange={(e) => setNewDevice({ ...newDevice, serial_id: e.target.value })}
-          sx={{ mb: 1, width: '100%' }}
+          sx={{ mb: 1, width: '100%', textAlign: 'center' }}
         />
         <TextField
           label="PIN"
@@ -237,7 +238,7 @@ const ControlDeviceSection = () => {
           onChange={(e) => setNewDevice({ ...newDevice, provided_pin: e.target.value })}
           sx={{ mb: 2, width: '100%' }}
         />
-        <Button variant="contained" color="primary" onClick={handleAddDevice}>
+        <Button variant="contained" color="primary" onClick={handleAddDevice} >
           Add Device
         </Button>
       </Box>
@@ -259,28 +260,33 @@ const ControlDeviceSection = () => {
               <Grid item xs={12} md={6} key={index}>
                 <Card>
                   <CardContent>
-                    <Typography variant="h6">Device Name: {device.name}</Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      USER ID: {device.user_id}
+                    <Typography variant="h6">Device Name: <span>{device.name}</span></Typography>
+                    {/* <Typography variant="body2" color="textSecondary">
+                      <span>USER ID:</span> {device.user_id}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Device ID: {device.id}
+                      <span>Device ID:</span> {device.id}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Serial ID: {device.serial_id}
+                      <span>Serial ID:</span> {device.serial_id}
+                    </Typography> */}
+                    <Typography variant="body2" color="textSecondary">
+                      <span>PIN:</span> {device.pin}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      PIN: {device.pin}
+                      <span>Field ID:</span> {device.field_id}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Field id: {device.field_id}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Description: {device.description}
+                      <span>Description:</span> {device.description}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" variant="contained" color="primary" onClick={() => handleTelemetryOpen(device.id)}>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleTelemetryOpen(device.id)}
+                    >
                       Open
                     </Button>
                     <Button
@@ -293,6 +299,7 @@ const ControlDeviceSection = () => {
                     </Button>
                   </CardActions>
                 </Card>
+
               </Grid>
             ))}
           </Grid>

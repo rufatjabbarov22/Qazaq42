@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography, Modal, Fade, Backdrop, CircularProgress, Button } from '@mui/material';
+import { Box, Typography, Modal, Fade, Backdrop, CircularProgress, Button, backdropClasses } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import './Telemetry.css';
 
 const TelemetryPopup = ({ open, setOpen, deviceId }) => {
-  const [telemetryData, setTelemetryData] = useState(null);
+  const [telemetryData, setTelemetryData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (open && deviceId) {
       const fetchTelemetryData = async () => {
         try {
           setLoading(true);
+          setError('');
           const response = await axios.get(
             `http://localhost:8000/api/v1/telemetry/device/${deviceId}`
           );
-          setTelemetryData(response.data);
-          setError('');
+          console.log('API Response:', response.data); // Debug log
+          setTelemetryData(response.data); // Expecting an array
         } catch (err) {
           setError('Failed to fetch telemetry data. Please try again.');
           console.error(err);
@@ -33,17 +35,18 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
 
   const handleClose = () => {
     setOpen(false);
-    setTelemetryData(null);
+    setTelemetryData([]);
     setError('');
   };
 
   const handleAskAi = () => {
-    // Store the telemetry ID in localStorage
-    localStorage.setItem('telemetry_id', telemetryData.id);
-
-    // Close the modal and navigate to AI report page
-    handleClose();
-    navigate(`/ai-report?telemetry_id=${telemetryData.id}`);
+    if (telemetryData.length > 0 && telemetryData[0].id) {
+      localStorage.setItem('telemetry_id', telemetryData[0].id); // Access the first item's ID
+      handleClose();
+      navigate(`/ai-report?telemetry_id=${telemetryData[0].id}`);
+    } else {
+      console.error('Telemetry data is missing or incomplete.');
+    }
   };
 
   return (
@@ -59,52 +62,157 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
       <Fade in={open}>
         <Box
           sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
             position: 'absolute',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 600,
+            width: 900,
             bgcolor: 'background.paper',
             borderRadius: 2,
             boxShadow: 24,
-            padding: 4,
+            padding: 5,
+            // backgroundColor: 'yellow'
           }}
         >
-          <Typography variant="h6" gutterBottom>
-            Telemetry Data
-          </Typography>
+          <Typography className="telemetry-header">Telemetry Data</Typography>
           {loading ? (
-            <CircularProgress />
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <CircularProgress />
+            </Box>
           ) : error ? (
             <Typography color="error">{error}</Typography>
+          ) : telemetryData.length > 0 ? (
+            <Box className="telemetry-list" display={'flex'} alignItems={'center'}>
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  ID:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].id || 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  Device ID:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].device_id || 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  n:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].n ?? 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  p:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].p ?? 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  k:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].k ?? 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  Temperature:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].temperature || 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  pH:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].ph || 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  Soil Humidity:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].soil_humidity || 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  Air Humidity:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].air_humidity || 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  Light Intensity:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].light_intensity || 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  Light Duration:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].light_duration || 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  CO2:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].co2 || 'Not available'}
+                </Typography>
+              </Typography>
+
+              <Typography className='header'>
+                <Typography className="telemetry-item" id="left">
+                  O2:
+                </Typography>
+                <Typography className="telemetry-item">
+                  {telemetryData[0].o2 || 'Not available'}
+                </Typography>
+              </Typography>
+            </Box>
           ) : (
-            telemetryData && (
-              <Box>
-                <Typography>ID: {telemetryData.id}</Typography>
-                <Typography>Device ID: {telemetryData.device_id}</Typography>
-                <Typography>n: {telemetryData.n}</Typography>
-                <Typography>p: {telemetryData.p}</Typography>
-                <Typography>k: {telemetryData.k}</Typography>
-                <Typography>Temperature: {telemetryData.temperature}</Typography>
-                <Typography>pH: {telemetryData.ph}</Typography>
-                <Typography>
-                  Soil Humidity: {telemetryData.soil_humidity}
-                </Typography>
-                <Typography>
-                  Air Humidity: {telemetryData.air_humidity}
-                </Typography>
-                <Typography>
-                  Light Intensity: {telemetryData.light_intensity}
-                </Typography>
-                <Typography>
-                  Light Duration: {telemetryData.light_duration}
-                </Typography>
-                <Typography>CO2: {telemetryData.co2}</Typography>
-                <Typography>O2: {telemetryData.o2}</Typography>
-              </Box>
-            )
+            <Typography>No data available.</Typography>
           )}
-          <Button onClick={handleAskAi} variant="contained" color="primary" sx={{ mt: 2 }}>
+          <Button
+            onClick={handleAskAi}
+            variant="contained"
+            color="primary"
+            sx={{ mt: 2 }}
+            disabled={telemetryData.length === 0}
+          >
             Ask AI
           </Button>
         </Box>
