@@ -261,7 +261,7 @@ const ControlDeviceSection = () => {
                 <Card>
                   <CardContent>
                     <Typography variant="h6">Device Name: <span>{device.name}</span></Typography>
-                    {/* <Typography variant="body2" color="textSecondary">
+                    <Typography variant="body2" color="textSecondary">
                       <span>USER ID:</span> {device.user_id}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
@@ -269,7 +269,7 @@ const ControlDeviceSection = () => {
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
                       <span>Serial ID:</span> {device.serial_id}
-                    </Typography> */}
+                    </Typography>
                     <Typography variant="body2" color="textSecondary">
                       <span>PIN:</span> {device.pin}
                     </Typography>
