@@ -26,7 +26,7 @@ const CountryManagement = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const countryList = useMemo(() => ["Azerbaijan", "Russia", "United States", "Germany"], []);
-  const codeList = useMemo(() => ["AZE", "RUS", "USA", "DEU"], []);
+  const codeList = useMemo(() => ["AZ", "RU", "US", "DE"], []);
 
   useEffect(() => {
     fetch('/api/v1/countries')
