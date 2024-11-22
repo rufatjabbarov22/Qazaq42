@@ -62,7 +62,7 @@ const Header = () => {
   const toggleDrawer = (open) => () => setDrawerOpen(open);
 
   return (
-    <AppBar position="sticky" sx={{ background: 'rgba(51, 75, 28, 1)' }}>
+    <AppBar position="sticky" sx={{ background: 'rgb(24, 53, 1)' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Box component={Link} to="/" sx={{ textDecoration: 'none' }}>
           <img src={logo} alt="Logo" style={{ height: '60px' }} />
