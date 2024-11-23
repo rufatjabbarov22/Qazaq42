@@ -17,6 +17,7 @@ import SignOut from './pages/SignOut';
 import ProtectedRoute from './components/ProtectedRoute'
 import TelemetryPopup from './pages/AccountPage/Telemetry';
 import AiReportPage from './pages/AccountPage/AIReport';
+import FieldSection from './pages/FieldSection';
 
 function AppContent() {
   const location = useLocation();
@@ -37,9 +38,8 @@ function AppContent() {
           <Route path="/otp" element={<OTPForm />} />
           <Route path='/telemetry' element={<TelemetryPopup/>} />
           <Route path='/ai-report' element={<AiReportPage/>} />
-          
+          <Route path='/field' element={<FieldSection/>} />
           <Route path="/account" 
-          
           element={
             <ProtectedRoute>
               <AccountPage />
