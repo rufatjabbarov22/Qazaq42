@@ -3,6 +3,7 @@ import { Box, Container, Button, Typography } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Base_Url from '../config.js';
 
 const theme = createTheme();
 
@@ -24,7 +25,7 @@ function SignOut() {
     try {
       // Perform the logout request to your backend
       const response = await axios.post(
-        'http://localhost:8000/api/v1/auth/sign-out',
+        Base_Url + 'auth/sign-out',
         {},
         {
           headers: {

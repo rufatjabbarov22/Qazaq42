@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import './AIreport.css';
+import Base_Url from '../../config.js'
 
 const AiReportPage = ({ open, setOpen, telemetryId }) => {
   const [aiPrediction, setAiPrediction] = useState(null);
@@ -21,7 +22,7 @@ const AiReportPage = ({ open, setOpen, telemetryId }) => {
         try {
           setLoading(true);
           const response = await axios.post(
-            `http://localhost:8000/api/v1/ai/predict`,
+            Base_Url + `ai/predict`,
             {}, // Empty body for the POST request
             { params: { telemetry_id: telemetryId } } // Pass telemetryId as query params
           );

@@ -16,6 +16,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import './SignupForm.css';
+import Base_url from '../config.js'
 
 const theme = createTheme();
 
@@ -59,7 +60,7 @@ function SignupForm() {
     };
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/auth/sign-up', {
+      const response = await fetch(Base_url + 'auth/sign-up', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

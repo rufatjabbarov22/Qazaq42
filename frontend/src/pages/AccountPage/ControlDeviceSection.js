@@ -270,9 +270,9 @@ const ControlDeviceSection = () => {
                     <Typography variant="body2" color="textSecondary">
                       <span>Serial ID:</span> {device.serial_id}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary">
+                    {/* <Typography variant="body2" color="textSecondary">
                       <span>PIN:</span> {device.pin}
-                    </Typography>
+                    </Typography> */}
                     <Typography variant="body2" color="textSecondary">
                       <span>Field ID:</span> {device.field_id}
                     </Typography>

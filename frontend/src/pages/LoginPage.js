@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import './Login.css';
+import Base_url from '../config.js'
 
 const theme = createTheme();
 
@@ -36,7 +37,7 @@ export default function Login() {
     try {
       // Send a POST request to your backend
       const response = await axios.post(
-        'http://localhost:8000/api/v1/auth/sign-in',
+        Base_url + 'auth/sign-in',
         { email, password },
         {
           headers: {

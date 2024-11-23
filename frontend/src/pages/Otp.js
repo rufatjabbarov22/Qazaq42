@@ -3,6 +3,7 @@ import { Box, Container, Typography, TextField, Button, Grid, Fade } from '@mui/
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Base_Url from '../config.js'
 
 const theme = createTheme();
 
@@ -34,7 +35,7 @@ function OTPForm() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/auth/verify?user_mail=${encodeURIComponent(email)}&otp_code=${otpCode}`,
+        Base_Url + `auth/verify?user_mail=${encodeURIComponent(email)}&otp_code=${otpCode}`,
         {},
         {
           headers: {
