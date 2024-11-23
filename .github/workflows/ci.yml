@@ -63,20 +63,12 @@ jobs:
       - name: Install SSH and sshpass
         run: sudo apt-get install -y openssh-client sshpass
 
-      - name: Add server to known hosts
-        run:
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          ssh-keyscan -H ${{ secrets.SERVER_HOST }} > temp_known_hosts
-          cat temp_known_hosts >> ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
-
       - name: Log into server and deploy
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         run: |
-          sshpass -p $SERVER_PASSWORD ssh $SERVER_USER@${{ secrets.SERVER_HOST }} << 'EOF'
+          sshpass -p $SERVER_PASSWORD ssh -o StrictHostKeyChecking=no $SERVER_USER@${{ secrets.SERVER_HOST }} << 'EOF'
             echo "Logging into the server..."
           
             echo "Pulling Docker images..."
