@@ -352,6 +352,11 @@ const ControlDeviceSection = () => {
           </Box>
         </Fade>
       </Modal>
+      <TelemetryPopup
+        open={telemetryOpen}
+        setOpen={setTelemetryOpen}
+        deviceId={selectedDeviceId}
+      />
     </Box>
   );
 };
@@ -362,8 +367,7 @@ const modalStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   backgroundColor: 'white',
-  border: '2px solid #000',
-  padding: '16px',
+  padding: '20px',
   borderRadius: '8px',
   boxShadow: 24,
 };
