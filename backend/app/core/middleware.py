@@ -9,6 +9,8 @@ def setup_middlewares(app: FastAPI):
             "http://0.0.0.0:3000",
             "http://localhost:3000",
             "https://qazaq.live"
+            "https://64.227.75.13:3000",
+            "https://64.227.75.13"
         ],
         allow_credentials=True,
         allow_methods=["*"],
