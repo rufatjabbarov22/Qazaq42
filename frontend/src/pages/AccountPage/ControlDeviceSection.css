@@ -67,6 +67,7 @@
 .control-device-section .MuiCardContent-root {
   background: #f5f5f5;
   border-top: 4px solid #1976d2;
+  text-align: center;
 }
 
 .control-device-section .MuiTypography-body2 {
@@ -100,7 +101,7 @@
 }
 
 
-/*! -------Card container styling--------------!*/
+/*! -------Card container styling!*/
 .control-device-section .MuiCard-root {
   border: 1px solid #e0e0e0;
   border-radius: 12px;

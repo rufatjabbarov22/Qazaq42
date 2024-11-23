@@ -257,45 +257,51 @@ const ControlDeviceSection = () => {
             Your Devices
           </Typography>
           <Grid container spacing={2}>
-            {devices.map((device, index) => (
-              <Grid item xs={12} md={6} key={index}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="h6">Device Name: <span>{device.name}</span></Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <span>Serial ID:</span> {device.serial_id}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <span>Field ID:</span> {device.field_id}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <span>Description:</span> {device.description}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleTelemetryOpen(device.id)}
-                    >
-                      Open
-                    </Button>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => handleOpenUpdateModal(device)}
-                    >
-                      Update
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+            {devices.map((device, index) => {
+              // Find the field name for this device
+              const fieldName = fields.find(field => field.id === device.field_id)?.name || 'N/A'; // Default to 'N/A' if not found
+
+              return (
+                <Grid item xs={12} md={6} key={index}>
+                  <Card>
+                    <CardContent >
+                      <Typography variant="h6">Device Name: <span>{device.name}</span></Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        <span>Serial ID:</span> {device.serial_id}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        <span>Field:</span> {fieldName} {/* Display the field name */}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        <span>Description:</span> {device.description}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleTelemetryOpen(device.id)}
+                      >
+                        Open
+                      </Button>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => handleOpenUpdateModal(device)}
+                      >
+                        Update
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            })}
           </Grid>
         </Box>
       )}
+
 
       {/* Update Device Modal */}
       <Modal
