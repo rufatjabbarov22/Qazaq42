@@ -81,9 +81,9 @@ jobs:
             docker rm qazaq-ai qazaq-backend qazaq-frontend || true
           
             echo "Running new containers..."
-            docker run -d -p 8080 --name qazaq-ai --restart always ${{ secrets.DOCKER_USERNAME }}/qazaq-ai:latest
-            docker run -d -p 8000 --name qazaq-backend --restart always ${{ secrets.DOCKER_USERNAME }}/qazaq-backend:latest
-            docker run -d -p 3000 --name qazaq-frontend --restart always ${{ secrets.DOCKER_USERNAME }}/qazaq-frontend:latest
+            docker run -d -p 8080:8080 --name qazaq-ai --restart always ${{ secrets.DOCKER_USERNAME }}/qazaq-ai:latest
+            docker run -d -p 8000:8000 --name qazaq-backend --restart always ${{ secrets.DOCKER_USERNAME }}/qazaq-backend:latest
+            docker run -d -p 3000:3000 --name qazaq-frontend --restart always ${{ secrets.DOCKER_USERNAME }}/qazaq-frontend:latest
           
             echo "Deployment completed successfully!"
           EOF
