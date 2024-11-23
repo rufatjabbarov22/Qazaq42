@@ -8,6 +8,7 @@ import InstructionSection from './InstructionSection';
 import ControlDeviceSection from './ControlDeviceSection';
 // import AISection from './AISection';
 import './AccountPage.css';
+import FieldSection from '../FieldSection.js';
 
 const AccountPage = () => {
   const [selectedSection, setSelectedSection] = useState('instuction');
@@ -27,8 +28,8 @@ const AccountPage = () => {
         return <InstructionSection />;
       case 'control':
         return <ControlDeviceSection setSelectedSection={setSelectedSection} />;
-      // case 'ai':
-      //   return <AISection />;
+      case 'field':
+        return <FieldSection />;
       default:
         return <InstructionSection />;
     }
@@ -39,7 +40,7 @@ const AccountPage = () => {
       <Box className="sidebar">
         <Button className="menu-button" onClick={() => setSelectedSection('instruction')}>Instruction</Button>
         <Button className="menu-button" onClick={() => setSelectedSection('control')}>Control Device</Button>
-        {/* <Button className="menu-button" onClick={() => setSelectedSection('ai')}>AI</Button> */}
+        <Button className="menu-button" onClick={() => setSelectedSection('field')}>Create Field</Button>
       </Box>
       <Box className="content">{renderSection()}</Box>
       <BottomNavigation
