@@ -14,6 +14,10 @@ import {
   Modal,
   Fade,
   Backdrop,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from '@mui/material';
 import './ControlDeviceSection.css';
 import TelemetryPopup from './Telemetry.js';
@@ -37,6 +41,20 @@ const ControlDeviceSection = () => {
   const [telemetryOpen, setTelemetryOpen] = useState(false);
   const [selectedDeviceId, setSelectedDeviceId] = useState(null);
 
+  const [fields, setFields] = useState([]); // State to store fields fetched from the backend
+
+  // Fetch fields for the dropdown
+  useEffect(() => {
+    const fetchFields = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/v1/fields/');
+        setFields(response.data); // Set the fields data
+      } catch (err) {
+        console.error('Failed to fetch fields:', err);
+      }
+    };
+    fetchFields();
+  }, []);
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('user_id');
@@ -90,14 +108,6 @@ const ControlDeviceSection = () => {
         setError('');
         setDeviceExistsError('');
         setNotificationMessage('Device Assigned Successfully!');
-
-        const { id } = response.data;
-
-        if (id) {
-          localStorage.setItem('id', id);
-        }
-        console.log('id: ' + id);
-
         setShowNotification(true);
       }
     } catch (err) {
@@ -123,14 +133,6 @@ const ControlDeviceSection = () => {
       setError('All fields are required.');
       return;
     }
-
-    console.log('Updating Device:', {
-      deviceId,
-      userId,
-      name,
-      description,
-      field_id,
-    });
 
     try {
       const response = await axios.put(
@@ -182,7 +184,6 @@ const ControlDeviceSection = () => {
     setSelectedDeviceId(deviceId); // Set the selected device ID for telemetry
     setTelemetryOpen(true); // Open the telemetry popup
   };
-
 
   return (
     <Box
@@ -261,18 +262,9 @@ const ControlDeviceSection = () => {
                 <Card>
                   <CardContent>
                     <Typography variant="h6">Device Name: <span>{device.name}</span></Typography>
-                    {/* <Typography variant="body2" color="textSecondary">
-                      <span>USER ID:</span> {device.user_id}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      <span>Device ID:</span> {device.id}
-                    </Typography> */}
                     <Typography variant="body2" color="textSecondary">
                       <span>Serial ID:</span> {device.serial_id}
                     </Typography>
-                    {/* <Typography variant="body2" color="textSecondary">
-                      <span>PIN:</span> {device.pin}
-                    </Typography> */}
                     <Typography variant="body2" color="textSecondary">
                       <span>Field ID:</span> {device.field_id}
                     </Typography>
@@ -291,7 +283,7 @@ const ControlDeviceSection = () => {
                     </Button>
                     <Button
                       size="small"
-                      variant="outlined"
+                      variant="contained"
                       color="secondary"
                       onClick={() => handleOpenUpdateModal(device)}
                     >
@@ -299,13 +291,13 @@ const ControlDeviceSection = () => {
                     </Button>
                   </CardActions>
                 </Card>
-
               </Grid>
             ))}
           </Grid>
         </Box>
       )}
 
+      {/* Update Device Modal */}
       <Modal
         open={openUpdateModal}
         onClose={handleCloseUpdateModal}
@@ -316,58 +308,64 @@ const ControlDeviceSection = () => {
         }}
       >
         <Fade in={openUpdateModal}>
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 400,
-              bgcolor: 'background.paper',
-              borderRadius: 2,
-              boxShadow: 24,
-              padding: 4,
-            }}
-          >
+          <Box sx={{ ...modalStyle }}>
             <Typography variant="h6" gutterBottom>
-              Update Device
+              Update Device Information
             </Typography>
             <TextField
-              label="Name"
+              label="Device Name"
               variant="outlined"
               value={deviceToUpdate.name}
               onChange={(e) => setDeviceToUpdate({ ...deviceToUpdate, name: e.target.value })}
-              sx={{ mb: 2, width: '100%' }}
+              sx={{ mb: 1, width: '100%' }}
             />
             <TextField
-              label="Description"
+              label="Device Description"
               variant="outlined"
               value={deviceToUpdate.description}
               onChange={(e) => setDeviceToUpdate({ ...deviceToUpdate, description: e.target.value })}
-              sx={{ mb: 2, width: '100%' }}
+              sx={{ mb: 1, width: '100%' }}
             />
-            <TextField
-              label="Field ID"
-              variant="outlined"
-              value={deviceToUpdate.field_id}
-              onChange={(e) => setDeviceToUpdate({ ...deviceToUpdate, field_id: e.target.value })}
-              sx={{ mb: 2, width: '100%' }}
-            />
-            <Button variant="contained" color="primary" onClick={handleUpdateDevice}>
-              Update
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <InputLabel>Field</InputLabel>
+              <Select
+                value={deviceToUpdate.field_id}
+                label="Field"
+                onChange={(e) =>
+                  setDeviceToUpdate({ ...deviceToUpdate, field_id: e.target.value })
+                }
+              >
+                {fields.map((field) => (
+                  <MenuItem key={field.id} value={field.id}>
+                    {field.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleUpdateDevice}
+            >
+              Update Device
             </Button>
           </Box>
         </Fade>
       </Modal>
-
-      {/* Telemetry Popup */}
-      <TelemetryPopup
-        open={telemetryOpen}
-        setOpen={setTelemetryOpen}
-        deviceId={selectedDeviceId}
-      />
     </Box>
   );
+};
+
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  backgroundColor: 'white',
+  border: '2px solid #000',
+  padding: '16px',
+  borderRadius: '8px',
+  boxShadow: 24,
 };
 
 export default ControlDeviceSection;
