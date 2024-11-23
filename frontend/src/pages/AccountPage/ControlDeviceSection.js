@@ -161,6 +161,28 @@ const ControlDeviceSection = () => {
     }
   };
 
+  const handleDeleteDevice = async (deviceId) => {
+    try {
+      const response = await axios.delete(
+        `https://api.qazaq.live/api/v1/devices/${deviceId}`,
+        {
+          headers: {
+            accept: 'application/json',
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setDevices(devices.filter(device => device.id !== deviceId));
+        setNotificationMessage('Device Deleted Successfully!');
+        setShowNotification(true);
+      }
+    } catch (err) {
+      setError('Failed to delete device. Please try again.');
+      console.error(err);
+    }
+  };
+
   const handleCloseNotification = () => {
     setShowNotification(false);
   };
@@ -239,7 +261,7 @@ const ControlDeviceSection = () => {
           onChange={(e) => setNewDevice({ ...newDevice, provided_pin: e.target.value })}
           sx={{ mb: 2, width: '100%' }}
         />
-        <Button variant="contained" color="primary" onClick={handleAddDevice} >
+        <Button variant="contained" color="primary" onClick={handleAddDevice}>
           Add Device
         </Button>
       </Box>
@@ -264,7 +286,7 @@ const ControlDeviceSection = () => {
               return (
                 <Grid item xs={12} md={6} key={index}>
                   <Card>
-                    <CardContent >
+                    <CardContent>
                       <Typography variant="h6">Device Name: <span>{device.name}</span></Typography>
                       <Typography variant="body2" color="textSecondary">
                         <span>Serial ID:</span> {device.serial_id}
@@ -293,6 +315,14 @@ const ControlDeviceSection = () => {
                       >
                         Update
                       </Button>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="error"  // Red tones for the delete button
+                        onClick={() => handleDeleteDevice(device.id)}
+                      >
+                        Delete
+                      </Button>
                     </CardActions>
                   </Card>
                 </Grid>
@@ -301,7 +331,6 @@ const ControlDeviceSection = () => {
           </Grid>
         </Box>
       )}
-
 
       {/* Update Device Modal */}
       <Modal
