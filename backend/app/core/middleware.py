@@ -8,7 +8,7 @@ def setup_middlewares(app: FastAPI):
         allow_origins=[
             "http://0.0.0.0:3000",
             "http://localhost:3000",
-            "https://qazaq.live"
+            "https://qazaq.live",
             "https://64.227.75.13:3000",
             "https://64.227.75.13"
         ],
