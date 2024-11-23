@@ -7,7 +7,8 @@ def setup_middlewares(app: FastAPI):
         CORSMiddleware,  # type: ignore
         allow_origins=[
             "http://0.0.0.0:3000",
-            "http://localhost:3000"
+            "http://localhost:3000",
+            "https://qazaq.live"
         ],
         allow_credentials=True,
         allow_methods=["*"],
