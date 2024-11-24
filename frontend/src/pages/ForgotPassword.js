@@ -33,7 +33,7 @@ function ForgotPassword({ open, handleClose }) {
     setMessage('');
 
     try {
-      const response = await axios.post(`${Base_Url}auth/forgot-password`, { email });
+      const response = await axios.post(`${Base_Url}auth/forgot-password/`, { email });
       setMessage(response.data.message);
       setStep(2); 
     } catch (err) {
