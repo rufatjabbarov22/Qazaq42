@@ -61,10 +61,11 @@ const ControlDeviceSection = () => {
     const storedUserId = localStorage.getItem('user_id');
     if (storedUserId) {
       setUserId(storedUserId);
+      console.log(userId);
     } else {
       setError('User ID is required. Please log in first.');
     }
-
+    // Fetch devices
     const fetchDevices = async () => {
       try {
         if (userId) {
@@ -78,7 +79,8 @@ const ControlDeviceSection = () => {
     };
 
     fetchDevices();
-  }, [userId]);
+}, [userId]);
+
 
   const handleAddDevice = async () => {
     const { serial_id, provided_pin } = newDevice;
