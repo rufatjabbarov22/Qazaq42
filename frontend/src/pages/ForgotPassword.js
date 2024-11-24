@@ -57,14 +57,14 @@ function ForgotPassword({ open, handleClose }) {
     }
 
     try {
-      const usersResponse = await axios.get(`${Base_Url}users`);
+      const usersResponse = await axios.get(`${Base_Url}users/`);
       const user = usersResponse.data.find((u) => u.email === email);
 
       if (!user) {
         throw new Error('User not found');
       }
 
-      const updateResponse = await axios.put(`${Base_Url}users/${user.id}`, {
+      const updateResponse = await axios.put(`${Base_Url}users/${user.id}/`, {
         ...user,
         password: newPassword,
       });
