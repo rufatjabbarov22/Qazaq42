@@ -139,7 +139,7 @@ const ContactUsPage = () => {
               Get in Touch
             </Typography>
             <Typography variant="body1" align="left" sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <EmailIcon /> <strong>Email:</strong> info@qazaq.com
+              <EmailIcon /> <strong>Email:</strong> help@qazaq.live
             </Typography>
             <Typography variant="body1" align="left" sx={{ display: 'flex', alignItems: 'center', gap: '8px', mt: 1 }}>
               <PhoneIcon /> <strong>Phone:</strong> +994 55 555 93 42
