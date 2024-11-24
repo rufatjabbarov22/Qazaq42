@@ -4,6 +4,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 import logo from '../assets/logo.png';
+import Base_Url from '../config.js';
+import axios from 'axios';
 
 const NavButton = styled(Button)(({ theme }) => ({
   color: '#f1f2f0',
@@ -40,6 +42,8 @@ const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -53,11 +57,44 @@ const Header = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('access_token');
-    setIsLoggedIn(false);
-    navigate('/signout');
+
+  // !----------------------------
+  // const handleLogout = () => {
+  // localStorage.removeItem('access_token');
+  //   setIsLoggedIn(false);
+  //   navigate('/signout');
+  // };
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        Base_Url + 'auth/sign-out',
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            accept: 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Sign out successful:', response.data);
+        setSuccessMessage('You have been signed out successfully!');
+
+        localStorage.removeItem('access_token');
+        setIsLoggedIn(false);
+
+        setTimeout(() => {
+          navigate('/');
+        }, 1500);
+      }
+    } catch (error) {
+      console.error('Error during sign out:', error.response ? error.response.data : error.message);
+      setError(error.response?.data?.detail || 'Failed to log out. Please try again.');
+    }
   };
+
   const handleLogin = () => {
     setIsLoggedIn(true);
     navigate('/login');
@@ -102,7 +139,7 @@ const Header = () => {
               <LoginButton onClick={handleLogin}>Sign In</LoginButton>
             ) : (
               <>
-                <NavButton component={Link} to={`/account`}>Account</NavButton> 
+                <NavButton component={Link} to={`/account`}>Account</NavButton>
                 <LogoutButton onClick={handleLogout}>Sign Out</LogoutButton>
               </>
             )}
