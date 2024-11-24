@@ -85,6 +85,7 @@ jobs:
             docker run -d -p 8000:8000 --name qazaq-backend --restart always ${{ secrets.DOCKER_USERNAME }}/qazaq-backend:latest
             docker run -d -p 3000:3000 --name qazaq-frontend --restart always ${{ secrets.DOCKER_USERNAME }}/qazaq-frontend:latest
           
+          
             echo "Removing unused Docker images..."
             docker image prune -af
           
