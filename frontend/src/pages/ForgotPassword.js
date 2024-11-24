@@ -64,7 +64,7 @@ function ForgotPassword({ open, handleClose }) {
         throw new Error('User not found');
       }
 
-      const response = await axios.post(`${Base_Url}auth/reset-password/`, {
+      const response = await axios.post(`${Base_Url}auth/reset-password`, {
       email,
       otp,
       new_password: newPassword,
