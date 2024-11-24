@@ -43,20 +43,8 @@
 }
 
 /* Team section styles */
-.team-section {
-    padding-top: 50px;
-    text-align: center;
-    background-color: transparent;
-}
-
-.team-title {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #263d60;
-}
-
 .team-member {
-    background-color: #654321;
+    background: linear-gradient(135deg, #263d60, #4CAF50);
     padding: 20px;
     border-radius: 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -65,11 +53,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    color: #fff;
 }
 
 .team-member:hover {
-    transform: translateY(-10px);
-    background-color: #ffaf5f !important;
+    transform: translateY(-10px) scale(1.05);
+    background: linear-gradient(135deg, #4CAF50, #263d60);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 
 .team-photo {
@@ -77,24 +67,32 @@
     max-width: 200px;
     border-radius: 50%;
     margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.team-photo:hover {
+    transform: rotate(5deg) scale(1.1);
 }
 
 .team-name {
     font-size: 1.5rem;
     color: #ffffff;
     margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 .team-role {
     font-size: 1rem;
-    color: #ffffff;
+    color: #d4f1f4;
     margin-bottom: 10px;
 }
 
 .team-quote {
     font-style: italic;
+    color: #c1e1ec;
     margin-bottom: 15px;
 }
+
 
 /* Spacing adjustments for small screens */
 @media (max-width: 768px) {
@@ -103,15 +101,34 @@
     }
 
     .team-member {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         margin-bottom: 20px; /* Add bottom margin to separate cards */
+        padding: 15px;
+    }
+
+    .team-photo {
+        max-width: 150px; /* Reduce photo size */
+        margin-bottom: 10px; /* Add space below the photo */
+    }
+
+    .team-name {
+        font-size: 1.2rem; /* Reduce font size for names */
+        margin-bottom: 8px;
+    }
+
+    .team-role {
+        font-size: 1rem; /* Adjust role text size */
+        margin-bottom: 8px;
+    }
+
+    .team-quote {
+        font-size: 0.9rem; /* Smaller font for quotes */
     }
 
     .team-member:last-child {
         margin-bottom: 0; /* Remove margin for the last card */
-    }
-
-    .team-member img {
-        max-width: 150px; /* Reduce image size on smaller screens */
     }
 }
 

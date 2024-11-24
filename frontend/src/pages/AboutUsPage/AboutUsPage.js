@@ -62,8 +62,8 @@ const AboutUsPage = () => {
             {[
               { name: 'Simara Kerimli', role: 'CEO', quote: 'Leading with vision and passion.', link: 'https://www.linkedin.com/in/simar%C9%99k%C9%99rimli/', img: 'https://ca.slack-edge.com/T0423U1MW21-U06GZL3HWJ0-dfb69c792ca9-512' },
               { name: 'Samir Ibrahimov', role: 'CTO', quote: 'Innovating for a better tomorrow.', link: 'https://www.linkedin.com/in/samiribrh/', img: 'https://ca.slack-edge.com/T0423U1MW21-U06GX6LL0AW-5c8b0814ecb1-512' },
-              { name: 'Kamran Mahmudov', role: 'Project Manager', quote: 'Delivering projects with excellence.', link: 'https://www.linkedin.com/in/kamran-mahmudov-546532240/', img: 'https://ca.slack-edge.com/T0423U1MW21-U06HL084LD6-a32967ebed0d-512' },
-              { name: 'Rufat Jabbarov', role: 'you know who I am', quote: 'Looking deep to build a better future.', link: 'https://www.linkedin.com/in/rufat-jabbarov-b73872310/', img: 'https://ca.slack-edge.com/T0423U1MW21-U06H6J3APNY-5a78d8002ca6-512' },
+              { name: 'Kamran Mahmudov', role: 'CIO', quote: 'Delivering projects with excellence.', link: 'https://www.linkedin.com/in/kamran-mahmudov-546532240/', img: 'https://ca.slack-edge.com/T0423U1MW21-U06HL084LD6-a32967ebed0d-512' },
+              { name: 'Rufat Jabbarov', role: 'CFO', quote: 'Looking deep to build a better future.', link: 'https://www.linkedin.com/in/rufat-jabbarov-b73872310/', img: 'https://ca.slack-edge.com/T0423U1MW21-U06H6J3APNY-5a78d8002ca6-512' },
             ].map((member, index) => (
               <Grid item xs={12} sm={6} md={3} key={index}>
                 <Box className="team-member">
