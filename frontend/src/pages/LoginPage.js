@@ -168,10 +168,10 @@ export default function Login() {
                   ),
                 }}
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />
+              /> */}
               {error && (
                 <Typography color="error" align="center" sx={{ mt: 2 }}>
                   {error}
