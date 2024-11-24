@@ -3,6 +3,7 @@ import { Box, Container, Typography, TextField, Button, Grid } from '@mui/materi
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import device from '../../assets/device.jpg';
+import Base_Url from '../../config';
 
 const theme = createTheme();
 
@@ -15,6 +16,10 @@ const OrderPage = () => {
     address: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -23,9 +28,45 @@ const OrderPage = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Order submitted:', formData);
+
+    setIsLoading(true);
+    setResponseMessage('');
+    setIsSuccess(false); 
+
+    try {
+      const response = await fetch(Base_Url + 'orders/', { 
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fname: formData.name,
+          lname: formData.surname,
+          phone: formData.phone,
+          email: formData.email,
+          address: formData.address,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsSuccess(true); 
+        setResponseMessage('Order placed successfully!');
+        setFormData({ name: '', surname: '', phone: '', email: '', address: '' }); 
+        console.log('Order response:', data); 
+      } else {
+        setResponseMessage('Error: ' + (data.message || 'Something went wrong.'));
+      }
+    } catch (error) {
+      console.error('Error during order submission:', error);
+      setResponseMessage('Error: Could not submit order.');
+    }
+
+    setIsLoading(false); 
   };
 
   return (
@@ -41,7 +82,6 @@ const OrderPage = () => {
         }}
       >
         <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: '40px' }}>
-          {/* Left section with device image */}
           <Box
             sx={{
               flex: 1,
@@ -56,13 +96,12 @@ const OrderPage = () => {
             }}
           >
             <img
-              src={device}// Replace with your device image URL
+              src={device}
               alt="RSSK-01 Device"
               style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }}
             />
           </Box>
 
-          {/* Right section with form */}
           <Box
             sx={{
               flex: 1,
@@ -83,6 +122,20 @@ const OrderPage = () => {
               Our revolutionary device RSSK-01 is designed to optimize land usage with cutting-edge technology. Please
               fill in your details to place your order.
             </Typography>
+
+            {/* Form submission status */}
+            {responseMessage && (
+              <Typography
+                variant="body2"
+                sx={{
+                  color: isSuccess ? 'green' : '#ff0000', 
+                  marginBottom: '10px',
+                  fontWeight: 'bold',
+                }}
+              >
+                {responseMessage}
+              </Typography>
+            )}
 
             <form onSubmit={handleSubmit}>
               <Grid container spacing={2}>
@@ -168,9 +221,9 @@ const OrderPage = () => {
                     backgroundColor: '#0a3566',
                   },
                 }}
+                disabled={isLoading}
               >
-                <ShoppingCartIcon sx={{ marginRight: '10px' }} />
-                Place Order
+                {isLoading ? 'Placing Order...' : <><ShoppingCartIcon sx={{ marginRight: '10px' }} /> Place Order</>}
               </Button>
             </form>
           </Box>
