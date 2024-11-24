@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./FieldSection.css";
+import Base_Url from "../config";
 
 const FieldSection = () => {
     const [districts, setDistricts] = useState([]);
@@ -16,7 +17,7 @@ const FieldSection = () => {
     useEffect(() => {
         const fetchDistricts = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/api/v1/districts/");
+                const response = await axios.get(Base_Url + "districts/");
                 setDistricts(response.data);
             } catch (err) {
                 console.error("Error fetching districts:", err);
@@ -50,7 +51,7 @@ const FieldSection = () => {
         setSuccess(null);
 
         try {
-            const response = await axios.post("http://localhost:8000/api/v1/fields/", {
+            const response = await axios.post(Base_Url + "fields/", {
                 name: fieldName,
                 size: parseInt(fieldSize, 10),
                 district_id: selectedDistrict,
