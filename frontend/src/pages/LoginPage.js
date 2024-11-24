@@ -25,14 +25,12 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false); // password visibility state
   const navigate = useNavigate();
 
-  // Handle Login Form Submission
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(''); // Clear previous errors
-    setIsLoading(true); // Start loading
+    setError(''); 
+    setIsLoading(true); 
   
     try {
-      // Send a POST request to your backend to log in
       const response = await axios.post(
         Base_url + 'auth/sign-in',
         { email, password },

@@ -197,7 +197,7 @@ function SignupForm() {
                     }}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -208,7 +208,7 @@ function SignupForm() {
                     }
                     label="I want to receive updates via email."
                   />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12}>
                   <Button type="submit" variant="contained" fullWidth>
                     Sign up
