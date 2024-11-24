@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import './Telemetry.css';
 import AiReportPage from './AIReport';
+import Base_Url from "../../config";
 
 const TelemetryPopup = ({ open, setOpen, deviceId }) => {
   const [telemetryData, setTelemetryData] = useState([]);
@@ -27,7 +28,7 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
           setLoading(true);
           setError('');
           const response = await axios.get(
-            `http://localhost:8000/api/v1/telemetry/device/${deviceId}`
+            Base_Url + `telemetry/device/${deviceId}`
           );
           setTelemetryData(response.data || []); // Handle empty response gracefully
         } catch (err) {

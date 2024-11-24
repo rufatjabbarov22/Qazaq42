@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import './ControlDeviceSection.css';
 import TelemetryPopup from './Telemetry.js';
+import Base_Url from "../../config";
 
 const ControlDeviceSection = () => {
   const [devices, setDevices] = useState([]);
@@ -47,7 +48,7 @@ const ControlDeviceSection = () => {
   useEffect(() => {
     const fetchFields = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/fields/');
+        const response = await axios.get(Base_Url + 'fields/');
         setFields(response.data); // Set the fields data
       } catch (err) {
         console.error('Failed to fetch fields:', err);
@@ -67,7 +68,7 @@ const ControlDeviceSection = () => {
     const fetchDevices = async () => {
       try {
         if (userId) {
-          const response = await axios.get(`http://localhost:8000/api/v1/devices?user_id=${userId}`);
+          const response = await axios.get(Base_Url + `devices?user_id=${userId}`);
           const filteredDevices = response.data.filter(device => device.user_id === userId);
           setDevices(filteredDevices);
         }
@@ -95,7 +96,7 @@ const ControlDeviceSection = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:8000/api/v1/devices/assign',
+        Base_Url + 'devices/assign',
         {},
         {
           params: { user_id: userId, serial_id, provided_pin },
@@ -136,7 +137,7 @@ const ControlDeviceSection = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/v1/devices/${deviceId}`,
+        Base_Url + `devices/${deviceId}`,
         {
           user_id: userId,
           name,
@@ -164,7 +165,7 @@ const ControlDeviceSection = () => {
   const handleDeleteDevice = async (deviceId) => {
     try {
       const response = await axios.delete(
-        `https://api.qazaq.live/api/v1/devices/${deviceId}`,
+        Base_Url + `devices/${deviceId}`,
         {
           headers: {
             accept: 'application/json',
