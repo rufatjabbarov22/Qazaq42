@@ -1,120 +1,87 @@
-/* StatisticsSection.css */
 .statistics-section {
-    background-color: #f0f0f0; /* Black background */
-    color: rgb(0, 0, 0);
-    padding: 30px 10px;
-    text-align: center;
-  }
-  
-  .section-title {
-    margin-bottom: 40px;
-    color: #000000 !important;
-    font-size: 2.5rem;
-    padding-bottom: 10px;
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  
-  .stat-card {
-    background-color: rgb(24, 53, 1) !important; /* Darker black for card background */
-    border-radius: 10px;
-    padding: 40px;
-    color: #ffffff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .stat-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.1);
-    z-index: 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .stat-card:hover::before {
-    opacity: 0.1; /* Subtle highlight effect */
-  }
-  
-  .stat-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  }
-  
-  .stat-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    position: relative;
-  }
-  
-  .stat-number {
-    margin-top: 10px;
-    font-size: 2.5rem;
-    color: #a0ffb9; /* Soft green to stand out */
-    font-weight: bold;
-  }
-  
-  .stat-label {
-    color: #ffffff;
-    margin-top: 10px;
-  }
-  
-  /* Adding icons inside the stat card */
-  .stat-icon {
-    font-size: 3rem;
-    color: #0e4882; /* Blue color for icons */
-    margin-bottom: 20px;
-    animation: pop-in 0.3s ease-out;
-  }
-  
-  /* Animation for icons */
-  @keyframes pop-in {
-    0% {
+  background-color: #f0f0f0; /* Section background */
+  color: rgb(255, 255, 255); /* White text for the section */
+  padding: 30px 10px;
+  text-align: center;
+}
+
+.section-title {
+  margin-bottom: 40px;
+  color: black !important; /* White title */
+  font-size: 2.5rem;
+  padding-bottom: 10px;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #4CAF50, #263d60) !important; /* Gradient for card background */
+  border-radius: 8px;
+  padding: 30px; /* Adjusted padding */
+  color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.stat-icon {
+  font-size: 5rem !important; /* Increased icon size */
+  color: #ffde59; /* Bright yellow for icons */
+  margin-bottom: 20px;
+  animation: pop-in 0.3s ease-out;
+}
+
+.stat-number {
+  margin-top: 8px;
+  font-size: 2.5rem; /* Larger font size */
+  color: #ffffff; /* White text for numbers */
+  font-weight: bold;
+}
+
+.stat-label {
+  color: #ffffff; /* White text for labels */
+  margin-top: 8px;
+}
+
+/* Animation for icons */
+@keyframes pop-in {
+  0% {
       transform: scale(0.5);
       opacity: 0;
-    }
-    100% {
+  }
+  100% {
       transform: scale(1);
       opacity: 1;
-    }
   }
-  
-  /* Responsive design for the statistics section */
-  @media (max-width: 768px) {
-    .statistics-section {
-      padding: 20px 10px;
-    }
-  
-    .section-title {
-      font-size: 2rem;
-    }
-  
-    .stat-card {
-      padding: 30px;
-    }
-  
-    .stat-number {
-      font-size: 2rem;
-    }
-  
-    .stat-icon {
-      font-size: 2.5rem;
-    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .statistics-section {
+    padding: 20px 10px;
   }
-  
+
+  .stat-card {
+    padding: 20px; /* Reduced padding for smaller screens */
+  }
+
+  .stat-number {
+    font-size: 2rem; /* Reduced font size */
+  }
+
+  .stat-icon {
+    font-size: 3rem; /* Adjusted icon size for smaller screens */
+  }
+}
