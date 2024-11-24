@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Button, Box, IconButton, Drawer, List, ListItem } from
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 
 const NavButton = styled(Button)(({ theme }) => ({
   color: '#f1f2f0',
@@ -69,7 +69,7 @@ const Header = () => {
     <AppBar position="sticky" sx={{ background: 'rgb(24, 53, 1)' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Box component={Link} to="/" sx={{ textDecoration: 'none' }}>
-          <img src={logo} alt="Logo" style={{ height: '60px' }} />
+          <img src={logo} alt="Logo" style={{ height: '45px', marginLeft: '10px' }} />
         </Box>
         {isMobile ? (
           <>
