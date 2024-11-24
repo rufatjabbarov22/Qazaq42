@@ -33,7 +33,7 @@ function ForgotPassword({ open, handleClose }) {
     setMessage('');
 
     try {
-      const response = await axios.post(`${Base_Url}auth/forgot-password/`, { email });
+      const response = await axios.post(`${Base_Url}auth/forgot-password`, { email });
       setMessage(response.data.message);
       setStep(2); 
     } catch (err) {
@@ -64,10 +64,11 @@ function ForgotPassword({ open, handleClose }) {
         throw new Error('User not found');
       }
 
-      const updateResponse = await axios.put(`${Base_Url}users/${user.id}/`, {
-        ...user,
-        password: newPassword,
-      });
+      const response = await axios.post(`${Base_Url}auth/reset-password/`, {
+      email,
+      otp,
+      new_password: newPassword,
+    });
 
       setMessage('Password reset successfully!');
       handleClose(); 
