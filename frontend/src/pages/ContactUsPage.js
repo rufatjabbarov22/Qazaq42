@@ -11,7 +11,7 @@ const theme = createTheme();
 const ContactUsPage = () => {
   const [message, setMessage] = useState('');
   const [userId, setUserId] = useState('');
-  const [statusMessage, setStatusMessage] = useState(''); // New state for status message
+  const [statusMessage, setStatusMessage] = useState(''); 
 
   useEffect(() => {
     const user_Id = localStorage.getItem('user_id');
@@ -53,7 +53,7 @@ const ContactUsPage = () => {
 
   const showTemporaryMessage = (msg, type) => {
     setStatusMessage({ text: msg, type });
-    setTimeout(() => setStatusMessage(''), 2000); // Clear message after 2 seconds
+    setTimeout(() => setStatusMessage(''), 2000); 
   };
 
   return (
@@ -124,7 +124,6 @@ const ContactUsPage = () => {
             </Grid>
           </form>
 
-          {/* Display status message */}
           {statusMessage && (
             <Box
               sx={{
@@ -152,7 +151,35 @@ const ContactUsPage = () => {
               <PhoneIcon /> <strong>Phone:</strong> +994 55 555 93 42
             </Typography>
           </Box>
+
+          <Box sx={{ mt: 4 }}>
+            <Typography variant="h6" gutterBottom>
+              Our Location
+            </Typography>
+            <Box
+              sx={{
+                position: 'relative',
+                overflow: 'hidden',
+                paddingTop: '56.25%',
+                borderRadius: '8px',
+                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              <iframe
+                title="Google Map"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1201.1992493704516!2d49.84821863722641!3d40.40658444482742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2saz!4v1696152688105!5m2!1sen!2saz"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                style={{ position: 'absolute', top: 0, left: 0, border: 0 }}
+                allowFullScreen
+                aria-hidden="false"
+              />
+            </Box>
+          </Box>
+
         </Container>
+
       </Box>
     </ThemeProvider>
   );
