@@ -145,32 +145,31 @@ const ContactUsPage = () => {
               <PhoneIcon /> <strong>Phone:</strong> +994 55 555 93 42
             </Typography>
           </Box>
-
           <Box sx={{ mt: 4 }}>
-            <Typography variant="h6" gutterBottom>
-              Our Location
-            </Typography>
-            <Box
-              sx={{
-                position: 'relative',
-                overflow: 'hidden',
-                paddingTop: '56.25%',
-                borderRadius: '8px',
-                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-              }}
-            >
-              <iframe
-                title="Google Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.541938674981!2d49.8354174157723!3d40.40926497936467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d55c3e93d7d%3A0x627c8e1f2a961fe2!2sBaku!5e0!3m2!1sen!2saz!4v1696152688105!5m2!1sen!2saz"
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                style={{ position: 'absolute', top: 0, left: 0, border: 0 }}
-                allowFullScreen
-                aria-hidden="false"
-              />
-            </Box>
-          </Box>
+  <Typography variant="h6" gutterBottom>
+    Our Location
+  </Typography>
+  <Box
+      sx={{
+        position: 'relative',
+        overflow: 'hidden',
+        paddingTop: '56.25%',
+        borderRadius: '8px',
+        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+      }}
+    >
+      <iframe
+        title="Google Map"
+        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1201.1992493704516!2d49.84821863722641!3d40.40658444482742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2saz!4v1696152688105!5m2!1sen!2saz"
+        width="100%"
+        height="100%"
+        frameBorder="0"
+        style={{ position: 'absolute', top: 0, left: 0, border: 0 }}
+        allowFullScreen
+        aria-hidden="false"
+      />
+  </Box>
+</Box>
         </Container>
       </Box>
     </ThemeProvider>
