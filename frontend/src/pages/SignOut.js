@@ -23,7 +23,6 @@ function SignOut() {
 
   const handleLogout = async () => {
     try {
-      // Perform the logout request to your backend
       const response = await axios.post(
         Base_Url + 'auth/sign-out',
         {},
@@ -32,7 +31,7 @@ function SignOut() {
             'Content-Type': 'application/json',
             accept: 'application/json',
           },
-          withCredentials: true, // Include cookies in the request
+          withCredentials: true,
         }
       );
 

@@ -51,25 +51,15 @@ export default function Login() {
       if (response.status === 200) {
         console.log('Login successful:', response.data);
   
-        const { access_token, user_id, is_verified } = response.data;
+        const { access_token, user_id } = response.data;
   
-        // If the user is not verified, redirect to OTP page
-        if (is_verified === false) {
-          setError('Your account is not verified. Please check your email for the verification code.');
-          setIsLoading(false); // Stop loading
-          navigate('/otp'); // Redirect to OTP page
-          return;
-        }
-  
-        // Store tokens in local storage if user is verified
         if (access_token) {
           localStorage.setItem('access_token', access_token);
         }
         if (user_id) {
           localStorage.setItem('user_id', user_id);
         }
-  
-        // Proceed to account page after a delay
+
         setTimeout(() => {
           setIsLoading(false);
           navigate('/account');
