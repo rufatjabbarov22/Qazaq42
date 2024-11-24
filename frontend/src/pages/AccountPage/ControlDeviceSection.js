@@ -69,7 +69,7 @@ const ControlDeviceSection = () => {
     const fetchDevices = async () => {
       try {
         if (userId) {
-          const response = await axios.get(Base_Url + `devices?user_id=${userId}`);
+          const response = await axios.get(Base_Url + `devices/?user_id=${userId}`);
           const filteredDevices = response.data.filter(device => device.user_id === userId);
           setDevices(filteredDevices);
         }
