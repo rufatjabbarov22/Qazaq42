@@ -55,6 +55,7 @@ export default function Login() {
   
         if (access_token) {
           localStorage.setItem('access_token', access_token);
+          console.log(access_token);
         }
         if (user_id) {
           localStorage.setItem('user_id', user_id);
