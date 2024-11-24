@@ -25,6 +25,14 @@ class UserCreationFailed(HTTPException):
         )
 
 
+class UserNotAdmin(HTTPException):
+    def __init__(self):
+        super().__init__(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User is not an admin"
+        )
+
+
 class UserNotAuthenticated(HTTPException):
     def __init__(self):
         super().__init__(

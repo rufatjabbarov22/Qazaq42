@@ -8,7 +8,7 @@ from wireup import container, Inject
 from app.api.v1.schemas.auth import ForgotPasswordSchema, ResetPasswordSchema
 from app.api.v1.schemas.token import Token, TokenData
 from app.api.v1.schemas.user import UserCreate, UserLogin, UserRead
-from app.common.exceptions.user import UserNotAuthenticated
+from app.common.exceptions.user import UserNotAdmin, UserNotAuthenticated
 from app.core.dependencies import get_current_user_from_cookie
 from app.services.auth import AuthService
 from app.services.token import TokenService
@@ -44,6 +44,37 @@ async def resend_verification(
         auth_service: Annotated[AuthService, Inject()]
 ):
     return await auth_service.resend_verification(user_mail)
+
+
+@router.post("/admin/sign-in", response_model=Token, status_code=status.HTTP_200_OK)
+@container.autowire
+async def admin_login(
+        user_credentials: UserLogin,
+        auth_service: Annotated[AuthService, Inject()],
+        token_service: Annotated[TokenService, Inject()],
+        settings: Annotated[Settings, Inject()]
+):
+    user = await auth_service.sign_in(user_credentials)
+    if not user.is_admin:
+        raise UserNotAdmin()
+    access_token = token_service.generate_access_token(user)
+    refresh_token = await token_service.generate_refresh_token(user)
+    response = JSONResponse(
+        Token(
+            access_token=access_token,
+            token_type="bearer",
+            user_id=str(user.id)
+        ).model_dump()
+    )
+    response.set_cookie(
+        key="refresh_token",
+        value=refresh_token,
+        httponly=True,
+        max_age=settings.secrets.JWT_REFRESH_TOKEN_TTL * 24 * 60 * 60,
+        samesite="strict",
+        path="/api/v1/auth"
+    )
+    return response
 
 
 @router.post("/sign-in", response_model=Token, status_code=status.HTTP_200_OK)
