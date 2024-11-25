@@ -91,8 +91,9 @@ const Header = () => {
   };
 
   const handleLogin = () => {
-    setIsLoggedIn(true);
     navigate('/login');
+    setIsLoggedIn(true);
+
   };
 
   const toggleDrawer = (open) => () => setDrawerOpen(open);

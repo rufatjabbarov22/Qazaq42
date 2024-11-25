@@ -109,12 +109,12 @@ const AdminPanel = () => {
 const adminPanelStyle = {
   display: 'flex',
   minHeight: '100vh',
-  backgroundColor: '#1a1a1a',
+  backgroundColor: '#f0f0f0',
 };
 
 const sidebarStyle = {
   width: '250px',
-  backgroundColor: '#333',
+  backgroundColor: '#f0f0f0',
   color: '#fff',
   padding: '20px',
   display: 'flex',
@@ -148,8 +148,8 @@ const buttonStyle = (isActive) => ({
 
 const mainContentStyle = {
   flex: 1,
-  padding: '20px',
-  backgroundColor: '#1a1a1a',
+  padding: '',
+  backgroundColor: '#f0f0f0',
   color: '#fff',
   overflowY: 'auto',
   animation: 'fadeIn 0.5s ease-in-out',
