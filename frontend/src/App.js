@@ -15,9 +15,11 @@ import AdminPanel from './pages/Admin/AdminPanel';
 // import HeaderAcc from './components/HeaderAcc';
 import SignOut from './pages/SignOut';
 import ProtectedRoute from './components/ProtectedRoute'
+import ProtectAdmin from './components/ProtectAdmin'
 import TelemetryPopup from './pages/AccountPage/Telemetry';
 import AiReportPage from './pages/AccountPage/AIReport';
 import FieldSection from './pages/FieldSection';
+import AdminLogin from './pages/Admin/AdminLogin';
 
 function AppContent() {
   const location = useLocation();
@@ -26,42 +28,49 @@ function AppContent() {
   const isAdminPage = location.pathname === '/admin';
   return (
     <div className="app-wrapper">
-      <Header/>
+      <Header />
       <div className="content-wrapper">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutUsPage />} />
-          <Route path="/contact" 
-          element={
-            <ProtectedRoute>
-              <ContactUsPage />
-            </ProtectedRoute>
-   
-          } 
+          <Route path="/contact"
+            element={
+              <ProtectedRoute>
+                <ContactUsPage />
+              </ProtectedRoute>
+
+            }
           />
-          {/* <Route path="/contact" element={<ContactUsPage />} /> */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/otp" element={<OTPForm />} />
-          <Route path='/telemetry' element={<TelemetryPopup/>} />
-          <Route path='/ai-report' element={<AiReportPage/>} />
-          <Route path='/field' element={<FieldSection/>} />
-          <Route path="/account" 
-          element={
-            <ProtectedRoute>
-              <AccountPage />
-            </ProtectedRoute>
-   
-          } 
+          <Route path='/telemetry' element={<TelemetryPopup />} />
+          <Route path='/ai-report' element={<AiReportPage />} />
+          <Route path='/field' element={<FieldSection />} />
+          <Route path="/account"
+            element={
+              <ProtectedRoute>
+                <AccountPage />
+              </ProtectedRoute>
+
+            }
           />
-          
+
 
           <Route path="/order" element={<OrderPage />} />
-          <Route path="/admin" element={<AdminPanel/>} />
+          <Route path="/login-admin" element={<AdminLogin />} />
+          <Route path='/admin'
+            element={
+              <ProtectAdmin>
+                <AdminPanel />
+              </ProtectAdmin>
+
+            }
+          />
         </Routes>
       </div>
-      {!isAccountPage  && !isAdminPage && <Footer />}
+      {!isAccountPage && !isAdminPage && <Footer />}
     </div>
   );
 }

@@ -167,52 +167,6 @@ const Dashboard = ({ onNavigate }) => {
         </Paper>
       </Box>
 
-      {/* Recent Activity and System Status */}
-      <Grid container spacing={4} mt={3}>
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ padding: '20px', backgroundColor: '#fff' }}>
-            <Typography variant="h5" gutterBottom>
-              Recent User Signups
-            </Typography>
-            {recentSignups.map((user, index) => (
-              <Typography
-                key={index}
-                variant="body1"
-                sx={{
-                  padding: '5px',
-                  backgroundColor: '#f0f0f0',
-                  marginBottom: '5px',
-                  borderRadius: '5px',
-                }}
-              >
-                {user}
-              </Typography>
-            ))}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ padding: '20px', backgroundColor: '#fff' }}>
-            <Typography variant="h5" gutterBottom>
-              Device Status
-            </Typography>
-            {deviceStatus.map((device, index) => (
-              <Typography
-                key={index}
-                variant="body1"
-                sx={{
-                  padding: '5px',
-                  backgroundColor: device.status === 'Online' ? '#2E7D32' : '#C62828',
-                  color: '#fff',
-                  marginBottom: '5px',
-                  borderRadius: '5px',
-                }}
-              >
-                {device.name} - {device.status}
-              </Typography>
-            ))}
-          </Paper>
-        </Grid>
-      </Grid>
 
       {/* Quick Access Section */}
       <Box mt={5}>
