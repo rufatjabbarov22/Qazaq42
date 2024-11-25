@@ -20,7 +20,6 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
   const [selectedTelemetryId, setSelectedTelemetryId] = useState(null);
   const [aiReportOpen, setAiReportOpen] = useState(false);
 
-  // Fetch telemetry data when the modal opens and deviceId is provided
   useEffect(() => {
     if (open && deviceId) {
       const fetchTelemetryData = async () => {
@@ -30,7 +29,7 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
           const response = await axios.get(
             Base_Url + `telemetry/device/${deviceId}`
           );
-          setTelemetryData(response.data || []); // Handle empty response gracefully
+          setTelemetryData(response.data || []); 
         } catch (err) {
           setError('Failed to fetch telemetry data. Please try again.');
           console.error(err);
