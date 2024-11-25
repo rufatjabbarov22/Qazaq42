@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import './SliderSection.css';
+import deviceImage from '../../assets/device.jpg';
+
 
 const images = [
   {
@@ -13,10 +15,7 @@ const images = [
     src: "https://www.eureporter.co/wp-content/uploads/2024/09/leyla-gulami-5P8xvRpUQNI-unsplash.jpg",
   },
   {
-    src: 'https://i0.wp.com/storage.picsave.pp.ua/cluster1/origin/8b2f9e84ccdb7cefb2bedd2c11ad8413.jpg?ssl=1',
-  },
-  {
-    src: 'https://trashbox.ru/ifiles/1615221_29398a_11.jpg_min1/hudozhnik-pokazal-kompyuter-v-sovetskom-stile.-kiberpank-iz-sssr-8.jpg',
+    src: deviceImage,
   },
 ];
 
