@@ -4,6 +4,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './AboutUsPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTractor, faHandshake, faSeedling } from '@fortawesome/free-solid-svg-icons';
+import simara from '../../assets/simara.jpeg';
+import kamran from '../../assets/kamran.png';
 
 const theme = createTheme();
 
@@ -11,7 +13,6 @@ const AboutUsPage = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ overflow: 'hidden' }}>
-        {/* Parallax effect */}
         <Box
           sx={{
             backgroundImage: 'linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(https://images.wallpaperscraft.ru/image/single/pole_trava_tropinka_124349_2560x1600.jpg)',
@@ -60,9 +61,9 @@ const AboutUsPage = () => {
           </Typography>
           <Grid container spacing={3}>
             {[
-              { name: 'Simara Kerimli', role: 'CEO', quote: 'Leading with vision and passion.', link: 'https://www.linkedin.com/in/simar%C9%99k%C9%99rimli/', img: 'https://ca.slack-edge.com/T0423U1MW21-U06GZL3HWJ0-dfb69c792ca9-512' },
+              { name: 'Simara Kerimli', role: 'CEO', quote: 'Leading with vision and passion.', link: 'https://www.linkedin.com/in/simar%C9%99k%C9%99rimli/', img: simara },
               { name: 'Samir Ibrahimov', role: 'CTO', quote: 'Innovating for a better tomorrow.', link: 'https://www.linkedin.com/in/samiribrh/', img: 'https://ca.slack-edge.com/T0423U1MW21-U06GX6LL0AW-5c8b0814ecb1-512' },
-              { name: 'Kamran Mahmudov', role: 'CIO', quote: 'Delivering projects with excellence.', link: 'https://www.linkedin.com/in/kamran-mahmudov-546532240/', img: 'https://ca.slack-edge.com/T0423U1MW21-U06HL084LD6-a32967ebed0d-512' },
+              { name: 'Kamran Mahmudov', role: 'CIO', quote: 'Delivering projects with excellence.', link: 'https://www.linkedin.com/in/kamran-mahmudov-546532240/', img: kamran },
               { name: 'Rufat Jabbarov', role: 'CFO', quote: 'Looking deep to build a better future.', link: 'https://www.linkedin.com/in/rufat-jabbarov-b73872310/', img: 'https://ca.slack-edge.com/T0423U1MW21-U06H6J3APNY-5a78d8002ca6-512' },
             ].map((member, index) => (
               <Grid item xs={12} sm={6} md={3} key={index}>

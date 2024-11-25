@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import './Section2.css';
 import device from '../../assets/device.jpg';
+
 const Section2 = () => {
   return (
     <Box className="section2">
