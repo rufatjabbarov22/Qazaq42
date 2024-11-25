@@ -11,6 +11,11 @@
 
 const char* ssid = "POCO F3";
 const char* password = "0000ssssss";
+
+// const char* ssid = "Holberton - Students";
+// const char* password = "HBTNStuds24";
+
+// const char* serverUrl = "http://192.168.176.97:8000/api/v1/telemetry/";
 const char* serverUrl = "https://api.qazaq.live/api/v1/telemetry/";
 DHTesp dht;
 
@@ -75,7 +80,7 @@ void sendData(float moisture, float gas, float temperature, float humidity, floa
   HTTPClient http;
 
 //  String data = "moisture=" + String(moisture) + "&temperature=" + String(temperature);
-  String data = "{\"arduino_id\":" + String("a3207aeb-c75f-4577-8f66-fda23c015912") + ",\"n\":" + String(31) + ",\"p\":" + String(13) + ",\"k\":" + String(269) + ",\"temperature\":" + String(temperature) + ",\"ph\":" + String(6) + ",\"air_humidity\":" + String(humidity) + ",\"soil_humidity\":" + String(moisture) + ",\"light_intensity\":" + String(light) + ",\"light_duration\":" + String(12) + ",\"co2\":" + String(0.3) + ",\"o2\":" + String(19) + ",\"gas\":" + String(gas) + "}";
+  String data = "{\"device_id\":\"" + String("a3207aeb-c75f-4577-8f66-fda23c015912") + "\",\"n\":" + String(31) + ",\"p\":" + String(13) + ",\"k\":" + String(269) + ",\"temperature\":" + String(temperature) + ",\"ph\":" + String(6) + ",\"air_humidity\":" + String(humidity) + ",\"soil_humidity\":" + String(moisture) + ",\"light_intensity\":" + String(light) + ",\"light_duration\":" + String(12) + ",\"co2\":" + String(0.3) + ",\"o2\":" + String(19) + "}";
 //    int httpResponseCode = http.POST(httpBody);
 
   http.begin(serverUrl);
