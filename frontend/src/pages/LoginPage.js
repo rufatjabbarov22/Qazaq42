@@ -21,8 +21,8 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // loading state
-  const [showPassword, setShowPassword] = useState(false); // password visibility state
+  const [isLoading, setIsLoading] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -56,18 +56,15 @@ export default function Login() {
           localStorage.setItem('user_id', user_id);
         }
 
-        // After logging in, check if user exists and verify if the user is verified
         const usersResponse = await axios.get(Base_url + 'users/');
         const user = usersResponse.data.find(user => user.email === email);
         
         if (user) {
           if (user.is_verified === false) {
-            // If the user is not verified, navigate to the OTP page
             setIsLoading(false);
             navigate('/otp');
-            return; // Exit to prevent further code execution
+            return;
           }
-          // If verified, proceed to the account page
           setIsLoading(false);
           navigate('/account');
         } else {
@@ -76,13 +73,10 @@ export default function Login() {
         }
       }
     } catch (error) {
-      // Check if error message contains 'User not verified'
       if (error.response && error.response.data && error.response.data.detail === 'User not verified') {
-        // If user is not verified, navigate to OTP page
         setIsLoading(false);
         navigate('/otp');
       } else {
-        // For other errors (e.g., invalid email/password)
         console.error('Login failed:', error.response ? error.response.data : error.message);
         setError('Invalid email or password. Please try again.');
         setIsLoading(false);
