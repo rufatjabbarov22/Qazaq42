@@ -41,7 +41,6 @@ function AppContent() {
 
             }
           />
-          {/* <Route path="/contact" element={<ContactUsPage />} /> */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -60,11 +59,11 @@ function AppContent() {
 
 
           <Route path="/order" element={<OrderPage />} />
-          <Route path="/admin" element={<AdminPanel />} />
-          <Route path='login-admin'
+          <Route path="/login-admin" element={<AdminLogin />} />
+          <Route path='/admin'
             element={
               <ProtectAdmin>
-                <AdminLogin />
+                <AdminPanel />
               </ProtectAdmin>
 
             }

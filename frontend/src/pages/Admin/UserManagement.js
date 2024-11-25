@@ -18,7 +18,6 @@ const UserManagement = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
-  // Fetch existing users
   useEffect(() => {
     fetch('/api/v1/users')
       .then((response) => response.json())
@@ -29,7 +28,6 @@ const UserManagement = () => {
       .catch((error) => console.error('Error fetching users:', error));
   }, []);
 
-  // Filter users based on search term
   useEffect(() => {
     setFilteredUsers(
       users.filter((user) =>
@@ -70,12 +68,10 @@ const UserManagement = () => {
       });
   };
 
-  // Close Snackbar
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
 
-  // Columns for the DataGrid
   const columns = [
     { field: 'fname', headerName: 'First Name', flex: 1 },
     { field: 'lname', headerName: 'Last Name', flex: 1 },
@@ -206,7 +202,7 @@ const containerStyle = {
   maxWidth: '800px',
   margin: '0 auto',
   padding: '20px',
-  backgroundColor: '#1a1a1a',
+  backgroundColor: '#f0f0f0',
   color: '#fff',
   borderRadius: '8px',
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
@@ -228,14 +224,11 @@ const formStyle = {
 
 const inputStyle = {
   '& .MuiInputBase-root': {
-    backgroundColor: '#333',
+    backgroundColor: '#f0f0f0',
     color: '#fff',
   },
   '& .MuiOutlinedInput-notchedOutline': {
     borderColor: '#555',
-  },
-  '&:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: '#4CAF50',
   },
   '& .MuiInputLabel-root': {
     color: '#4CAF50',

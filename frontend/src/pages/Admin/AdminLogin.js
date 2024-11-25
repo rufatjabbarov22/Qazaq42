@@ -54,29 +54,13 @@ export default function AdminLogin() {
           localStorage.setItem('user_id', user_id);
         }
 
-        // const usersResponse = await axios.get(Base_url + 'users/');
-        // const user = usersResponse.data.find(user => user.email === email);
-        
-        // if (user) {
-        //   if (user.is_verified === false) {
-        //     setIsLoading(false);
-        //     navigate('/otp');
-        //     return;
-        //   }
-        //   setIsLoading(false);
-        //   navigate('/account');
-        // } else {
-        //   setError('User not found');
-        //   setIsLoading(false);
-        // }
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.detail === 'User not verified') {
         setIsLoading(false);
-        navigate('/otp');
       } else {
         console.error('Login failed:', error.response ? error.response.data : error.message);
-        setError('Invalid email or password. Please try again.');
+        setError('User is not an admin');
         setIsLoading(false);
       }
     }
