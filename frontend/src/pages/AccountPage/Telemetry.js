@@ -41,7 +41,7 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
 
     if (open && deviceId) {
       fetchTelemetryData(); 
-      intervalId = setInterval(fetchTelemetryData, 1000);
+      intervalId = setInterval(fetchTelemetryData, 4000);
     }
 
     return () => {
