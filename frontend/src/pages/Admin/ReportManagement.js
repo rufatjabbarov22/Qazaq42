@@ -65,11 +65,11 @@ const ReportManagement = () => {
   return (
     <Box sx={{ display: 'flex', width: '100%', height: '100vh', padding: '20px', backgroundColor: '#f0f0f0', color: '#000' }}>
       {/* Reports List */}
-      <Box sx={{ width: '100%', overflowY: 'auto', marginRight: '20px' }}>
+      <Box sx={{ width: '100%', overflowY: 'auto', marginRight: '20px', }}>
         <Typography variant="h5" sx={{ marginBottom: '10px', color: '#000', fontSize: '50px' }}>
           Reports
         </Typography>
-        <List sx={{ backgroundColor: '#fff', borderRadius: '8px', padding: '10px' }}>
+        <List sx={{borderRadius: '8px', padding: '10px' , borderTop: '#4CAF50' , border: '50px'}}>
           {reports.map((report) => (
             <React.Fragment key={report.id}>
               <ListItem

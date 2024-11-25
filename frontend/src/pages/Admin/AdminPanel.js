@@ -109,7 +109,6 @@ const AdminPanel = () => {
 const adminPanelStyle = {
   display: 'flex',
   minHeight: '100vh',
-  backgroundColor: '#f0f0f0',
 };
 
 const sidebarStyle = {
