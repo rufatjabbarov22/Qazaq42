@@ -1,4 +1,4 @@
 [flake8]
 max-line-length = 120
-exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,env,frontend/
-ignore = F821
+exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,env,frontend/, backend/migrations/, backend/app/models/__init__.py
+ignore = F821, E123

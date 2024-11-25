@@ -38,4 +38,3 @@ class JWTCookieBearer(APIKeyCookie):
 
     async def __call__(self, request: Request) -> HTTPAuthorizationCredentials:
         return HTTPAuthorizationCredentials(scheme="bearer", credentials=await super().__call__(request))
-    

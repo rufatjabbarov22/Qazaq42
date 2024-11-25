@@ -59,11 +59,6 @@ const Header = () => {
 
 
   // !----------------------------
-  // const handleLogout = () => {
-  // localStorage.removeItem('access_token');
-  //   setIsLoggedIn(false);
-  //   navigate('/signout');
-  // };
   const handleLogout = async () => {
     try {
       const response = await axios.post(
@@ -87,7 +82,7 @@ const Header = () => {
 
         setTimeout(() => {
           navigate('/');
-        }, 1500);
+        }, 1000);
       }
     } catch (error) {
       console.error('Error during sign out:', error.response ? error.response.data : error.message);
@@ -96,8 +91,9 @@ const Header = () => {
   };
 
   const handleLogin = () => {
-    setIsLoggedIn(true);
     navigate('/login');
+    setIsLoggedIn(true);
+
   };
 
   const toggleDrawer = (open) => () => setDrawerOpen(open);

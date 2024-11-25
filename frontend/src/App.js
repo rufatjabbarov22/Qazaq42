@@ -31,7 +31,15 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutUsPage />} />
-          <Route path="/contact" element={<ContactUsPage />} />
+          <Route path="/contact" 
+          element={
+            <ProtectedRoute>
+              <ContactUsPage />
+            </ProtectedRoute>
+   
+          } 
+          />
+          {/* <Route path="/contact" element={<ContactUsPage />} /> */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/register" element={<RegisterPage />} />

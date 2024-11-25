@@ -18,7 +18,7 @@ class OrderService(BaseService[OrderRepository]):
         try:
             order_in_db = await self.repository.create(order)  # type: ignore
             return ReadOrder.model_validate(order_in_db)
-        except Exception as e:
+        except Exception:
             raise OrderCreationFailed()
 
     async def get_all_orders(self) -> List[ReadOrder]:

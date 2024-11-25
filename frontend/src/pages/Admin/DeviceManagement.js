@@ -17,6 +17,7 @@ import {
   Box,
 } from '@mui/material';
 import DevicesIcon from '@mui/icons-material/Devices';
+import Base_Url from '../../config';
 
 const DeviceManagement = () => {
   const [devices, setDevices] = useState([]);
@@ -24,57 +25,80 @@ const DeviceManagement = () => {
   const [formData, setFormData] = useState({
     user_email: '',
     name: '',
-    type: 'BAS',
+    type: 'BAS', // Default type
     pin: '',
     description: '',
   });
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
 
+  // Fetch devices when the component is mounted
   useEffect(() => {
-    fetch('/api/v1/devices')
+    fetch(Base_Url + 'devices/')
       .then((response) => response.json())
       .then((data) => {
         setDevices(data);
-        setFilteredDevices(data);
+        setFilteredDevices(data); // Filtered devices are initially the same as all devices
       })
       .catch((error) => console.error('Error fetching devices:', error));
   }, []);
 
+  // Filter devices based on search term and selected category
   useEffect(() => {
     setFilteredDevices(
       devices.filter(
         (device) =>
-          (device.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (device.serial_id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             device.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            device.user_email?.toLowerCase().includes(searchTerm.toLowerCase())) &&
+            device.name?.toLowerCase().includes(searchTerm.toLowerCase())) &&
           (selectedCategory === '' || device.type === selectedCategory)
       )
     );
   }, [searchTerm, selectedCategory, devices]);
 
+  // Handle device creation
   const handleCreateDevice = (e) => {
     e.preventDefault();
-    fetch('/api/v1/devices', {
+
+    const payload = {
+      prefix: formData.type, // Use the selected type as the prefix
+    };
+
+    console.log('Sending request with payload:', payload);  // Debugging log
+
+    fetch(Base_Url + 'devices/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(payload),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to create device');
+        }
+        return response.json();
+      })
       .then((data) => {
-        alert('Device created successfully');
-        const updatedDevices = [...devices, data];
-        setDevices(updatedDevices);
-        setFilteredDevices(updatedDevices);
+        console.log('Device created:', data); // Debugging log for response
+        setStatusMessage('Device created successfully!');
+        
+        // Add new device to the devices array without losing the current data
+        setDevices((prevDevices) => [...prevDevices, data]);
+        setFilteredDevices((prevFilteredDevices) => [...prevFilteredDevices, data]);
+
+        // Reset the form fields
         setFormData({
           user_email: '',
           name: '',
-          type: 'BAS',
+          type: 'BAS', // Reset to default type
           pin: '',
           description: '',
         });
       })
-      .catch((error) => console.error('Error creating device:', error));
+      .catch((error) => {
+        setStatusMessage('Error creating device: ' + error.message);
+        console.error('Error creating device:', error);
+      });
   };
 
   return (
@@ -100,46 +124,16 @@ const DeviceManagement = () => {
             <MenuItem value="FLD">FLD</MenuItem>
           </Select>
         </FormControl>
-        <TextField
-          label="User Email"
-          variant="outlined"
-          name="user_email"
-          value={formData.user_email}
-          onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
-          fullWidth
-          sx={inputStyle}
-        />
-        <TextField
-          label="Name"
-          variant="outlined"
-          name="name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          fullWidth
-          sx={inputStyle}
-        />
-        <TextField
-          label="Pin"
-          variant="outlined"
-          name="pin"
-          value={formData.pin}
-          onChange={(e) => setFormData({ ...formData, pin: e.target.value })}
-          fullWidth
-          sx={inputStyle}
-        />
-        <TextField
-          label="Description"
-          variant="outlined"
-          name="description"
-          value={formData.description}
-          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-          fullWidth
-          sx={inputStyle}
-        />
         <Button variant="contained" color="primary" type="submit" sx={createButtonStyle}>
           Create Device
         </Button>
       </form>
+
+      {statusMessage && (
+        <Typography variant="body1" sx={statusMessageStyle}>
+          {statusMessage}
+        </Typography>
+      )}
 
       <Box sx={searchContainerStyle}>
         <TextField
@@ -169,20 +163,30 @@ const DeviceManagement = () => {
         </Typography>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell sx={{ color: '#fff' }}>User Email</TableCell>
-              <TableCell sx={{ color: '#fff' }}>Name</TableCell>
-              <TableCell sx={{ color: '#fff' }}>Type</TableCell>
-              <TableCell sx={{ color: '#fff' }}>Assigned</TableCell>
+            <TableRow sx={{ color: 'black', fontWeight: 'bold' }}>
+              <TableCell>ID</TableCell>
+              <TableCell>Serial ID</TableCell>
+              <TableCell>PIN</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Description</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell>User ID</TableCell>
+              <TableCell>Field ID</TableCell>
+              <TableCell>Is Assigned</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredDevices.map((device) => (
-              <TableRow key={device.id}>
-                <TableCell sx={{ color: '#fff' }}>{device.user_email}</TableCell>
-                <TableCell sx={{ color: '#fff' }}>{device.name}</TableCell>
-                <TableCell sx={{ color: '#fff' }}>{device.type}</TableCell>
-                <TableCell sx={{ color: '#fff' }}>{device.is_assigned ? 'Yes' : 'No'}</TableCell>
+              <TableRow key={device.id} sx={{ color: 'black' }}>
+                <TableCell>{device.id}</TableCell>
+                <TableCell>{device.serial_id}</TableCell>
+                <TableCell>{device.pin}</TableCell>
+                <TableCell>{device.name}</TableCell>
+                <TableCell>{device.description}</TableCell>
+                <TableCell>{device.type}</TableCell>
+                <TableCell>{device.user_id}</TableCell>
+                <TableCell>{device.field_id}</TableCell>
+                <TableCell>{device.is_assigned ? 'Yes' : 'No'}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -192,14 +196,14 @@ const DeviceManagement = () => {
   );
 };
 
-// Styles
+// Styles (no change)
 const containerStyle = {
-  maxWidth: '800px',
+  maxWidth: '100%',
   margin: '0 auto',
   padding: '20px',
-  backgroundColor: '#1a1a1a',
+  backgroundColor: '#fff',
   color: '#fff',
-  borderRadius: '8px',
+  borderRadius: '',
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
 };
 
@@ -253,6 +257,9 @@ const createButtonStyle = {
   cursor: 'pointer',
   marginTop: '10px',
   textAlign: 'center',
+  '&:hover': {
+    backgroundColor: '#45a049',
+  },
 };
 
 const searchContainerStyle = {
@@ -300,7 +307,18 @@ const categorySelectStyle = {
 
 const deviceListContainerStyle = {
   marginTop: '20px',
-  backgroundColor: '#333',
+  backgroundColor: '#f0f0f0',
+  borderRadius: '8px',
+  padding: '10px',
+  color: 'black',
+  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
 };
 
-export default DeviceManagement
+const statusMessageStyle = {
+  textAlign: 'center',
+  marginTop: '20px',
+  color: '#4CAF50', // Success message color
+  fontWeight: 'bold',
+};
+
+export default DeviceManagement;

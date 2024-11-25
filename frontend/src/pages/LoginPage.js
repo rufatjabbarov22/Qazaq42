@@ -3,19 +3,16 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { Avatar, Typography, Container, CircularProgress, IconButton, InputAdornment } from '@mui/material';
+import { Avatar, Typography, Container, CircularProgress, IconButton, InputAdornment , Link} from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import './Login.css';
-import Base_url from '../config.js'
+import Base_url from '../config.js';
 
 const theme = createTheme();
 
@@ -24,18 +21,16 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // loading state
-  const [showPassword, setShowPassword] = useState(false); // password visibility state
+  const [isLoading, setIsLoading] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  // Handle Login Form Submission
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(''); // Clear previous errors
-    setIsLoading(true); // Start loading
+    setError(''); 
+    setIsLoading(true); 
   
     try {
-      // Send a POST request to your backend
       const response = await axios.post(
         Base_url + 'auth/sign-in',
         { email, password },
@@ -61,15 +56,31 @@ export default function Login() {
           localStorage.setItem('user_id', user_id);
         }
 
-        setTimeout(() => {
+        const usersResponse = await axios.get(Base_url + 'users/');
+        const user = usersResponse.data.find(user => user.email === email);
+        
+        if (user) {
+          if (user.is_verified === false) {
+            setIsLoading(false);
+            navigate('/otp');
+            return;
+          }
           setIsLoading(false);
           navigate('/account');
-        }, 1000);
+        } else {
+          setError('User not found');
+          setIsLoading(false);
+        }
       }
     } catch (error) {
-      console.error('Login failed:', error.response ? error.response.data : error.message);
-      setError('Invalid email or password. Please try again.');
-      setIsLoading(false); // Stop loading on error
+      if (error.response && error.response.data && error.response.data.detail === 'User not verified') {
+        setIsLoading(false);
+        navigate('/otp');
+      } else {
+        console.error('Login failed:', error.response ? error.response.data : error.message);
+        setError('Invalid email or password. Please try again.');
+        setIsLoading(false);
+      }
     }
   };
 
@@ -167,10 +178,6 @@ export default function Login() {
                     </InputAdornment>
                   ),
                 }}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
               />
               {error && (
                 <Typography color="error" align="center" sx={{ mt: 2 }}>

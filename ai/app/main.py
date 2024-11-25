@@ -1,6 +1,5 @@
 from urllib.request import Request
 
-from certifi import contents
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from starlette.responses import JSONResponse

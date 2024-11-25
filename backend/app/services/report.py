@@ -18,7 +18,7 @@ class ReportService(BaseService[ReportRepository]):
         try:
             report_in_db = await self.repository.create(report)  # type: ignore
             return ReadReport.model_validate(report_in_db)
-        except Exception as e:
+        except Exception:
             raise ReportCreationFailed()
 
     async def get_all_reports(self) -> List[ReadReport]:
