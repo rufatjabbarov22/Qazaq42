@@ -56,7 +56,7 @@ const AboutUsPage = () => {
         </Box>
 
         <Container className="team-section">
-          <Typography variant="h3" component="h2" className="team-title">
+          <Typography variant="h3" component="h2" className="team-title ">
             Our Team
           </Typography>
           <Grid container spacing={3}>
@@ -101,7 +101,7 @@ const AboutUsPage = () => {
           </Box>
         </Box>
 
-        <Container sx={{ marginTop: '50px', textAlign: 'center' }}>
+        <Container sx={{ marginTop: '50px', textAlign: 'center', marginBottom: '50px' }}>
           <Typography variant="h3" component="h2" className="team-title">
             Our Partners
           </Typography>

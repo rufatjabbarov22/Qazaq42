@@ -126,6 +126,7 @@ const UserManagement = () => {
           <Table>
             <TableHead sx={{ backgroundColor: '#4CAF50', }}>
               <TableRow >
+                <TableCell sx={{ color: '#fff' }}>#</TableCell>
                 <TableCell sx={{ color: '#fff' }}>First Name</TableCell>
                 <TableCell sx={{ color: '#fff' }}>Last Name</TableCell>
                 <TableCell sx={{ color: '#fff' }}>Email</TableCell>
@@ -133,7 +134,7 @@ const UserManagement = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((user) => (
+              {users.map((user, index) => (
                 <TableRow
                   key={user.id}
                   sx={{
@@ -142,6 +143,7 @@ const UserManagement = () => {
                   }}
                   onClick={() => handleSelectUser(user)}
                 >
+                  <TableCell>{index + 1}</TableCell>
                   <TableCell>{user.fname}</TableCell>
                   <TableCell>{user.lname}</TableCell>
                   <TableCell>{user.email}</TableCell>

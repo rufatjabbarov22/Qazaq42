@@ -92,7 +92,13 @@
     color: #c1e1ec;
     margin-bottom: 15px;
 }
-
+.team-title {
+    margin: 20px !important;
+    text-align: center;
+}
+.team-section{
+    padding-bottom: 30px;
+}
 
 /* Spacing adjustments for small screens */
 @media (max-width: 768px) {

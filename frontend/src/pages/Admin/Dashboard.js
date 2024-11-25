@@ -21,6 +21,7 @@ import {
   Legend,
   Tooltip,
 } from 'chart.js';
+import Base_Url from '../../config';
 
 Chart.register(LineElement, PointElement, LinearScale, CategoryScale, Legend, Tooltip);
 
@@ -32,18 +33,44 @@ const Dashboard = ({ onNavigate }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate fetching data
-    setTimeout(() => {
-      setActiveUsers(15);
-      setActiveDevices(7);
-      setRecentSignups(['User1', 'User2', 'User3', 'User4', 'User5']);
-      setDeviceStatus([
-        { name: 'Device A', status: 'Online' },
-        { name: 'Device B', status: 'Offline' },
-        { name: 'Device C', status: 'Offline' },
-      ]);
-      setLoading(false);
-    }, 1500);
+    const fetchData = async () => {
+      try {
+        // Fetch users
+        const usersResponse = await fetch(Base_Url + 'users/', {
+          method: 'GET',
+          headers: { accept: 'application/json' },
+        });
+        const usersData = await usersResponse.json();
+
+        // Calculate number of users
+        const userCount = usersData.reduce((count, user) => {
+          if (user.is_verified) count += 1; // Assuming we count verified users
+          return count;
+        }, 0);
+        setActiveUsers(userCount);
+
+        // Fetch devices
+        const devicesResponse = await fetch(Base_Url + 'devices/', {
+          method: 'GET',
+          headers: { accept: 'application/json' },
+        });
+        const devicesData = await devicesResponse.json();
+
+        // Calculate number of devices
+        const deviceCount = devicesData.reduce((count, device) => {
+          if (device.is_assigned) count += 1; // Assuming we count assigned devices
+          return count;
+        }, 0);
+        setActiveDevices(deviceCount);
+
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   // Data for activity line chart
@@ -166,7 +193,6 @@ const Dashboard = ({ onNavigate }) => {
           <Line data={chartData} />
         </Paper>
       </Box>
-
 
       {/* Quick Access Section */}
       <Box mt={5}>

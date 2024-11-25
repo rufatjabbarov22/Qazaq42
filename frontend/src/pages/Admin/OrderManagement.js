@@ -80,28 +80,41 @@ const OrderManagement = () => {
           All Orders
         </Typography> */}
         <Table>
-          <TableHead sx={{backgroundColor: '#4CAF50',}}>
+          {/* <TableHead sx={{ backgroundColor: '#4CAF50', }}>
             <TableRow >
-              <TableCell sx={{color:'#fff'}}>Order ID</TableCell>
-              <TableCell sx={{color:'#fff'}}>First Name</TableCell>
-              <TableCell sx={{color:'#fff'}}>Last Name</TableCell>
-              <TableCell sx={{color:'#fff'}}>Phone</TableCell>
-              <TableCell sx={{color:'#fff'}}>Email</TableCell>
-              <TableCell sx={{color:'#fff'}}>Address</TableCell>
-              <TableCell sx={{color:'#fff'}}>Is Approved</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Order ID</TableCell>
+              <TableCell sx={{ color: '#fff' }}>First Name</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Last Name</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Phone</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Email</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Address</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Is Approved</TableCell>
+            </TableRow>
+          </TableHead> */}
+          <TableHead sx={{ backgroundColor: '#4CAF50' }}>
+            <TableRow>
+              <TableCell sx={{ color: '#fff' }}>#</TableCell> {/* Add a column for row numbers */}
+              <TableCell sx={{ color: '#fff' }}>Order ID</TableCell>
+              <TableCell sx={{ color: '#fff' }}>First Name</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Last Name</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Phone</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Email</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Address</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Is Approved</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
+            {orders.map((order, index) => ( // Use index to generate row numbers
               <TableRow
                 key={order.id}
                 sx={{
                   backgroundColor: selectedOrder?.id === order.id ? '#fff' : '#fff',
                   cursor: 'pointer',
-                  color: '#000'
+                  color: '#000',
                 }}
                 onClick={() => handleSelectOrder(order)}
               >
+                <TableCell>{index + 1}</TableCell> {/* Display row number */}
                 <TableCell>{order.id}</TableCell>
                 <TableCell>{order.fname}</TableCell>
                 <TableCell>{order.lname}</TableCell>
@@ -112,7 +125,10 @@ const OrderManagement = () => {
                   <Button
                     variant="contained"
                     color={order.is_approved ? 'success' : 'warning'}
-                    onClick={() => handleApproveOrder(order.id, order.is_approved)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent the onClick for the row
+                      handleApproveOrder(order.id, order.is_approved);
+                    }}
                   >
                     {order.is_approved ? 'Approved' : 'Approve'}
                   </Button>
@@ -120,6 +136,7 @@ const OrderManagement = () => {
               </TableRow>
             ))}
           </TableBody>
+
         </Table>
       </TableContainer>
     </Box>

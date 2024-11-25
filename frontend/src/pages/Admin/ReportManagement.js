@@ -47,7 +47,7 @@ const ReportManagement = () => {
     fetch(Base_Url + `reports/${reportId}/review`, {
       method: 'POST',
       headers: {
-        'accept': 'application/json',
+        accept: 'application/json',
       },
     })
       .then((response) => response.json())
@@ -63,14 +63,39 @@ const ReportManagement = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', width: '100%', height: '100vh', padding: '20px', backgroundColor: '#f0f0f0', color: '#000' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        height: '100vh',
+        padding: '20px',
+        backgroundColor: '#f0f0f0',
+        color: '#000',
+      }}
+    >
       {/* Reports List */}
-      <Box sx={{ width: '100%', overflowY: 'auto', marginRight: '20px', }}>
-        <Typography variant="h5" sx={{ marginBottom: '10px', color: '#000', fontSize: '50px' }}>
+      <Box
+        sx={{
+          width: '100%',
+          overflowY: 'auto',
+          marginRight: '20px',
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ marginBottom: '10px', color: '#000', fontSize: '50px' }}
+        >
           Reports
         </Typography>
-        <List sx={{borderRadius: '8px', padding: '10px' , borderTop: '#4CAF50' , border: '50px'}}>
-          {reports.map((report) => (
+        <List
+          sx={{
+            borderRadius: '8px',
+            padding: '10px',
+            borderTop: '#4CAF50',
+            border: '50px',
+          }}
+        >
+          {reports.map((report, index) => (
             <React.Fragment key={report.id}>
               <ListItem
                 button
@@ -81,6 +106,14 @@ const ReportManagement = () => {
                   color: '#000',
                 }}
               >
+                {/* Display the row number */}
+                <Typography
+                  variant="body1"
+                  sx={{ marginRight: '20px', fontWeight: 'bold' }}
+                >
+                  {index + 1}.
+                </Typography>
+
                 <ListItemText
                   primary={`Created By: ${report.userName}`}
                   secondary={
@@ -90,7 +123,9 @@ const ReportManagement = () => {
                       </Typography>
                     </>
                   }
-                  sx={{ textDecoration: report.is_reviewed ? 'line-through' : 'none'}}
+                  sx={{
+                    textDecoration: report.is_reviewed ? 'line-through' : 'none',
+                  }}
                 />
                 {!report.is_reviewed && (
                   <Button

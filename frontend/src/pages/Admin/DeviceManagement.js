@@ -81,7 +81,7 @@ const DeviceManagement = () => {
       .then((data) => {
         console.log('Device created:', data); // Debugging log for response
         setStatusMessage('Device created successfully!');
-        
+
         // Add new device to the devices array without losing the current data
         setDevices((prevDevices) => [...prevDevices, data]);
         setFilteredDevices((prevFilteredDevices) => [...prevFilteredDevices, data]);
@@ -158,22 +158,24 @@ const DeviceManagement = () => {
           Existing Devices
         </Typography>
         <Table>
-          <TableHead sx={{backgroundColor: '#4CAF50', borderRadius:'5px'}}>
-            <TableRow >
+          <TableHead sx={{ backgroundColor: '#4CAF50', borderRadius: '5px' }}>
+            <TableRow>
+              <TableCell sx={{ color: '#fff' }}>#</TableCell> {/* Add this for row numbers */}
               <TableCell sx={{ color: '#fff' }}>Device ID</TableCell>
-              <TableCell  sx={{ color: '#fff' }}>Serial ID</TableCell>
-              <TableCell  sx={{ color: '#fff' }}>PIN</TableCell>
-              <TableCell  sx={{ color: '#fff' }}>Device name</TableCell>
-              <TableCell  sx={{ color: '#fff' }}>Description</TableCell>
-              <TableCell  sx={{ color: '#fff' }}>Type</TableCell>
-              <TableCell  sx={{ color: '#fff' }}>User ID</TableCell>
-              <TableCell  sx={{ color: '#fff' }}>Field ID</TableCell>
-              <TableCell  sx={{ color: '#fff' }}>Assigned</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Serial ID</TableCell>
+              <TableCell sx={{ color: '#fff' }}>PIN</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Device Name</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Description</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Type</TableCell>
+              <TableCell sx={{ color: '#fff' }}>User ID</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Field ID</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Assigned</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredDevices.map((device) => (
+            {filteredDevices.map((device, index) => ( // Use index to display row number
               <TableRow key={device.id} sx={{ color: 'black' }}>
+                <TableCell>{index + 1}</TableCell> {/* Display row number */}
                 <TableCell>{device.id}</TableCell>
                 <TableCell>{device.serial_id}</TableCell>
                 <TableCell>{device.pin}</TableCell>
@@ -186,6 +188,7 @@ const DeviceManagement = () => {
               </TableRow>
             ))}
           </TableBody>
+
         </Table>
       </TableContainer>
     </Box>
@@ -226,7 +229,7 @@ const formStyle = {
   gap: '15px',
   maxWidth: '500px',
   margin: '0 auto',
-  
+
 };
 
 const inputStyle = {
