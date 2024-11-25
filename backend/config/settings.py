@@ -26,7 +26,7 @@ class Secrets(BaseSettings):
     REDIS_PORT: int
     REDIS_DB: int
     REDIS_PASSWORD: str
-    
+
     FRONTEND_URL: HttpUrl
     BACKEND_URL: HttpUrl
     AI_URL: HttpUrl
