@@ -26,7 +26,7 @@ class CropReportService(BaseService[CropReportRepository]):
         top_3_crops = [
             CropReportCreate(
                 field_id=field.id,
-                crop_name=crop_data[0],
+                crop_name="tea" if crop_data[0].lower() == "coffee" else crop_data[0],
                 probability=crop_data[1]
             ) for crop_data in results
         ]
