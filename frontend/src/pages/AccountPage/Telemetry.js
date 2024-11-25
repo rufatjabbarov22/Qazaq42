@@ -21,25 +21,32 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
   const [aiReportOpen, setAiReportOpen] = useState(false);
 
   useEffect(() => {
-    if (open && deviceId) {
-      const fetchTelemetryData = async () => {
-        try {
-          setLoading(true);
-          setError('');
-          const response = await axios.get(
-            Base_Url + `telemetry/device/${deviceId}`
-          );
-          setTelemetryData(response.data || []); 
-        } catch (err) {
-          setError('Failed to fetch telemetry data. Please try again.');
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
+    let intervalId;
 
-      fetchTelemetryData();
+    const fetchTelemetryData = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        const response = await axios.get(
+          Base_Url + `telemetry/device/${deviceId}`
+        );
+        setTelemetryData(response.data || []);
+      } catch (err) {
+        setError('Failed to fetch telemetry data. Please try again.');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (open && deviceId) {
+      fetchTelemetryData(); 
+      intervalId = setInterval(fetchTelemetryData, 4000);
     }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
   }, [open, deviceId]);
 
   const handleClose = () => {
@@ -91,7 +98,7 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
             ) : telemetryData.length > 0 ? (
               <Box className="telemetry-list" display="flex" flexDirection="column">
                 {[
-                  { label: 'ID', value: telemetryData[0]?.id },
+                  {label: 'ID', value: telemetryData[0]?.id},
                   { label: 'Device ID', value: telemetryData[0]?.device_id },
                   { label: 'n', value: telemetryData[0]?.n },
                   { label: 'p', value: telemetryData[0]?.p },
@@ -103,7 +110,6 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
                   { label: 'Light Intensity', value: telemetryData[0]?.light_intensity },
                   { label: 'Light Duration', value: telemetryData[0]?.light_duration },
                   { label: 'CO2', value: telemetryData[0]?.co2 },
-                  { label: 'O2', value: telemetryData[0]?.o2 },
                 ].map(({ label, value }) => (
                   <Typography key={label} className="header">
                     <Typography className="telemetry-item" id="left">
