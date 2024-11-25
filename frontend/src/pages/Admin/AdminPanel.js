@@ -114,7 +114,7 @@ const adminPanelStyle = {
 
 const sidebarStyle = {
   width: '250px',
-  backgroundColor: '#f0f0f0',
+  backgroundColor: '#fff',
   color: '#fff',
   padding: '20px',
   display: 'flex',
@@ -126,14 +126,14 @@ const sidebarStyle = {
 
 const headerStyle = {
   marginBottom: '20px',
-  color: '#4CAF50',
+  color: '#000',
   textAlign: 'center',
 };
 
 const buttonStyle = (isActive) => ({
   width: '100%',
-  color: isActive ? '#fff' : '#aaa',
-  backgroundColor: isActive ? '#4CAF50' : '#3A3A3A',
+  color: isActive ? '#fff' : '#fff',
+  backgroundColor: isActive ? '#4CAF50' : '#334b1c',
   padding: '10px',
   textAlign: 'center',
   cursor: 'pointer',

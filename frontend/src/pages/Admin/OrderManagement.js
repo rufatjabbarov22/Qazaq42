@@ -75,24 +75,24 @@ const OrderManagement = () => {
 
   return (
     <Box sx={{ padding: '20px', backgroundColor: '#f0f0f0', minHeight: '100vh' }}>
-      <Typography variant="h4" sx={{ textAlign: 'center', marginBottom: '20px', color: '#4CAF50' }}>
+      <Typography variant="h4" sx={{ textAlign: 'center', marginBottom: '20px', color: '#000' }}>
         Order Management
       </Typography>
 
       <TableContainer component={Paper} sx={{ backgroundColor: '#fff', borderRadius: '8px' }}>
-        <Typography variant="h5" sx={{ padding: '10px', color: '#FF9800' }}>
+        {/* <Typography variant="h5" sx={{ padding: '10px', color: '#000' }}>
           All Orders
-        </Typography>
+        </Typography> */}
         <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Order ID</TableCell>
-              <TableCell>First Name</TableCell>
-              <TableCell>Last Name</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell>Is Approved</TableCell>
+          <TableHead sx={{backgroundColor: '#4CAF50',}}>
+            <TableRow >
+              <TableCell sx={{color:'#fff'}}>Order ID</TableCell>
+              <TableCell sx={{color:'#fff'}}>First Name</TableCell>
+              <TableCell sx={{color:'#fff'}}>Last Name</TableCell>
+              <TableCell sx={{color:'#fff'}}>Phone</TableCell>
+              <TableCell sx={{color:'#fff'}}>Email</TableCell>
+              <TableCell sx={{color:'#fff'}}>Address</TableCell>
+              <TableCell sx={{color:'#fff'}}>Is Approved</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

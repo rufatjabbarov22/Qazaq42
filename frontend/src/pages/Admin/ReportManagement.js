@@ -66,7 +66,7 @@ const ReportManagement = () => {
     <Box sx={{ display: 'flex', width: '100%', height: '100vh', padding: '20px', backgroundColor: '#f0f0f0', color: '#000' }}>
       {/* Reports List */}
       <Box sx={{ width: '100%', overflowY: 'auto', marginRight: '20px' }}>
-        <Typography variant="h5" sx={{ marginBottom: '10px', color: '#FF9800' }}>
+        <Typography variant="h5" sx={{ marginBottom: '10px', color: '#000', fontSize: '50px' }}>
           Reports
         </Typography>
         <List sx={{ backgroundColor: '#fff', borderRadius: '8px', padding: '10px' }}>
@@ -99,7 +99,7 @@ const ReportManagement = () => {
                     onClick={() => handleReview(report.id)}
                     sx={{
                       marginLeft: 'auto',
-                      backgroundColor: '#FF9800',
+                      backgroundColor: '#CA4300',
                       '&:hover': {
                         backgroundColor: '#e68900',
                       },

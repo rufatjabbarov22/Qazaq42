@@ -34,7 +34,7 @@ const Dashboard = ({ onNavigate }) => {
   useEffect(() => {
     // Simulate fetching data
     setTimeout(() => {
-      setActiveUsers(1);
+      setActiveUsers(15);
       setActiveDevices(7);
       setRecentSignups(['User1', 'User2', 'User3', 'User4', 'User5']);
       setDeviceStatus([
@@ -77,7 +77,7 @@ const Dashboard = ({ onNavigate }) => {
           justifyContent: 'center',
           alignItems: 'center',
           minHeight: '100vh',
-          backgroundColor: '#1a1a1a',
+          backgroundColor: '#f0f0f0',
           color: '#fff',
         }}
       >
@@ -89,8 +89,8 @@ const Dashboard = ({ onNavigate }) => {
   return (
     <Box
       sx={{
-        backgroundColor: '#1a1a1a',
-        color: '#fff',
+        backgroundColor: '#f0f0f0',
+        color: '#000',
         minHeight: '100vh',
         padding: '20px',
       }}
@@ -105,7 +105,7 @@ const Dashboard = ({ onNavigate }) => {
           <Paper
             sx={{
               padding: '20px',
-              backgroundColor: '#333',
+              backgroundColor: '#fff',
               display: 'flex',
               alignItems: 'center',
             }}
@@ -123,7 +123,7 @@ const Dashboard = ({ onNavigate }) => {
           <Paper
             sx={{
               padding: '20px',
-              backgroundColor: '#333',
+              backgroundColor: '#fff',
               display: 'flex',
               alignItems: 'center',
             }}
@@ -141,7 +141,7 @@ const Dashboard = ({ onNavigate }) => {
           <Paper
             sx={{
               padding: '20px',
-              backgroundColor: '#333',
+              backgroundColor: '#fff',
               display: 'flex',
               alignItems: 'center',
             }}
@@ -159,7 +159,7 @@ const Dashboard = ({ onNavigate }) => {
 
       {/* Weekly Activity Overview */}
       <Box mt={5}>
-        <Paper sx={{ padding: '20px', backgroundColor: '#333' }}>
+        <Paper sx={{ padding: '20px', backgroundColor: '#fff' }}>
           <Typography variant="h5" gutterBottom>
             Weekly Activity Overview
           </Typography>
@@ -170,7 +170,7 @@ const Dashboard = ({ onNavigate }) => {
       {/* Recent Activity and System Status */}
       <Grid container spacing={4} mt={3}>
         <Grid item xs={12} md={6}>
-          <Paper sx={{ padding: '20px', backgroundColor: '#333' }}>
+          <Paper sx={{ padding: '20px', backgroundColor: '#fff' }}>
             <Typography variant="h5" gutterBottom>
               Recent User Signups
             </Typography>
@@ -180,7 +180,7 @@ const Dashboard = ({ onNavigate }) => {
                 variant="body1"
                 sx={{
                   padding: '5px',
-                  backgroundColor: '#444',
+                  backgroundColor: '#f0f0f0',
                   marginBottom: '5px',
                   borderRadius: '5px',
                 }}
@@ -191,7 +191,7 @@ const Dashboard = ({ onNavigate }) => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Paper sx={{ padding: '20px', backgroundColor: '#333' }}>
+          <Paper sx={{ padding: '20px', backgroundColor: '#fff' }}>
             <Typography variant="h5" gutterBottom>
               Device Status
             </Typography>

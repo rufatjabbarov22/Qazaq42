@@ -107,10 +107,6 @@ const DeviceManagement = () => {
         Device Management
       </Typography>
 
-      <Box sx={iconContainerStyle}>
-        <DevicesIcon sx={deviceIconStyle} />
-      </Box>
-
       <form onSubmit={handleCreateDevice} style={formStyle}>
         <FormControl variant="outlined" fullWidth sx={inputStyle}>
           <InputLabel>Type</InputLabel>
@@ -135,7 +131,7 @@ const DeviceManagement = () => {
         </Typography>
       )}
 
-      <Box sx={searchContainerStyle}>
+      {/* <Box sx={searchContainerStyle}>
         <TextField
           placeholder="Search devices..."
           variant="outlined"
@@ -155,24 +151,24 @@ const DeviceManagement = () => {
             <MenuItem value="FLD">FLD</MenuItem>
           </Select>
         </FormControl>
-      </Box>
+      </Box> */}
 
       <TableContainer component={Paper} sx={deviceListContainerStyle}>
         <Typography variant="h5" sx={headerStyle}>
           Existing Devices
         </Typography>
         <Table>
-          <TableHead>
-            <TableRow sx={{ color: 'black', fontWeight: 'bold' }}>
-              <TableCell>ID</TableCell>
-              <TableCell>Serial ID</TableCell>
-              <TableCell>PIN</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>User ID</TableCell>
-              <TableCell>Field ID</TableCell>
-              <TableCell>Is Assigned</TableCell>
+          <TableHead sx={{backgroundColor: '#4CAF50', borderRadius:'5px'}}>
+            <TableRow >
+              <TableCell sx={{ color: '#fff' }}>Device ID</TableCell>
+              <TableCell  sx={{ color: '#fff' }}>Serial ID</TableCell>
+              <TableCell  sx={{ color: '#fff' }}>PIN</TableCell>
+              <TableCell  sx={{ color: '#fff' }}>Device name</TableCell>
+              <TableCell  sx={{ color: '#fff' }}>Description</TableCell>
+              <TableCell  sx={{ color: '#fff' }}>Type</TableCell>
+              <TableCell  sx={{ color: '#fff' }}>User ID</TableCell>
+              <TableCell  sx={{ color: '#fff' }}>Field ID</TableCell>
+              <TableCell  sx={{ color: '#fff' }}>Assigned</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -201,15 +197,15 @@ const containerStyle = {
   maxWidth: '100%',
   margin: '0 auto',
   padding: '20px',
-  backgroundColor: '#fff',
+  backgroundColor: '#f0f0f0',
   color: '#fff',
   borderRadius: '',
-  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
+  // boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)',
 };
 
 const headerStyle = {
   marginBottom: '20px',
-  color: '#4CAF50',
+  color: '#000',
   textAlign: 'center',
   fontWeight: 'bold',
 };
@@ -228,28 +224,26 @@ const formStyle = {
   display: 'flex',
   flexDirection: 'column',
   gap: '15px',
-  maxWidth: '400px',
+  maxWidth: '500px',
   margin: '0 auto',
+  
 };
 
 const inputStyle = {
   '& .MuiInputBase-root': {
-    backgroundColor: '#333',
-    color: '#fff',
+    backgroundColor: '#f0f0f0',
+    color: '#000',
   },
   '& .MuiOutlinedInput-notchedOutline': {
     borderColor: '#555',
   },
-  '&:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: '#4CAF50',
-  },
   '& .MuiInputLabel-root': {
-    color: '#4CAF50',
+    color: '#000',
   },
 };
 
 const createButtonStyle = {
-  backgroundColor: '#4CAF50',
+  backgroundColor: 'primary',
   color: 'white',
   fontWeight: 'bold',
   padding: '10px 20px',
