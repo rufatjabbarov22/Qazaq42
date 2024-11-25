@@ -28,7 +28,8 @@ class TelemetryService(BaseService[TelemetryRepository]):
         telemetry = await self.repository.get_telemetry_by_device_id(device_id)
         if not telemetry:
             raise TelemetryNotFound()
-        return [TelemetryRead.model_validate(telemetry) for telemetry in telemetry]
+        last_created_telemetry = max(telemetry, key=lambda t: t.created_at)
+        return [TelemetryRead.model_validate(last_created_telemetry)]
 
     async def get_telemetry_by_field_id(self, field_id: UUID) -> List[TelemetryRead]:
         telemetry = await self.repository.get_telemetry_by_field_id(field_id)
