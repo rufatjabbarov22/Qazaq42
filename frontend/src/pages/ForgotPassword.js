@@ -17,7 +17,7 @@ import Base_Url from '../config';
 function ForgotPassword({ open, handleClose }) {
   const [step, setStep] = React.useState(1); 
   const [email, setEmail] = React.useState('');
-  const [otp, setOtp] = React.useState('');
+  const [reset_token, setResetToken] = React.useState('');
   const [newPassword, setNewPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [showNewPassword, setShowNewPassword] = React.useState(false); 
@@ -66,7 +66,7 @@ function ForgotPassword({ open, handleClose }) {
 
       const response = await axios.post(`${Base_Url}auth/reset-password`, {
       email,
-      otp,
+      reset_token,
       new_password: newPassword,
     });
 
@@ -132,13 +132,13 @@ function ForgotPassword({ open, handleClose }) {
               autoFocus
               required
               margin="dense"
-              id="otp"
-              name="otp"
+              id="resetToken"
+              name="resetToken"
               placeholder="OTP Code"
               type="text"
               fullWidth
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
+              value={reset_token}
+              onChange={(e) => setResetToken(e.target.value)}
             />
             <OutlinedInput
               required
