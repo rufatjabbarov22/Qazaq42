@@ -25,7 +25,7 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
 
     const fetchTelemetryData = async () => {
       try {
-        setLoading(true);
+        // setLoading(true);
         setError('');
         const response = await axios.get(
           Base_Url + `telemetry/device/${deviceId}`
@@ -41,7 +41,7 @@ const TelemetryPopup = ({ open, setOpen, deviceId }) => {
 
     if (open && deviceId) {
       fetchTelemetryData(); 
-      intervalId = setInterval(fetchTelemetryData, 4000);
+      intervalId = setInterval(fetchTelemetryData, 1000);
     }
 
     return () => {
