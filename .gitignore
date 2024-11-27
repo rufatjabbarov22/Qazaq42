@@ -125,7 +125,10 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-# .env
+.env
+.env.development
+.env.testing
+.env.production
 env/
 venv/
 ENV/
@@ -133,7 +136,7 @@ env.bak/
 venv.bak/
 
 # Some secrets
-# keys/
+keys/
 
 # Spyder project settings
 .spyderproject
