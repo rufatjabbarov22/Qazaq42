@@ -1,46 +1,48 @@
-/* Main container for the Device section */
+/* CSS: DeviceSection.css */
 .device-section {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   width: 100%;
-  height: 90vh; /* Full-screen height */
-  background-color: #f0f0f0; /* Black background */
+  min-height: 90vh;
+  background-color: #f0f0f0;
   padding: 20px;
   box-sizing: border-box;
-  gap: 20px; /* Space between left and right sections */
+  gap: 20px;
 }
 
-/* Left section with text */
 .left-section-device {
   flex: 1;
-  background-color: #ffffff; /* Slightly lighter black */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  box-sizing: border-box;
 }
 
 .section2-content {
-  max-width: 90%; /* Limits the width of the text within the section */
+  max-width: 90%;
   color: #000 !important;
 }
 
-/* Right section with photo and animation */
 .right-section {
   flex: 1;
-  background-color: #ffffff; /* Slightly lighter black */
+  background-color: #ffffff;
   border-radius: 10px;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Scan animation container */
 .scan-animation-container {
   width: 100%;
   height: 100%;
-  position: relative; /* For absolute positioning of animation */
+  position: relative;
   background-image: url('https://kartinki.pibig.info/uploads/posts/2023-04/1681504369_kartinki-pibig-info-p-kartinka-chernozem-pochva-arti-pinterest-40.jpg');
   background-size: cover;
   background-position: center;
@@ -48,16 +50,16 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  border-radius: 10px; /* Ensures the content has rounded corners */
+  border-radius: 10px;
 }
 
-/* Device icon and animation */
 .device-icon {
   position: relative;
   font-size: 150px !important;
   color: white;
   z-index: 2;
 }
+
 .scanner-circle {
   position: absolute;
   border-radius: 50%;
@@ -65,30 +67,35 @@
   animation: expand 3s ease-out infinite;
   z-index: 1;
 }
+
 .circle-1 {
   width: 100px;
   height: 100px;
 }
+
 .circle-2 {
   width: 120px;
   height: 120px;
   animation-delay: 0.5s;
 }
+
 .circle-3 {
   width: 140px;
   height: 140px;
   animation-delay: 1s;
 }
-.order-button{
-  margin-top: 50px !important;
-  margin-bottom: -50px !important;
+
+.order-button {
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
   width: 190px;
-  height: 80px;
+  height: 60px;
   border-radius: 50px !important;
 }
-.order-button:hover{
+
+.order-button:hover {
   width: 200px;
-  height: 90px;
+  height: 65px;
 }
 
 @keyframes expand {
@@ -98,20 +105,20 @@
   }
   100% {
     opacity: 0;
-    transform: scale(5); /* Larger scale for bigger circles */
+    transform: scale(5);
   }
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .device-section {
     flex-direction: column;
+    gap: 10px;
     height: auto;
   }
 
-  .left-section, .right-section {
+  .left-section-device, .right-section {
     width: 100%;
-    height: auto;
+    padding: 10px;
   }
 
   .scan-animation-container {
@@ -120,8 +127,13 @@
 }
 
 @media (max-width: 480px) {
-  .device-title {
-    font-size: 2rem;
+  .section2-content {
+    text-align: center;
+  }
+
+  .order-button {
+    width: 150px;
+    height: 50px;
   }
 
   .device-icon {
